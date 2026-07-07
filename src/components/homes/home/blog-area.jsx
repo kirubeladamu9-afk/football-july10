@@ -6,7 +6,7 @@ import React from 'react';
 const BlogArea = () => {
   return (
     <>
-      <div className="tp-blog-area pb-80">
+      <div className="tp-blog-area pb-80 pt-100">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-xl-5">
