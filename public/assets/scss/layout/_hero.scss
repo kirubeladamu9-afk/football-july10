@@ -943,7 +943,7 @@
         & .redius-shape-1{
             height: 500px;
             width: 500px;
-            background-color: var(--tp-theme-3);
+            background-color: var(--tp-common-green);
             display: inline-block;
             border-radius: 50%;
             position: absolute;
@@ -965,11 +965,11 @@
             left: 38%;
             height: 200px;
             width: 200px;
-            background-color:  #65CB7B;
+            background-color: var(--tp-common-yellow-4);
             position: absolute;
             border-radius: 36% 64% 43% 57% / 34% 45% 55% 66% ;
             display: inline-block;
-            will-change: border-radius, transform, opacity; 
+            will-change: border-radius, transform, opacity;
             animation: sliderShape 15s linear infinite;
             @media #{$md}{
                 top: 48%;
@@ -980,7 +980,7 @@
             right: 8%;
             height: 375px;
             width: 375px;
-            background-color: #807DFB;
+            background-color: var(--tp-common-red);
             position: absolute;
             border-radius: 50%;
             display: inline-block;
