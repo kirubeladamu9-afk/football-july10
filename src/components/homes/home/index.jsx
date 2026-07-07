@@ -1,4 +1,4 @@
-import ScrollToTop from "@/src/hooks/scroll-to-top";
+.jsx import ScrollToTop from "@/src/hooks/scroll-to-top";
 import Footer from "@/src/layout/footers/footer";
 import Header from "@/src/layout/headers/header";
 import React from "react";
