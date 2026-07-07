@@ -20,7 +20,7 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     </div>
                     <div className="tpoffcanvas__logo text-center">
                     <Link href="/" onClick={() => setSidebarOpen(false)}>
-                        <Image src={logo} alt="theme-pure" />
+                        <Image src={logo} alt="theme-pure" width={180} height={50} />
                     </Link>
                     </div>
                     <div className="mobile-menu mean-container">

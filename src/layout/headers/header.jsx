@@ -46,7 +46,7 @@ const Header = () => {
                      <div className="row align-items-center">
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                            <div className="header-bottom__logo">
-                              <Link href="/"><Image  src={logo} alt="" /></Link>
+                              <Link href="/"><Image  src={logo} alt="" width={180} height={50} /></Link>
                            </div>
                         </div>
                         <div className="col-xxl-8 col-xl-8 col-lg-8 d-none d-lg-flex justify-content-center">
