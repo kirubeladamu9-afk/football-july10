@@ -126,9 +126,6 @@ const PaymentArea = () => {
 
                      <div className="col-xl-12 mb-30">
                         <div className="tp-payment__item p-relative z-index wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">
-                           <div className="tp-payment__shape-1">
-                              <Image src={bg_img} alt="theme-pure" />
-                           </div>
                            <div className="row">
                               <div className="col-md-6">
                                  <div className="tp-payment__content tp-payment__content-space">
