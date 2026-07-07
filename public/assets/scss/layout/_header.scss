@@ -885,9 +885,24 @@
     cursor: pointer;
     padding: 0;
     transition: .3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    & span{
+        line-height: 0;
+    }
+
+    & i{
+        font-size: 12px;
+        transition: .3s;
+    }
 
     &:hover{
         color: var(--tp-theme-1);
+        & i{
+            color: var(--tp-theme-1);
+        }
     }
 }
 

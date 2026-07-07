@@ -72,7 +72,8 @@ const Header = () => {
                                        className="language-selector-btn"
                                        onClick={() => setLangDropdownOpen(!langDropdownOpen)}
                                     >
-                                       {language === 'am' ? 'አማርኛ' : 'English'}
+                                       <span>{language === 'am' ? 'አማርኛ' : 'English'}</span>
+                                       <i className={`fal fa-chevron-down ${langDropdownOpen ? 'open' : ''}`}></i>
                                     </button>
                                     {langDropdownOpen && (
                                        <div className="language-dropdown">
