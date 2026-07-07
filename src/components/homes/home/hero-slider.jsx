@@ -1,193 +1,129 @@
-import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import HeroForm from '@/src/forms/hero-form';
-import LineShape from '@/src/svg/line-shape';
-import { gsap } from 'gsap';
+import Link from 'next/link';
+import React from "react";
+import ArrowLine from '@/src/svg/arrow-line';
+import RoundLine from '@/src/svg/round-line';
 import useCharAnimation from '@/src/hooks/useCharAnimation';
+import Image from 'next/image';
 
-// images import 
-import  hero_frame from "../../../../public/assets/img/hero/hero-frame.png"; 
-import  shape_1 from "../../../../public/assets/img/hero/hero-line-shape.png";
-import  shape_2 from "../../../../public/assets/img/hero/hero-line-shape-2.png";
-import  shape_img_1 from "../../../../public/assets/img/hero/hero-shape-1.png"; 
-import  shape_img_2 from "../../../../public/assets/img/hero/hero-shape-2.png"; 
-import  hero_thumb_1 from "../../../../public/assets/img/hero/hero-sm-1.jpg";  
-import  thumb_1 from "../../../../public/assets/img/hero/hero-sm-3.png";  
-import  thumb_2 from "../../../../public/assets/img/hero/hero-sm-4.jpg";  
-import  hero_thumb_2 from "../../../../public/assets/img/hero/hero-sm-2.jpg";   
+// img import 
+import scroll_bg from "../../../../public/assets/img/hero/scroll-down.png";
+import users_img from "../../../../public/assets/img/hero/hero-user.jpg";
+import hero_shape_1 from "../../../../public/assets/img/hero/hero-img-2-1.png";
+import hero_shape_2 from "../../../../public/assets/img/hero/image_02.png";
+import hero_shape_3 from "../../../../public/assets/img/hero/hero-img-2-3.png";
+import hero_shape_4 from "../../../../public/assets/img/hero/hero-img-2-4.png";
+import hero_shape_5 from "../../../../public/assets/img/hero/hero-shape-2-2.png";
 
-// hero content data
+
+
+// hero_content
 const hero_content = {
-    hero_shape: [
-        {
-            id: 1,
-            cls: "tp-hero-shape-1",
-            img: shape_1,
-        },
-        {
-            id: 2,
-            cls: "tp-hero-shape-2",
-            img: shape_2,
-        },
-    ],
-    hero_title: <><span className='tp_title'><span className='child'>The Leading Customer</span></span> <br />
-        <span><span className='child'>Data Platform</span></span> </>,
-    sub_title: <>We are not going to save your data</>,
-    hero_shape_img: [
-        {
-            id: 1,
-            cls: "1",
-            img: shape_img_1,
-        },
-        {
-            id: 2,
-            cls: "2",
-            img: shape_img_2,
-        },
-    ],
-
-    
-    hero_thumbs: [
-        {
-            id: 1,
-            col: "4",
-            cls: "tp-hero__sm-img",
-            img: thumb_1,
-        },
-        {
-            id: 2,
-            col: "8",
-            cls: "",
-            img: thumb_2,
-        },
-    ],
-    
+  bg_img: "/assets/img/hero/hero-bg-2.png",
+  scroll_btn: "Scroll Down",
+  title: <><i><i className="child-1">The next</i> </i>{" "}
+  <i><i className="child-1">generation</i> </i>{" "}
+  <i><i className="child-1">payment</i> </i>{" "}
+  <i><i className="child-1">ways.</i></i>
+  </>,
+  btn_text: "Get Started For Free",
+  sub_title: <>Over<span>5Ok+ Client</span> all over the world</>,
+  
 }
-const { 
-    hero_shape,
-    hero_title,
-    sub_title,
-    hero_shape_img, 
-    hero_thumbs, 
+const {
+  bg_img, 
+  scroll_btn,
+  title,
+  btn_text,
+  sub_title, 
 } = hero_content;
 
 
+const HeroArea = () => {
+  useCharAnimation('.tp-hero-2__title i.child-1');
+  return (
+    <>
+      <div
+        className="tp-hero-2__area tp-hero-2__ptb tp-hero-2__plr z-index fix p-relative"
+        style={{ backgroundImage: `url(${bg_img})` }}
+      >
+        <div className="scroll-bg d-none d-sm-block">
+          <Image src={scroll_bg} alt="theme-pure" />
+        </div>
+        <div className="tp-hero-2__mouse-scroll smooth d-none d-sm-block">
+          <a className="mouse-scroll-btn" href="#payment-method"></a>
+          <span>{scroll_btn}</span>
+        </div>
+        <div className="tp-hero-2__shape-img-1 d-none d-sm-block">
+          <ArrowLine />
+        </div>
+        <div className="container-fluid g-0">
+          <div className="row g-0 align-items-end">
+            <div className="col-xl-6 col-lg-6">
+              <div className="tp-hero-2__title-box">
 
-const HeroSlider = () => {
+                <h3 className="tp-hero-2__title tp-char-animation">
+                  {title}
+                </h3>
 
-    let hero_bg = useRef(null);
-
-    useEffect(() => {
-        gsap.from(hero_bg.current, {
-            opacity: 0,
-            scale: 1.2,
-            duration: 1.5
-        });
-        gsap.to(hero_bg.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 1.5
-        })
-    }, []);
-
-
-    useCharAnimation('.tp-hero__hero-title span.child');
-
-    return (
-        <>
-            <div className="tp-hero__area tp-hero__pl-pr">
-                <div className="tp-hero__bg p-relative">
-                    <div className="tp-hero-bg tp-hero-bg-single" ref={hero_bg} >
-                        <Image 
-                        // style={{width: "auto", height: "auto"}} 
-                        src={hero_frame} alt="theme-pure" />
-                    </div>
-                    <div className="tp-hero-shape">
-                        {hero_shape.map((item, i) =>
-                            <Image 
-                            // style={{width: "auto", height: "auto"}} 
-                            key={i} className={item.cls} src={item.img} alt="theme-pure" />
-                        )}
-                    </div>
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-xl-10">
-                                <div className="tp-hero__content-box text-center z-index-3">
-                                    <div className="tp-hero__title-box p-relative">
-                                        <h2 className="tp-hero__hero-title tp-title-anim">
-                                            {hero_title}
-                                        </h2>
-                                        <div className="tp-hero__title-shape d-none d-sm-block">
-                                            <LineShape />
-                                        </div>
-                                    </div>
-                                    <div className="tp-hero__input p-relative wow tpfadeUp" 
-                                        data-wow-duration=".9s" 
-                                        data-wow-delay=".5s">
-                                        <HeroForm />
-                                    </div>
-                                    <p className="wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">{sub_title}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div className="tp-hero-2__btn">
+                <Link
+                  className="tp-btn-green wow tpfadeUp"
+                  data-wow-duration=".9s"
+                  data-wow-delay=".5s"
+                  href="/service-details"
+                >
+                  {btn_text}
+                </Link>
+              </div>
+              <div className="tp-hero-2__user p-relative">
+                <h4 className="tp-char-animation-2" >{sub_title}</h4>
+                <div className="tp-hero-2__user-img">
+                  <Image src={users_img} alt="theme-pure" />
                 </div>
-
-
-                <div className="tp-hero__bottom z-index-5">
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-xl-10">
-                                <div className="tp-hero__thumb-wrapper-main p-relative">
-                                    {hero_shape_img.map((item, i) =>
-                                        <div key={i} className={`tp-hero__shape-img-${item.cls} d-none d-xl-block`}>
-                                            <Image src={item.img} alt="theme-pure" />
-                                        </div>
-                                    )}
-                                    <div>
-                                        <div className="tp-hero__thumb-wrapper d-none d-md-block p-relative">
-                                            <div className="row">
-                                                <div className="col-8">
-                                                    <div className="tp-hero__thumb-box">
-
-                                                        <div className="row">
-                                                            <div className="col-md-12">
-                                                                <div className="tp-hero__thumb mb-20">
-                                                                    <Image style={{width: "auto", height: "auto"}} className="w-100" src={hero_thumb_1} alt="theme-pure" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="row">
-                                                            {hero_thumbs.map((item, i) =>
-                                                                <div key={i} className={`col-md-${item.col}`}>
-                                                                    <div className={`tp-hero__thumb ${item.cls}`}>
-                                                                        <Image style={{width: "auto", height: "auto"}} className="w-100" src={item.img} alt="theme-pure" />
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <div className="tp-hero__thumb-box">
-                                                        <div className="tp-hero__thumb">
-                                                            <Image style={{width: "auto", height: "auto"}} className="w-100" src={hero_thumb_2} alt="theme-pure" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="tp-hero-2__shape-1">
+                  <RoundLine />
                 </div>
-
+              </div>
             </div>
-        </>
-    );
+
+            <div className="col-xl-6 col-lg-6">
+              <div className="tp-hero-2__right text-end p-relative">
+                <div
+                  className="tp-hero-2__main-img wow tpfadeRight"
+                  data-wow-duration=".9s"
+                  data-wow-delay=".5s" >
+                  <Image src={hero_shape_1} alt="theme-pure" />
+                </div>
+
+                <div
+                  className="tp-hero-2__sub-img-1 d-none d-sm-block"
+                  data-parallax='{"x": 100, "smoothness": 30}' >
+                  <Image src={hero_shape_2} alt="theme-pure" />
+                </div>
+
+                <div
+                  className="tp-hero-2__sub-img-2 d-none d-sm-block"
+                  data-parallax='{"x": -100, "smoothness": 10}' >
+                  <Image src={hero_shape_3} alt="theme-pure" />
+                </div>
+
+                <div
+                  className="tp-hero-2__sub-img-3 d-none d-sm-block"
+                  data-parallax='{"y": -80, "smoothness": 30}' >
+                  <Image src={hero_shape_4} alt="theme-pure" />
+                </div>
+
+                <div className="tp-hero-2__sub-img-4">
+                  <Image src={hero_shape_5} alt="theme-pure" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
-export default HeroSlider;
+export default HeroArea;
