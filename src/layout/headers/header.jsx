@@ -42,28 +42,6 @@ const Header = () => {
     return (
         <>
          <header className="header-bottom__transparent z-index-6 tp-header-height">
-               <div className="header-top__area header-top__space z-index-3 d-none d-md-block tp-header-top-animation" ref={el => header_top_animation = el} >
-                  <div className="container">
-                     <div className="row align-items-start">
-                        <div className="col-6">
-                           <div className="header-top__link">
-                              <span>Offer <i>is going on till Friday, $2.99/mo. </i></span>
-                              <Link href="#">
-                                 <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.40918 9L5.591 5L1.40918 1" stroke="white" strokeWidth="1.5"
-                                       strokeLinecap="round" strokeLinejoin="round"/>
-                                 </svg>
-                              </Link>
-                           </div>
-                        </div>
-                        <div className="col-6">
-                           <div className="header-top__support text-end">
-                              <span>Get Support: <Link href="tel:806(000)88899">+806 (000) 888 99</Link></span>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
 
                <div id="header-sticky" className={`header-bottom__area header-mob-space header-bottom__area-2 header-bottom__transparent z-index-5 ${sticky && "header-sticky"}`}>
                   <div className="container">
