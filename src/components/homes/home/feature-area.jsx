@@ -59,16 +59,10 @@ const payment_content = {
             des: <>... or copy-paste the link</>,
             shapes: [
                 {
-                    id: 1, 
+                    id: 1,
                     cls: "9",
                     img: shapes_6,
                 },
-                {
-                    id: 2, 
-                    cls: "11",
-                    img: shapes_7,
-                },
-                 
             ]
 
         },
@@ -137,9 +131,6 @@ const PaymentArea = () => {
                               <div className="col-md-6">
                                  <div className="tp-payment__shape-2">
                                     <Image src={payment_img_1} alt="theme-pure" />
-                                 </div>
-                                 <div className="tp-payment__shape-3 d-none d-sm-block">
-                                    <Image src={payment_img_2} alt="theme-pure" />
                                  </div>
                               </div>
                            </div>
