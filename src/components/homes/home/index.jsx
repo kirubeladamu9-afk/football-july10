@@ -1,4 +1,4 @@
-.jsx import ScrollToTop from "@/src/hooks/scroll-to-top";
+import ScrollToTop from "@/src/hooks/scroll-to-top";
 import Footer from "@/src/layout/footers/footer";
 import Header from "@/src/layout/headers/header";
 import React from "react";
@@ -6,6 +6,7 @@ import AboutArea from "../../../common/about-area";
 import FeatureArea from "./feature-area";
 import HeroSlider from "./hero-slider";
 import ProjectArea from "./project-area";
+import ServicesArea from "./services-area";
 import BlogArea from "./blog-area";
 const HomeOne = () => {
   return (
@@ -17,6 +18,7 @@ const HomeOne = () => {
       <HeroSlider />
       <FeatureArea />
       <AboutArea />
+      <ServicesArea />
       <ProjectArea />
       <BlogArea />
       </main> 
