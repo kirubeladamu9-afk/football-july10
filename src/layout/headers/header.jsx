@@ -49,14 +49,14 @@ const Header = () => {
                               <Link href="/"><Image  src={logo} alt="" /></Link>
                            </div>
                         </div>
-                        <div className="col-xxl-6 col-xl-5 col-lg-5 d-none d-lg-block">
+                        <div className="col-xxl-8 col-xl-8 col-lg-8 d-none d-lg-flex justify-content-center">
                            <div className="header-bottom__main-menu">
                               <nav id="mobile-menu">
-                              <NavMenu /> 
+                              <NavMenu />
                               </nav>
                            </div>
                         </div>
-                        <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-6">
+                        <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-8 col-6">
                            <div className="header-bottom__right d-flex align-items-center justify-content-end">
                               <div className="header-bottom__action">
                                  <div className="language-selector-wrapper d-none d-lg-inline-block">
