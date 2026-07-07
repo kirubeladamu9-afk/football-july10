@@ -61,7 +61,6 @@ const HeroArea = () => {
                         </Link>
                      </div>
                      <div className="tp-hero-browser-wrapper d-flex align-items-center justify-content-center wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".9s">
-                        <Brwoser />
                      </div>
                      <div className="tp-hero-3-wrapper p-relative">
                         <div className="tp-hero-3-border-wrap d-none d-md-block">
