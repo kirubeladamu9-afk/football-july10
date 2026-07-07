@@ -827,14 +827,14 @@
                         left: auto;
                         height: 1px;
                         width: 0;
-                        background-color: #5138EE;
+                        background-color: #305aa7;
                         transition: 0.7s;
                         display: inline-block;
                         box-shadow: 0px 4px 12px rgba(1, 16, 61, 0.14);
                         border-radius: 6px;
                     }
                     &:hover{
-                        color: #5138EE;
+                        color: #305aa7;
                         &::after{
                             width: 100%;
                             right: auto;
@@ -860,7 +860,7 @@
             border: 1px solid rgba(8, 8, 41, 0.1);
         }
         & button{
-            background: #5138EE;
+            background: #305aa7;
         }
     }
     & .tp-footer__widget-title{
@@ -881,7 +881,7 @@
             &:hover{
                 background-color: inherit;
                 & i{
-                    color: #5138EE;
+                    color: #305aa7;
                 }
             }
         }
@@ -951,4 +951,3 @@
         }
     }
 }
-

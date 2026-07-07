@@ -554,7 +554,7 @@
 .tp-btn-purple{
 	height: 40px;
 	line-height: 38px;
-	color: var(--tp-common-black);
+	color: var(--tp-common-white);
 	border-radius: 30px;
 	display: inline-block;
 	position: relative;
@@ -562,18 +562,18 @@
 	padding: 0px 35px;
 	font-weight: 600;
 	font-size: 14px;
-	background: #F7F9FB;
+	background: #305aa7;
 	transition: .3s;
 	&:hover{
 		color: var(--tp-common-white);
-		background: #6B14FA;
+		background: #305aa7;
 	}
 }
 .tp-btn-purple-lg{
 	height: 60px;
 	line-height: 60px;
 	color: var(--tp-common-white);
-	background: #6B14FA;
+	background: #305aa7;
 	border-radius: 30px;
 	display: inline-block;
 	position: relative;
@@ -584,7 +584,7 @@
 	transition: .3s;
 	&:hover{
 		color: var(--tp-common-white);
-		background: #6B14FA;
+		background: #305aa7;
 	}
 }
 .tp-btn-yellow-solid{
