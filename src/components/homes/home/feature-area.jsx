@@ -1,88 +1,165 @@
-import RightArrow from '@/src/svg/right-arrow';
-import Link from 'next/link';
 import Image from 'next/image';
-import React, { useRef } from 'react';
-import useTitleAnimation from "@/src/hooks/useTitleAnimation";  
+import Link from 'next/link';
+import React from 'react';
 
-// icon import 
-import icon_1 from "../../../../public/assets/img/feature/fea-icon-1.png";
-import icon_2 from "../../../../public/assets/img/feature/fea-icon-2.png";
-import icon_3 from "../../../../public/assets/img/feature/fea-icon-3.png";
-import feature_bottom_shape from "../../../../public/assets/img/feature/fea-bg-shape-1.png";
+// img import 
+import  shapes_1 from "../../../../public/assets/img/payment/qrcode.png" ;
+import  shapes_2 from "../../../../public/assets/img/payment/mobile.png" ;
+import  shapes_3 from "../../../../public/assets/img/payment/hand.png" ;
+import  shapes_4 from "../../../../public/assets/img/payment/coin-1.png" ;
+import  shapes_5 from "../../../../public/assets/img/payment/coin-2.png" ;
+import  shapes_6 from "../../../../public/assets/img/payment/payment-3.png" ;
+import  shapes_7 from "../../../../public/assets/img/payment/message.png" ;
+import  bg_img from "../../../../public/assets/img/payment/background.png" ;
+import  payment_img_1 from "../../../../public/assets/img/payment/image.png" ;
+import  payment_img_2 from "../../../../public/assets/img/payment/get-paid.png" ;
 
-// feature data
-const feature_data = [
-   {
-      id: 1,
-      img: icon_1,
-      title: <>A Unified View of The Customer</>,
-      delay: ".4s",
-   },
-   {
-      id: 2,
-      img: icon_2,
-      title: <>Industry Leading Procedures</>,
-      delay: ".6s",
-   },
-   {
-      id: 3,
-      img: icon_3,
-      title: <>Collaboration Across <br /> All Areas</>,
-      delay: ".8s",
-   },
-]
 
-// feature content
-const feature_content = {
-   title: "Our Exciting Features",
-   sub_title: "More than 15,000 companies trust and choose Itech",
+const payment_content = {
+    title: <>You'll love our <br /> powerful payments.</>,
+    sub_title: <>We've got all your payments covered</>,
+    box_1: [
+        {
+            id: 1, 
+            col: "md-6",
+            cls: "2 tpfadeLeft",
+            delay: ".3s",
+            title: "Scan & Go",
+            des: <>Transform your payment link into a QR code that customers can scan with their <br /> phone to pay.</>,
+            shapes: [
+                {
+                    id: 1, 
+                    cls: "4",
+                    img: shapes_1,
+                },
+                {
+                    id: 2, 
+                    cls: "5",
+                    img: shapes_2,
+                },
+                {
+                    id: 3, 
+                    cls: "6",
+                    img: shapes_3,
+                },
+                {
+                    id: 4, 
+                    cls: "7",
+                    img: shapes_4,
+                },
+                {
+                    id: 5, 
+                    cls: "8",
+                    img: shapes_5,
+                },
+            ]
+
+        },
+        {
+            id: 2, 
+            col: "md-6",
+            cls: "3 tpfadeRight",
+            delay: ".5s",
+            title: "Easily Send Requesrs vai e-mail or SMS",
+            des: <>... or copy-paste the link</>,
+            shapes: [
+                {
+                    id: 1, 
+                    cls: "9",
+                    img: shapes_6,
+                },
+                {
+                    id: 2, 
+                    cls: "11",
+                    img: shapes_7,
+                },
+                 
+            ]
+
+        },
+        
+       
+
+    ],
+    box_3_title: <>Online Billing & <br /> Invoicing Payments.</>,
+    box_3_des: <>Get paid faster with Online Invoicing <br /> and the Virtual Terminal.</>,
+    box_3_btn: "Explore Invoicing Tools",
+
 }
-const { title, sub_title } = feature_content
+const {title, sub_title, box_1, box_3_title, box_3_des, box_3_btn}  = payment_content
 
-const FeatureArea = () => {
-   let titleRef = useRef(null)
-   useTitleAnimation(titleRef)
-
-   return (
-      <>
-         <div className="tp-feature__area tp-feature__pt-pb pt-165 pb-170 p-relative">
-            <div className="tp-feature__bottom-shape">
-               <Image style={{width: "auto", height: "auto"}} src={feature_bottom_shape} alt="them-pure" />
-            </div>
-            <div className="container">
-
-               <div className="row justify-content-center">
-                  <div className="col-xl-6 wow tpfadeUpp" data-wow-duration=".9s" data-wow-delay=".2s">
-                     <div ref={titleRef} className="tp-feature__section-box tp__title_anime text-center mb-55 tp-title-anim">
-                        <h2 className="tp-section-title">{title}</h2>
-                        <p>{sub_title}</p>
+const PaymentArea = () => {
+    return (
+        <>
+        <div id="payment-method" className="tp-payment__area pt-110 pb-110">
+               <div className="container">
+                  <div className="row justify-content-center">
+                     <div className="col-xl-7">
+                        <div className="tp-payment__title-box text-center mb-55">
+                           <h3 className="tp-section-title-lg">{title}</h3>
+                           <p>{sub_title}</p>
+                        </div>
                      </div>
                   </div>
-               </div>
+                  <div className="row justify-content-center">
 
-               <div className="row">
-                  {feature_data.map((item, i) =>
-                     <div key={i} className="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay={item.delay} >
-                        <div id="divtest" className="tp-feature__item">
-                           <div className="tp-feature__icon">
-                              <Image src={item.img} alt={item.title} />
+                     <div className="col-xl-12">
+                        <div className="row">
+ 
+                            {box_1.map((item, i)  => 
+                                <div key={i} className="col-md-6 mb-30">
+                              <div className={`tp-payment__item tp-payment__bg-color-${item.cls} p-relative z-index wow `} 
+                                    data-wow-duration=".9s" 
+                                    data-wow-delay={item.delay}>
+                                 {item.shapes.map((item, i)  => 
+                                    <div key={i} className={`tp-payment__shape-${item.cls}`}>
+                                        <Image src={item.img} alt="theme-pure" />
+                                    </div>
+                                 )}
+
+                                <div className="tp-payment__content">
+                                    <h3 className="tp-payment__title">{item.title}</h3>
+                                    <p> {item.des}</p>
+                                 </div> 
+                                  
+                              </div>
                            </div>
-                           <h3 className="tp-feature__title-sm">{item.title}</h3>
-                           <div className="tp-feature__link tp-common-btn">
-                              <Link href="/service-details">
-                                 <RightArrow />
-                              </Link>
+                                )
+                            }
+                        </div>
+                     </div>
+
+                     <div className="col-xl-12 mb-30">
+                        <div className="tp-payment__item p-relative z-index wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">
+                           <div className="tp-payment__shape-1">
+                              <Image src={bg_img} alt="theme-pure" />
+                           </div>
+                           <div className="row">
+                              <div className="col-md-6">
+                                 <div className="tp-payment__content tp-payment__content-space">
+                                    <h3 className="tp-payment__title">{box_3_title}</h3>
+                                    <p>{box_3_des}</p>
+                                    <Link href="/service-details">{box_3_btn}<i className="far fa-arrow-right"></i></Link>
+                                 </div>
+                              </div>
+                              <div className="col-md-6">
+                                 <div className="tp-payment__shape-2">
+                                    <Image src={payment_img_1} alt="theme-pure" />
+                                 </div>
+                                 <div className="tp-payment__shape-3 d-none d-sm-block">
+                                    <Image src={payment_img_2} alt="theme-pure" />
+                                 </div>
+                              </div>
                            </div>
                         </div>
                      </div>
-                  )}
+
+                  </div>
                </div>
-
             </div>
-         </div>
-
-      </>
-   );
+            
+        </>
+    );
 };
 
-export default FeatureArea;
+export default PaymentArea;
