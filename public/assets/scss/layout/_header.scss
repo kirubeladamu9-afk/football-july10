@@ -887,15 +887,15 @@
     transition: .3s;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+
+    & i{
+        font-size: 16px;
+        transition: .3s;
+    }
 
     & span{
         line-height: 0;
-    }
-
-    & i{
-        font-size: 12px;
-        transition: .3s;
     }
 
     &:hover{
