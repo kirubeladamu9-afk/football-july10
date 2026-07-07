@@ -72,7 +72,6 @@ const HeroArea = () => {
                            <Image src={img_1} alt="them-pure" />
                         </div>
                         <div className="tp-hero-3-shape-5 d-none d-lg-block wow frist-img animated">
-                           <Image src={img_2} alt="them-pure" />
                         </div>
                      </div>
                   </div>
