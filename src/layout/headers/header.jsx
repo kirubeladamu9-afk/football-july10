@@ -2,9 +2,6 @@ import Image from 'next/image';
 import {gsap} from 'gsap';
 import Link from 'next/link';
 import Offcanvus from '@/src/common/offcanvus';
-import SearchPopup from '@/src/modals/search-popup';
-import SearchIconTwo from '@/src/svg/search-icon-2';
-import UserIcon from '@/src/svg/user-icon';
 import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
 import NavMenu from './nav-menu';
 import useSticky from '@/src/hooks/use-sticky';
@@ -18,7 +15,6 @@ import logo from "../../../public/assets/img/logo/logo-black.png"
 const Header = () => {
 
       const {sticky}  =  useSticky()
-      const [searchOpen, setSearchOpen] = useState(false)
       const [sidebarOpen, setSidebarOpen] = useState(false)
       const [language, setLanguage] = useState('am')
       const [langDropdownOpen, setLangDropdownOpen] = useState(false)
@@ -63,10 +59,6 @@ const Header = () => {
                         <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-6">
                            <div className="header-bottom__right d-flex align-items-center justify-content-end">
                               <div className="header-bottom__action">
-                                 <a className="d-none d-md-inline-block search-open-btn"
-                                    onClick={() => setSearchOpen(true)} >
-                                    <SearchIconTwo />
-                                 </a>
                                  <div className="language-selector-wrapper d-none d-lg-inline-block">
                                     <button
                                        className="language-selector-btn"
@@ -112,7 +104,6 @@ const Header = () => {
                   </div>
                </div>
          </header>
-         <SearchPopup searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
          <Offcanvus sidebarOpen={sidebarOpen}  setSidebarOpen={setSidebarOpen} />
         </>
     );
