@@ -8,7 +8,7 @@ import useSticky from '@/src/hooks/use-sticky';
 
 
 
-import logo from "../../../public/assets/img/logo/logo-black.png"
+import logo from "../../../public/assets/img/logo/football-logo.webp"
 
 
 
