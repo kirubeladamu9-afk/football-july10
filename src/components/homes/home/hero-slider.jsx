@@ -7,7 +7,7 @@ import Brwoser from '@/src/common/brwoser';
 import BounceLine from '@/src/svg/bounce-line';
 
 import left_shape from "../../../../public/assets/img/hero/hero-left-shape-3-1.png" ;
-import gradient_bg from "../../../../public/assets/img/hero/hero-gradient-3.jpg" ;
+import gradient_bg from "../../../../public/images/hero-gradient-3.webp" ;
 import img_1 from "../../../../public/images/hero-img-3-1.webp";
 import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
