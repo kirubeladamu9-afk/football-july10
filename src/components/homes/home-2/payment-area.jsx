@@ -28,27 +28,22 @@ const payment_content = {
             des: <>Transform your payment link into a QR code that customers can scan with their <br /> phone to pay.</>,
             shapes: [
                 {
-                    id: 1, 
-                    cls: "4",
-                    img: shapes_1,
-                },
-                {
-                    id: 2, 
+                    id: 1,
                     cls: "5",
                     img: shapes_2,
                 },
                 {
-                    id: 3, 
+                    id: 2,
                     cls: "6",
                     img: shapes_3,
                 },
                 {
-                    id: 4, 
+                    id: 3,
                     cls: "7",
                     img: shapes_4,
                 },
                 {
-                    id: 5, 
+                    id: 4,
                     cls: "8",
                     img: shapes_5,
                 },
