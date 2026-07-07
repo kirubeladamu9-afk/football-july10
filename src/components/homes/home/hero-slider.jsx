@@ -1,129 +1,90 @@
-import Link from 'next/link';
-import React from "react";
-import ArrowLine from '@/src/svg/arrow-line';
-import RoundLine from '@/src/svg/round-line';
-import useCharAnimation from '@/src/hooks/useCharAnimation';
+import gsap from 'gsap';
 import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useRef } from 'react';
+import useTitleAnimation from "@/src/hooks/useTitleAnimation";
+import Brwoser from '@/src/common/brwoser';
+import BounceLine from '@/src/svg/bounce-line';
 
-// img import 
-import scroll_bg from "../../../../public/assets/img/hero/scroll-down.png";
-import users_img from "../../../../public/assets/img/hero/hero-user.jpg";
-import hero_shape_1 from "../../../../public/assets/img/hero/hero-img-2-1.png";
-import hero_shape_2 from "../../../../public/assets/img/hero/image_02.png";
-import hero_shape_3 from "../../../../public/assets/img/hero/hero-img-2-3.png";
-import hero_shape_4 from "../../../../public/assets/img/hero/hero-img-2-4.png";
-import hero_shape_5 from "../../../../public/assets/img/hero/hero-shape-2-2.png";
+import left_shape from "../../../../public/assets/img/hero/hero-left-shape-3-1.png" ;
+import gradient_bg from "../../../../public/assets/img/hero/hero-gradient-3.jpg" ;
+import img_1 from "../../../../public/assets/img/hero/hero-img-3-1.png";
+import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
+import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
-
-
-// hero_content
-const hero_content = {
-  bg_img: "/assets/img/hero/hero-bg-2.png",
-  scroll_btn: "Scroll Down",
-  title: <><i><i className="child-1">The next</i> </i>{" "}
-  <i><i className="child-1">generation</i> </i>{" "}
-  <i><i className="child-1">payment</i> </i>{" "}
-  <i><i className="child-1">ways.</i></i>
-  </>,
-  btn_text: "Get Started For Free",
-  sub_title: <>Over<span>5Ok+ Client</span> all over the world</>,
-  
+const hero_content = { 
+   title_1: <>Great <span>Customer</span></>,
+   title_2: "Relationships Start Here.",
+   info: <>Softec provides all customer management service within one software. <br /> Our landing works on all devices.</>,
+   btn_1: "Live Damo",
+   btn_2: "Try it on Browser",
+   
 }
-const {
-  bg_img, 
-  scroll_btn,
-  title,
-  btn_text,
-  sub_title, 
-} = hero_content;
-
+const { title_1, title_2, info, btn_1, btn_2 } = hero_content
 
 const HeroArea = () => {
-  useCharAnimation('.tp-hero-2__title i.child-1');
-  return (
-    <>
-      <div
-        className="tp-hero-2__area tp-hero-2__ptb tp-hero-2__plr z-index fix p-relative"
-        style={{ backgroundImage: `url(${bg_img})` }}
-      >
-        <div className="scroll-bg d-none d-sm-block">
-          <Image src={scroll_bg} alt="theme-pure" />
-        </div>
-        <div className="tp-hero-2__mouse-scroll smooth d-none d-sm-block">
-          <a className="mouse-scroll-btn" href="#payment-method"></a>
-          <span>{scroll_btn}</span>
-        </div>
-        <div className="tp-hero-2__shape-img-1 d-none d-sm-block">
-          <ArrowLine />
-        </div>
-        <div className="container-fluid g-0">
-          <div className="row g-0 align-items-end">
-            <div className="col-xl-6 col-lg-6">
-              <div className="tp-hero-2__title-box">
 
-                <h3 className="tp-hero-2__title tp-char-animation">
-                  {title}
-                </h3>
+   let info_anim = useRef(null)
 
-              </div>
-              <div className="tp-hero-2__btn">
-                <Link
-                  className="tp-btn-green wow tpfadeUp"
-                  data-wow-duration=".9s"
-                  data-wow-delay=".5s"
-                  href="/service-details"
-                >
-                  {btn_text}
-                </Link>
-              </div>
-              <div className="tp-hero-2__user p-relative">
-                <h4 className="tp-char-animation-2" >{sub_title}</h4>
-                <div className="tp-hero-2__user-img">
-                  <Image src={users_img} alt="theme-pure" />
-                </div>
-                <div className="tp-hero-2__shape-1">
-                  <RoundLine />
-                </div>
-              </div>
+   useIsomorphicLayoutEffect(() => {
+      let tl = gsap.timeline({ default: { ease: "SlowMo.easeOut" } });
+      tl.to(".hero-text-anim i.child-1", { y: "0px", duration: 1, opacity: 1, stagger: 0.3, delay: .5 });
+   }, [])
+
+   return (
+      <>
+         <div className="tp-hero-area tp-hero-pt pt-170 pb-70 p-relative">
+            <div className="tp-hero-left-shape">
+               <Image src={left_shape} alt="them-pure" />
             </div>
-
-            <div className="col-xl-6 col-lg-6">
-              <div className="tp-hero-2__right text-end p-relative">
-                <div
-                  className="tp-hero-2__main-img wow tpfadeRight"
-                  data-wow-duration=".9s"
-                  data-wow-delay=".5s" >
-                  <Image src={hero_shape_1} alt="theme-pure" />
-                </div>
-
-                <div
-                  className="tp-hero-2__sub-img-1 d-none d-sm-block"
-                  data-parallax='{"x": 100, "smoothness": 30}' >
-                  <Image src={hero_shape_2} alt="theme-pure" />
-                </div>
-
-                <div
-                  className="tp-hero-2__sub-img-2 d-none d-sm-block"
-                  data-parallax='{"x": -100, "smoothness": 10}' >
-                  <Image src={hero_shape_3} alt="theme-pure" />
-                </div>
-
-                <div
-                  className="tp-hero-2__sub-img-3 d-none d-sm-block"
-                  data-parallax='{"y": -80, "smoothness": 30}' >
-                  <Image src={hero_shape_4} alt="theme-pure" />
-                </div>
-
-                <div className="tp-hero-2__sub-img-4">
-                  <Image src={hero_shape_5} alt="theme-pure" />
-                </div>
-              </div>
+            <div className="tp-hero-gradient-bg">
+               <Image src={gradient_bg} alt="them-pure" />
             </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+            <div className="container">
+               <div className="row justify-content-center z-index-3">
+                  <div className="col-xl-11">
+                     <div className="tp-hero-title-box text-center">
+                        <h2 className="tp-hero-title-3 hero-text-anim pb-5">
+                           <i><i className="child-1">{title_1}</i></i>
+                           <i><i className="child-1">{title_2}</i></i>
+                        </h2>
+                        <p className="tp-char-animation-2 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">{info}</p>
+                     </div>
+                     <div className="tp-hero-btn-3 text-center wow tpfadeUp" data-wow-duration="1s" data-wow-delay=".9s">
+                        <Link className="tp-btn-blue-lg tp-btn-hover alt-color-black" href="#">
+                           <span>{btn_1}</span>
+                           <b></b>
+                        </Link>
+                        <Link className="tp-btn-border tp-btn-hover alt-color-black" href="#">
+                           <span>{btn_2}</span>
+                           <b></b>
+                        </Link>
+                     </div>
+                     <div className="tp-hero-browser-wrapper d-flex align-items-center justify-content-center wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".9s">
+                        <Brwoser />
+                     </div>
+                     <div className="tp-hero-3-wrapper p-relative">
+                        <div className="tp-hero-3-border-wrap d-none d-md-block">
+                           <span className="redius-shape-1"></span>
+                           <span className="redius-shape-2"></span>
+                           <span className="redius-shape-3"></span>
+                        </div>
+                        <div className="tp-hero-3-main-thumb z-index-5">
+                           <Image src={img_1} alt="them-pure" />
+                        </div>
+                        <div className="tp-hero-3-shape-5 d-none d-lg-block wow frist-img animated">
+                           <Image src={img_2} alt="them-pure" />
+                        </div>
+                        <div className="tp-hero-3-shape-6 d-none d-lg-block">
+                           <span> <BounceLine /> </span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </>
+   );
 };
 
 export default HeroArea;
