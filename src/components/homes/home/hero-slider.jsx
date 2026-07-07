@@ -74,9 +74,6 @@ const HeroArea = () => {
                         <div className="tp-hero-3-shape-5 d-none d-lg-block wow frist-img animated">
                            <Image src={img_2} alt="them-pure" />
                         </div>
-                        <div className="tp-hero-3-shape-6 d-none d-lg-block">
-                           <span> <BounceLine /> </span>
-                        </div>
                      </div>
                   </div>
                </div>
