@@ -6,7 +6,6 @@ import AboutArea from "../../../common/about-area";
 import FeatureArea from "./feature-area";
 import HeroSlider from "./hero-slider";
 import ProjectArea from "./project-area";
-import ServicesArea from "./services-area";
 import BlogArea from "./blog-area";
 const HomeOne = () => {
   return (
