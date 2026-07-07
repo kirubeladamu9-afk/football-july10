@@ -420,7 +420,11 @@
 .tp-hero-pt{
     @media #{$xs}{
         padding-top: 120px;
-    } 
+    }
+}
+
+.hero-row-spacing{
+    margin-top: 50px;
 }
 
 .tp-hero-title-3{
