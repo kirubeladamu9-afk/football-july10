@@ -2,7 +2,7 @@
 
 .tp-btn{
 	display: inline-block;
-	background-color: var(--tp-common-blue);
+	background-color: #305aa7;
 	color: var(--tp-common-white);
 	height: 45px;
 	line-height: 45px;
@@ -142,7 +142,7 @@
 }
 .tp-btn-blue-lg{
 	display: inline-block;
-	background: #5B6CFF;
+	background: #305aa7;
 	box-shadow: inset -2px -2px 2px rgba(7, 13, 29, 0.3);
 	border-radius: 100px;
 	color: var(--tp-common-white);
@@ -244,7 +244,7 @@
 }
 .tp-btn-blue-sm{
 	display: inline-block;
-	background: #5B6CFF;
+	background: #305aa7;
 	box-shadow: inset -2px -2px 2px rgba(7, 13, 29, 0.3);
 	border-radius: 100px;
 	color: var(--tp-common-white);
@@ -279,7 +279,7 @@
 	display: inline-block;
 	color: var(--tp-common-white);
 	font-family: var(--tp-ff-urban);
-	border: 1px solid #5B6CFF;
+	border: 1px solid #305aa7;
 	border-radius: 100px;
 	height: 60px;
 	line-height: 60px;
@@ -301,10 +301,11 @@
 		position: relative;
 		z-index: 5;
 		transition: .7s;
-		color: var(--tp-theme-1);
+		color: #305aa7;
 	  }
 	  &:hover{
-		border-color: var(--tp-common-black);
+		border-color: #305aa7;
+		background-color: #305aa7;
 		& span{
 			color: var(--tp-common-white);
 		}
@@ -731,7 +732,7 @@
 }
 .tp-btn-inner{
 	display: inline-block;
-	background: var(--tp-common-blue-4);
+	background: #305aa7;
 	color: var(--tp-common-white);
 	height: 50px;
 	line-height: 50px;
