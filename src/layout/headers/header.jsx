@@ -20,6 +20,8 @@ const Header = () => {
       const {sticky}  =  useSticky()
       const [searchOpen, setSearchOpen] = useState(false)
       const [sidebarOpen, setSidebarOpen] = useState(false)
+      const [language, setLanguage] = useState('am')
+      const [langDropdownOpen, setLangDropdownOpen] = useState(false)
 
       // gsa use
       let g_timline = new gsap.timeline();
@@ -62,11 +64,41 @@ const Header = () => {
                            <div className="header-bottom__right d-flex align-items-center justify-content-end">
                               <div className="header-bottom__action">
                                  <a className="d-none d-md-inline-block search-open-btn"
-                                    onClick={() => setSearchOpen(true)} > 
+                                    onClick={() => setSearchOpen(true)} >
                                     <SearchIconTwo />
                                  </a>
+                                 <div className="language-selector-wrapper d-none d-lg-inline-block">
+                                    <button
+                                       className="language-selector-btn"
+                                       onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                                    >
+                                       {language === 'am' ? 'አማርኛ' : 'English'}
+                                    </button>
+                                    {langDropdownOpen && (
+                                       <div className="language-dropdown">
+                                          <button
+                                             className={`language-option ${language === 'am' ? 'active' : ''}`}
+                                             onClick={() => {
+                                                setLanguage('am')
+                                                setLangDropdownOpen(false)
+                                             }}
+                                          >
+                                             አማርኛ (Amharic)
+                                          </button>
+                                          <button
+                                             className={`language-option ${language === 'en' ? 'active' : ''}`}
+                                             onClick={() => {
+                                                setLanguage('en')
+                                                setLangDropdownOpen(false)
+                                             }}
+                                          >
+                                             English
+                                          </button>
+                                       </div>
+                                    )}
+                                 </div>
                                  <Link className="d-none d-lg-inline-block last-child" href="/register">
-                                    <UserIcon /> 
+                                    <UserIcon />
                                     <span>Log In</span>
                                  </Link>
                               </div>
