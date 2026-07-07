@@ -20,7 +20,7 @@
         }
     }
     &__item{
-        background: linear-gradient(284.05deg, #EBD1FF 8.66%, rgba(244, 233, 252, 0.54) 92.88%);
+        background: linear-gradient(142.23deg, #EAF2EB 7.63%, #2F5233 99.01%), linear-gradient(142.23deg, #EAF2EB 7.63%, #2F5233 99.01%);
         border-radius: 40px;
         padding: 55px 70px;
         overflow: hidden;
@@ -175,11 +175,11 @@
         left: 31%;
     }
     &__bg-color-2{
-        background: linear-gradient(142.23deg, #FFF7F1 7.63%, #FAE9EF 99.01%), linear-gradient(142.23deg, #FFF7F1 7.63%, #FAE9EF 99.01%);
-        border-radius: 40px;  
+        background: linear-gradient(142.23deg, #F5E1E6 7.63%, #8B1E3F 99.01%), linear-gradient(142.23deg, #F5E1E6 7.63%, #8B1E3F 99.01%);
+        border-radius: 40px;
     }
     &__bg-color-3{
-        background: linear-gradient(142.23deg, #F3F8FF 7.63%, #CEDBFF 99.01%);
+        background: linear-gradient(142.23deg, #E8EEF5 7.63%, #1F3A5F 99.01%), linear-gradient(142.23deg, #E8EEF5 7.63%, #1F3A5F 99.01%);
         border-radius: 40px;
     }
 }
