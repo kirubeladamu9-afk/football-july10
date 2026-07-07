@@ -519,6 +519,12 @@
     }
 }
 .tp-hero-3{
+    &-main-thumb{
+        & img{
+            -webkit-mask-image: linear-gradient(180deg, rgb(0 0 0) 60%, rgb(0 0 0 / 65%) 100%);
+            mask-image: linear-gradient(180deg, rgb(0 0 0) 60%, rgb(0 0 0 / 65%) 100%);
+        }
+    }
     &-shape-1{
         position: absolute;
         top: 0%;
