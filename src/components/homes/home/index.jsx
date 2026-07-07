@@ -19,6 +19,7 @@ const HomeOne = () => {
       <FeatureArea />
       <AboutArea />
       <ProjectArea />
+            <BlogArea />
       </main> 
       <Footer />
       <ScrollToTop />
