@@ -14,7 +14,7 @@ import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
 const hero_content = { 
    title_1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
-   title_2: " የህግ እና የፖለቲካ ስልጣን ትስስር",
+  title_2: " የህግ፣ የፖለቲካና ማህበረሰብ ትስስር",
    info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
    btn_1: "የመጀመሪያውን መጣጥፍ ያንብቡ",
    btn_2: "ፖድካስት ያድምጡ",
