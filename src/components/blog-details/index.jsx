@@ -1,6 +1,6 @@
 import BreadcrumbSix from "@/src/common/breadcrumbs/breadcrumb-6";
-import FooterFive from "@/src/layout/footers/footer-5";
-import HeaderSix from "@/src/layout/headers/header-6";
+import Footer from "@/src/layout/footers/footer";
+import Header from "@/src/layout/headers/header";
 import React from "react";
 import Banner from "./banner";
 import Portfolio from "./portfolio";
@@ -9,7 +9,7 @@ import PostboxArea from "./postbox-area";
 const BlogDetails = () => {
   return (
     <>
-      <HeaderSix />
+      <Header />
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <main>
@@ -18,7 +18,7 @@ const BlogDetails = () => {
             <PostboxArea />
             <Portfolio />
           </main>
-          <FooterFive style_contact={true} style_team={true} bg_style={false} />
+          <Footer />
         </div>
       </div>
     </>
