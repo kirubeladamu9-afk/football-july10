@@ -13,8 +13,8 @@ import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
 const hero_content = { 
-   title_1: <>እግር ኳስ  <span>Customer</span></>,
-   title_2: " ከሜዳው በላይ ነው",
+   title_1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
+   title_2: " የህግ እና የፖለቲካ ስልጣን ትስስር",
    info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
    btn_1: "Live Damo",
    btn_2: "Try it on Browser",
