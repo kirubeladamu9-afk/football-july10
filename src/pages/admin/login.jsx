@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { useAdminLanguage } from '../../context/AdminLanguageContext';
-import '../styles/admin.scss';
+import '../../styles/admin.scss';
 
 export default function AdminLogin() {
   const router = useRouter();
