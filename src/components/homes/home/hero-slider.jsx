@@ -16,8 +16,8 @@ const hero_content = {
    title_1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
    title_2: " የህግ እና የፖለቲካ ስልጣን ትስስር",
    info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
-   btn_1: "Live Damo",
-   btn_2: "Try it on Browser",
+   btn_1: "የመጀመሪያውን መጣጥፍ ያንብቡ",
+   btn_2: "ፖድካስት ያድምጡ",
    
 }
 const { title_1, title_2, info, btn_1, btn_2 } = hero_content
