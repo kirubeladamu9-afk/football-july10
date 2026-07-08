@@ -27,7 +27,7 @@ const menu_data = [
     has_dropdown: true,
     title: "Projects",
     link: "/project",
-    active: "",
+    active: "/",
     sub_menus: [
       { link: "/project", title: "Project" },
       { link: "/project-details", title: "Project Details" }, 
