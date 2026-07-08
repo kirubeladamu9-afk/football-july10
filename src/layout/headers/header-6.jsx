@@ -7,8 +7,7 @@ import React, { useState } from 'react';
 import NavMenu from './nav-menu';
 
 
-import logo_black from "../../../public/assets/img/logo/logo-black.png";
-import logo_white from "../../../public/assets/img/logo/logo-white.png";
+import logo_football from "../../../public/assets/img/logo/football-logo.webp";
 
 
 const HeaderSix = ({ style_2 = false }) => {
@@ -23,15 +22,9 @@ const HeaderSix = ({ style_2 = false }) => {
                   <div className="row g-0 align-items-center">
                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                         <div className="header-bottom__logo">
-                           {style_2 ? <Link href="/">
-                              <Image src={logo_black} alt="theme-pure" />
-                           </Link> : <><Link className="white-logo" href="/">
-                              <Image src={logo_white} alt="theme-pure" />
+                           <Link href="/">
+                              <Image src={logo_football} alt="theme-pure" />
                            </Link>
-                              <Link className="black-logo" href="/">
-                                 <Image src={logo_black} alt="" />
-                              </Link></>
-                           }
                         </div>
                      </div>
                      <div className="col-xxl-7 col-xl-7 col-lg-7 d-none d-lg-block">
