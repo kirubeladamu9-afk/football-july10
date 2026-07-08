@@ -52,8 +52,8 @@ const ProjectArea = () => {
                <div className="row">
                   <div className="col-xl-6">
                      <div className="tp-project__section-box wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".3s">
-                        {/* የክፍሉ ዋና ርዕስ ወደ ፖድካስት ተቀይሯል */}
-                        <h3 className="tp-section-title">Listen To Our Recent Episodes.</h3>
+                        {/* ጽሑፉ ወደ አማርኛ ተቀይሯል */}
+                        <h3 className="tp-section-title">የቅርብ ጊዜ የፖድካስት ክፍሎቻችንን ያዳምጡ።</h3>
                      </div>
                   </div>
                </div>
@@ -93,13 +93,13 @@ const ProjectArea = () => {
                                           </div>
                                           <div className="tp-project__meta d-flex align-items-center">
                                              <div className="tp-project__author-info">
-                                                {/* ከ "Client Name" ወደ "Episode" ተቀይሯል */}
-                                                <span>Episode</span>
+                                                {/* ጽሑፉ ወደ አማርኛ ተቀይሯል */}
+                                                <span>ክፍል</span>
                                                 <h4>{item.client_name}</h4>
                                              </div>
                                              <div className="tp-project__budget">
-                                                {/* ከ "Budget" ወደ "Duration" ተቀይሯል */}
-                                                <span>Duration</span>
+                                                {/* ጽሑፉ ወደ አማርኛ ተቀይሯል */}
+                                                <span>ቆይታ</span>
                                                 <h4>{item.budget}{item.budget_simble}</h4>
                                              </div>
                                              <div className="tp-project__link">
