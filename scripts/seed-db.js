@@ -80,7 +80,7 @@ async function seedDb() {
 
       // Add site settings
       await connection.execute(
-        `INSERT INTO site_settings (key, value_en, value_am) 
+        `INSERT INTO site_settings (\`key\`, value_en, value_am)
         VALUES (?, ?, ?), (?, ?, ?)`,
         [
           'site_title',
