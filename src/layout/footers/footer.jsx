@@ -21,7 +21,7 @@ const footer_content = {
   contact_mail: "contact@info.com",
   location: "አዲስ አበባ፣ ኢትዮጵያ",
 
-  copy_right: <>መብቱ በህግ የተጠበቀ ነው & በዲዛይን የተሰራው በ <Link href="#">@Theme pure</Link> – {new Date().getFullYear()}</>,
+  copy_right: <>መብቱ በህግ የተጠበቀ ነው & በዲዛይን የተሰራው በ <Link href="#">EKD Tech .</Link> – {new Date().getFullYear()}</>,
 
   footer_lisks: [
     {
