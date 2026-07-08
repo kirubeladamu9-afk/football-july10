@@ -82,7 +82,7 @@ async function initDb() {
     await connection.execute(`
       CREATE TABLE IF NOT EXISTS site_settings (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        key VARCHAR(100) UNIQUE NOT NULL,
+        \`key\` VARCHAR(100) UNIQUE NOT NULL,
         value_en LONGTEXT,
         value_am LONGTEXT,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
