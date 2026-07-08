@@ -4,9 +4,7 @@ import React from 'react';
 
 // images import 
 import about_img_1 from "../../public/assets/img/about/about-bg-shape.png"
-import about_img_2 from "../../public/assets/img/about/about-2.jpg"
-import about_img_3 from "../../public/assets/img/about/about-1.jpg"
-import about_img_4 from "../../public/assets/img/about/about-3.jpg"
+import about_img_2 from "../../public/assets/img/about/about-2.jpg" // የሀዩ ወይም የምርምር ቡድኑ ምስል የሚሆን
 import about_img_5 from "../../public/assets/img/about/about-5.png"
 
 // about data
@@ -30,21 +28,19 @@ const about_data =[
 
 // about content
 const about_content = {
-    title: "OVER 150K+ CLIENT",
-    sub_title: "We Offer Real Time Data Solutions", 
-    des: <>Excepteur sint occaecat cupidatat officia non proident <br />
-    sunt in culpa qui deserunt.!</>,
+    title: "የሃሳብ አመንጪ እና መሪ",
+    sub_title: "የሀዩ ራዕይ፡ ከሜዳው ባሻገር ያለው እውነታ", 
+    des: <>ይህ ፕሮጀክት በሀዩ (Hayu) መሪነትና ሙሉ ክትትል የሚመራ ሲሆን፣ እግር ኳስን ከቀላል ስፖርትነቱ ባሻገር በስልጣን ኮሪደሮች እና በህግ ፍርድ ቤቶች ያለውን ጥልቅ ትስስር ለይቶ ለማሳየት የተወለደ ልዩ መድረክ ነው።</>,
 
     about_list: [
-        <>Various analysis options.</>,
-        <>Page Load (time, size, number of requests).</>,
-        <> Big data analysis.</>,
+        <>የስፖርት ጋዜጠኝነትን፣ ፖለቲካን እና ህግን ማገናኘት።</>,
+        <>የመንግስታትን ለስላሳ ስልጣን (Soft Power) ስትራቴጂ መተንተን።</>,
+        <>የማህበረሰብ ክለቦችን ማህበራዊና ስነ-ልቦናዊ ተፅእኖ መፈተሽ።</>,
     ],
-    btn_text: "About Us",
-
+    btn_text: "ስለ ፕሮጀክቱ መሪ ያንብቡ",
 }
-const {title, sub_title, des, about_list, btn_text}  = about_content
 
+const { title, sub_title, des, about_list, btn_text } = about_content;
 
 const AboutArea = () => {
     return (
@@ -54,9 +50,9 @@ const AboutArea = () => {
                   <div className="row align-items-center">
                      <div className="col-xl-6 col-lg-6 wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".2s">
                         <div className="tp-about__img-wrapper text-center text-lg-end p-relative">
-                            {about_data.map((item, i)  => 
+                            {about_data.map((item, i) => 
                                 <div key={i} className={`tp-about__${item.cls}`}>
-                                    <Image src={item.img} alt="theme-pure" />
+                                    <Image src={item.img} alt="Hayu Project Vision" />
                                 </div>
                             )} 
                         </div>
@@ -64,13 +60,13 @@ const AboutArea = () => {
                      <div className="col-xl-6 col-lg-6 wow tpfadeRight" data-wow-duration=".9s" data-wow-delay=".6s">
                         <div className="tp-about__right">
                            <div className="tp-about__section-box">
-                              <h4 className="tp-section-subtitle">{title}</h4>
+                              <h4 className="tp-section-subtitle text-uppercase">{title}</h4>
                               <h3 className="tp-section-title mb-15">{sub_title}</h3>
                               <p>{des}</p>
                            </div>
                            <div className="tp-about__list">
                               <ul>
-                                {about_list.map((item , i)  =>  <li key={i}><i className="fal fa-check"></i>{item}</li>)}
+                                {about_list.map((item, i) => <li key={i}><i className="fal fa-check"></i>{item}</li>)}
                               </ul>
                            </div>
                            <div className="tp-about__btn">
