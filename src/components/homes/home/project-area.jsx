@@ -1,5 +1,5 @@
 import project_data from '@/src/data/project-data';
-import PlayIcon from '@/src/svg/play-icon';
+import RightArrow from '@/src/svg/right-arrow';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -82,9 +82,12 @@ const ProjectArea = () => {
                                           <Image src={item.img_1} alt="theme-pure" />
                                        </div>
                                        <div className="tp-project__content">
+                                          <div className="tp-project__brand-icon">
+                                             <Image src={item.img_2} alt="theme-pure" />
+                                          </div>
                                           <div className="tp-project__title-box">
                                              <h4 className="tp-project__title-sm">
-                                                <Link href="/project-details">{item.title}</Link>
+                                                <Link href="/">{item.title}</Link>
                                              </h4>
                                              <p>{item.description}</p>
                                           </div>
@@ -100,8 +103,8 @@ const ProjectArea = () => {
                                                 <h4>{item.budget}{item.budget_simble}</h4>
                                              </div>
                                              <div className="tp-project__link">
-                                                <Link href="/project-details">
-                                                   <PlayIcon />
+                                                <Link href="/">
+                                                   <RightArrow />
                                                 </Link>
                                              </div>
                                           </div>
