@@ -124,7 +124,7 @@ const Footer = () => {
                   <div className="col-xl-4 col-lg-4 col-md-7 pb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">
                     <div className="tp-footer__widget footer-col-1">
                       <Link href="/" className="tp-footer__widget-logo mb-10">
-                        <Image src={footer_logo} alt="" />
+                        <Image src={footer_logo} alt="" width={100} height={35} />
                       </Link>
                       <div className="tp-footer__text">
                         <p>{description}</p>
