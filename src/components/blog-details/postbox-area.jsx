@@ -1,12 +1,10 @@
 import SocialLinks from '@/src/common/social-links';
-import CommentPost from '@/src/forms/comment-post';
 import DoubleSemicolon from '@/src/svg/double-semicolon';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import RecentPost from '../blog-list/recent-post';
 import Search from '../blog-list/search';
-import Comments from './comments';
 
 
 import blog_details_img_1  from "../../../public/assets/img/blog/blog-details-1.jpg";
@@ -147,15 +145,6 @@ const PostboxArea = ({style_details_2}) => {
                                     <SocialLinks />  
                                  </div>
                               </div>
-                           </div> 
-
-                           <div className="postbox__comment mb-65">
-                              <h3 className="postbox__comment-title">3 Comments</h3>
-                              <Comments /> 
-                           </div>
-                           <div className="postbox__comment-form">
-                              <h3 className="postbox__comment-form-title">Leave A Comment</h3>
-                              <CommentPost /> 
                            </div>
                         </article>
                      </div>
