@@ -93,7 +93,7 @@ const Header = () => {
                               </div>
                               <div className="header-bottom__btn d-flex align-items-center">
                                  <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/service-details">
-                                    <span className="white-text">Get Started</span>
+                        <span className="white-text">ይመዝገቡ</span>
                                     <b></b>
                                  </Link>
                                  <a className="header-bottom__bar d-lg-none tp-menu-bar" onClick={() => setSidebarOpen(true)}><i className="fal fa-bars"></i></a>
