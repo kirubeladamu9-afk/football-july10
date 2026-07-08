@@ -1,5 +1,5 @@
 import project_data from '@/src/data/project-data';
-import RightArrow from '@/src/svg/right-arrow';
+import PlayIcon from '@/src/svg/play-icon';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -104,7 +104,7 @@ const ProjectArea = () => {
                                              </div>
                                              <div className="tp-project__link">
                                                 <Link href="/">
-                                                   <RightArrow />
+                                                   <PlayIcon />
                                                 </Link>
                                              </div>
                                           </div>
