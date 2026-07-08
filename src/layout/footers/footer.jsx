@@ -16,7 +16,7 @@ import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 // footer_content 
 const footer_content = {
   title: <>የቅርብ ጊዜ ዜናዎችን እና አዳዲስ መረጃዎችን ያግኙ</>,
-  description: <>በእግር ኳስ ትንተና እና ስፖርታዊ <br /> መረጃዎች ላይ ያተኮረ የፖድካስት መድረክ።</>,
+  description: <>በእግር ኳስ ትንተና እና ስፖርታዊ መረጃዎች ላይ ያተኮረ የፖድካስት መድረክ።</>,
   phone: "+251(000)8899",
   contact_mail: "contact@info.com",
   location: "አዲስ አበባ፣ ኢትዮጵያ",
