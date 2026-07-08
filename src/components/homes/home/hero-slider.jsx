@@ -13,7 +13,7 @@ import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
 const hero_content = { 
-   title_1: <>Great <span>Customer</span></>,
+   title_1: <>እግር <span>Customer</span></>,
    title_2: " ከሜዳው በላይ ነው",
    info: <>Softec provides all customer management service within one software. <br /> Our landing works on all devices.</>,
    btn_1: "Live Damo",
