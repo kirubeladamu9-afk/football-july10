@@ -27,13 +27,15 @@ const HeaderSix = ({ style_2 = false }) => {
                            </Link>
                         </div>
                      </div>
-                     <div className="col-xxl-8 col-xl-8 col-lg-8 d-none d-lg-block d-flex justify-content-center">
+                     <div className="col-xxl-1"></div>
+                     <div className="col-xxl-6 col-xl-6 col-lg-6 d-none d-lg-block d-flex justify-content-center">
                         <div className="header-bottom__main-menu header-bottom__main-menu-4 header-bottom__main-menu-inner">
                            <nav id="mobile-menu">
                               <NavMenu />
                            </nav>
                         </div>
                      </div>
+                     <div className="col-xxl-1"></div>
                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-8 col-6">
                         <div className="header-bottom__right d-flex align-items-center justify-content-end">
                            <div className="header-bottom__action header-bottom__action-4 d-none d-xl-block">
