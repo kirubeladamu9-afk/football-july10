@@ -2,85 +2,55 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-// img import 
-import  shapes_1 from "../../../../public/assets/img/payment/qrcode.png" ;
-import  shapes_2 from "../../../../public/assets/img/payment/mobile.png" ;
-import  shapes_3 from "../../../../public/assets/img/payment/hand.png" ;
-import  shapes_4 from "../../../../public/assets/img/payment/coin-1.png" ;
-import  shapes_5 from "../../../../public/assets/img/payment/coin-2.png" ;
-import  shapes_6 from "../../../../public/assets/img/payment/payment-3.png" ;
-import  shapes_7 from "../../../../public/assets/img/payment/message.png" ;
-import  bg_img from "../../../../public/assets/img/payment/background.png" ;
-import  payment_img_1 from "../../../../public/assets/img/payment/image.png" ;
-import  payment_img_2 from "../../../../public/assets/img/payment/get-paid.png" ;
+// የፕሮጀክቱን ፅንሰ-ሀሳብ የሚገልጹ ምስሎች ስሞች (Paths can remain or be updated in public folder)
+import shapes_2 from "../../../../public/assets/img/payment/mobile.png"; // ለዲጂታል መድረክ
+import shapes_3 from "../../../../public/assets/img/payment/hand.png"; // ለስልጣን/ዲፕሎማሲ
+import shapes_4 from "../../../../public/assets/img/payment/coin-1.png"; // ለኢኮኖሚ/ክለቦች
+import shapes_5 from "../../../../public/assets/img/payment/coin-2.png"; 
+import shapes_6 from "../../../../public/assets/img/payment/payment-3.png"; // ለህግ ሰነዶች
+import payment_img_1 from "../../../../public/assets/img/payment/image.png"; // ለዋናው ጥናታዊ ግራፊክስ
 
-
-const payment_content = {
-    title: <>You'll love our <br /> powerful payments.</>,
-    sub_title: <>We've got all your payments covered</>,
+const insights_content = {
+    title: <>ከሜዳው ባሻገር ያለውን እውነታ <br /> በጥልቀት ይመርምሩ።</>,
+    sub_title: <>በእግር ኳስ፣ ህግ እና ፖለቲካ ዙሪያ የተሰናዱ ሁለንተናዊ ትንተናዎች</>,
     box_1: [
         {
             id: 1, 
             col: "md-6",
             cls: "2 tpfadeLeft",
             delay: ".3s",
-            title: "Scan & Go",
-            des: <>Transform your payment link into a QR code that customers can scan with their <br /> phone to pay.</>,
+            title: "የፖለቲካ እና የኃይል ካርታ",
+            des: <>መንግስታት እና የፖለቲካ መሪዎች እግር ኳስን ለስላሳ ስልጣን (Soft Power) እና ለዲፕሎማሲያዊ ተፅእኖ እንዴት እንደሚጠቀሙበት እንመረምራለን።</>,
             shapes: [
-                {
-                    id: 1,
-                    cls: "5",
-                    img: shapes_2,
-                },
-                {
-                    id: 2,
-                    cls: "6",
-                    img: shapes_3,
-                },
-                {
-                    id: 3,
-                    cls: "7",
-                    img: shapes_4,
-                },
-                {
-                    id: 4,
-                    cls: "8",
-                    img: shapes_5,
-                },
+                { id: 1, cls: "5", img: shapes_2 },
+                { id: 2, cls: "6", img: shapes_3 },
+                { id: 3, cls: "7", img: shapes_4 },
+                { id: 4, cls: "8", img: shapes_5 },
             ]
-
         },
         {
             id: 2, 
             col: "md-6",
             cls: "3 tpfadeRight",
             delay: ".5s",
-            title: "Easily Send Requesrs vai e-mail or SMS",
-            des: <>... or copy-paste the link</>,
+            title: "የእግር ኳስ ህግ እና አስተዳደር",
+            des: <>ትክክለኛው የእግር ኳስ ህግ ምንድነው? የጨዋታውን የወደፊት ዕጣ ፈንታ የሚቀርጹ ቀጣዮቹን ትላልቅ የህግ ጉዳዮች እና የዝውውር ደንቦች እንፈትሻለን።</>,
             shapes: [
-                {
-                    id: 1,
-                    cls: "9",
-                    img: shapes_6,
-                },
+                { id: 1, cls: "9", img: shapes_6 },
             ]
-
         },
-        
-       
-
     ],
-    box_3_title: <>Online Billing & <br /> Invoicing Payments.</>,
-    box_3_des: <>Get paid faster with Online Invoicing <br /> and the Virtual Terminal.</>,
-    box_3_btn: "Explore Invoicing Tools",
-
+    box_3_title: <>የማህበረሰብ ክለቦች እና <br /> ማህበራዊ-ፖለቲካዊ ተፅእኖ።</>,
+    box_3_des: <>በታችኛው ደረጃ ያሉ ክለቦች የአካባቢውን ፖለቲካ፣ ዘረኝነትን፣ እና በአጠቃላይ በስፖርቱ ውስጥ ያለውን የአእምሮ ጤና ተግዳሮት እንዴት እንደሚያንፀባርቁ የሚያሳይ ጥናት።</>,
+    box_3_btn: "የምርምር ማዕከሉን ይጎብኙ",
 }
-const {title, sub_title, box_1, box_3_title, box_3_des, box_3_btn}  = payment_content
 
-const PaymentArea = () => {
+const { title, sub_title, box_1, box_3_title, box_3_des, box_3_btn } = insights_content;
+
+const InsightsArea = () => {
     return (
         <>
-        <div id="payment-method" className="tp-payment__area pt-110 pb-110">
+        <div id="insights-section" className="tp-payment__area pt-110 pb-110">
                <div className="container">
                   <div className="row justify-content-center">
                      <div className="col-xl-7">
@@ -94,15 +64,14 @@ const PaymentArea = () => {
 
                      <div className="col-xl-12">
                         <div className="row">
- 
-                            {box_1.map((item, i)  => 
-                                <div key={i} className="col-md-6 mb-30">
+                             {box_1.map((item, i) => 
+                                 <div key={i} className="col-md-6 mb-30">
                               <div className={`tp-payment__item tp-payment__bg-color-${item.cls} p-relative z-index wow `} 
                                     data-wow-duration=".9s" 
                                     data-wow-delay={item.delay}>
-                                 {item.shapes.map((item, i)  => 
-                                    <div key={i} className={`tp-payment__shape-${item.cls}`}>
-                                        <Image src={item.img} alt="theme-pure" />
+                                 {item.shapes.map((shape, index) => 
+                                    <div key={index} className={`tp-payment__shape-${shape.cls}`}>
+                                        <Image src={shape.img} alt="research-shapes" />
                                     </div>
                                  )}
 
@@ -113,8 +82,8 @@ const PaymentArea = () => {
                                   
                               </div>
                            </div>
-                                )
-                            }
+                                 )
+                             }
                         </div>
                      </div>
 
@@ -125,12 +94,12 @@ const PaymentArea = () => {
                                  <div className="tp-payment__content tp-payment__content-space">
                                     <h3 className="tp-payment__title">{box_3_title}</h3>
                                     <p>{box_3_des}</p>
-                                    <Link href="/service-details">{box_3_btn}<i className="far fa-arrow-right"></i></Link>
+                                    <Link href="/research" className="tp-btn-link">{box_3_btn}<i className="far fa-arrow-right"></i></Link>
                                  </div>
                               </div>
                               <div className="col-md-6">
                                  <div className="tp-payment__shape-2">
-                                    <Image src={payment_img_1} alt="theme-pure" />
+                                    <Image src={payment_img_1} alt="socio-political-analysis" />
                                  </div>
                               </div>
                            </div>
@@ -145,4 +114,4 @@ const PaymentArea = () => {
     );
 };
 
-export default PaymentArea;
+export default InsightsArea;
