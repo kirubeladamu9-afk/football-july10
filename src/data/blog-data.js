@@ -41,7 +41,7 @@ const blog_data = [
     date: "ግንቦት 18, 2015",
     title: <>የአፍሪካ እግር ኳስ እና የክለቦች ተሳትፎ</>,
     author_img: author_img_3,
-    author_name: "ዳዊት አበበ",
+    author_name: "ሃዩ",
     job_title: "የፖድካስት አዘጋጅ"
   },
 
@@ -55,7 +55,7 @@ const blog_data = [
     title: <>ከሜዳ ውጪ ያሉ የጨዋታው እውነታዎች</>,
     description: <>የእግር ኳስ ተጫዋቾች ከሜዳ ውጪ የሚያሳልፉት ህይወት እና በተደጋጋሚ የሚያጋጥሟቸው የስነ-ልቦና ጫናዎች።</>,
     author_img: author_img_3,
-    author_name: "ዳዊት አበበ",
+    author_name: "ሃዩ",
     job_title: "የፖድካስት አዘጋጅ"
   },
   {
@@ -67,7 +67,7 @@ const blog_data = [
     title: <>የደጋፊዎች ጫና እና የዳኞች ውሳኔ</>,
     description: <>በደርቢ ጨዋታዎች ወቅት የደጋፊዎች ከፍተኛ ድምፅ እና ስሜት በዳኞች ውሳኔ አሰጣጥ ላይ የሚያሳድረው ቀጥተኛ ተፅዕኖ።</>,
     author_img: author_img_3,
-    author_name: "ዳዊት አበበ",
+    author_name: "ሃዩ",
     job_title: "የፖድካስት አዘጋጅ"
   },
 
