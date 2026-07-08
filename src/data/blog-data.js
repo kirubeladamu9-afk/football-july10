@@ -20,7 +20,7 @@ const blog_data = [
     title: <>ዘመናዊ እግር ኳስን የቀየሩ አሰልጣኞች ስልት</>,
     author_img: author_img_1,
     author_name: "ሄኖክ ተስፋዬ",
-    job_title: "ዋና አዘጋጅ እና ተንታኝ"
+    job_title: "አድሚን"
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const blog_data = [
     title: <>የዘንድሮው የክረምት ዝውውር ገበያ እና የሚጠበቁ ክስተቶች</>,
     author_img: author_img_2,
     author_name: "ዮናስ ታደሰ",
-    job_title: "የስፖርት ጋዜጠኛ"
+    job_title: "አድሚን"
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ const blog_data = [
     title: <>የአፍሪካ እግር ኳስ እና የክለቦች ተሳትፎ</>,
     author_img: author_img_3,
     author_name: "ሃዩ",
-    job_title: "የፖድካስት አዘጋጅ"
+    job_title: "አድሚን"
   },
 
   // home 04
@@ -56,7 +56,7 @@ const blog_data = [
     description: <>የእግር ኳስ ተጫዋቾች ከሜዳ ውጪ የሚያሳልፉት ህይወት እና በተደጋጋሚ የሚያጋጥሟቸው የስነ-ልቦና ጫናዎች።</>,
     author_img: author_img_3,
     author_name: "ሃዩ",
-    job_title: "የፖድካስት አዘጋጅ"
+    job_title: "አድሚን"
   },
   {
     id: 5,
@@ -68,7 +68,7 @@ const blog_data = [
     description: <>በደርቢ ጨዋታዎች ወቅት የደጋፊዎች ከፍተኛ ድምፅ እና ስሜት በዳኞች ውሳኔ አሰጣጥ ላይ የሚያሳድረው ቀጥተኛ ተፅዕኖ።</>,
     author_img: author_img_3,
     author_name: "ሃዩ",
-    job_title: "የፖድካስት አዘጋጅ"
+    job_title: "አድሚን"
   },
 
   // anything here
