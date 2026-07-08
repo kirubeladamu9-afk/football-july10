@@ -44,6 +44,7 @@ export default function NewMultimediaPage() {
       const response = await fetch('/api/multimedia', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           titleEn: formData.titleEn,
           titleAm: formData.titleAm,

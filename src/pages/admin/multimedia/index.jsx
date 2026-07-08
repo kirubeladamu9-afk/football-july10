@@ -21,7 +21,9 @@ export default function MultimediaPage() {
       const params = new URLSearchParams();
       if (filterType) params.append('type', filterType);
 
-      const response = await fetch(`/api/multimedia?${params}`);
+      const response = await fetch(`/api/multimedia?${params}`, {
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
       setMultimedia(data.multimedia);
@@ -36,7 +38,10 @@ export default function MultimediaPage() {
     if (!confirm(language === 'en' ? 'Are you sure?' : 'እርግጠኛ ነው?')) return;
 
     try {
-      const response = await fetch(`/api/multimedia/${id}`, { method: 'DELETE' });
+      const response = await fetch(`/api/multimedia/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('Failed to delete');
       setMultimedia(multimedia.filter((m) => m.id !== id));
     } catch (err) {

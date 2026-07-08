@@ -31,7 +31,9 @@ export default function EditMultimediaPage() {
 
   async function fetchItem() {
     try {
-      const response = await fetch(`/api/multimedia/${id}`);
+      const response = await fetch(`/api/multimedia/${id}`, {
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('notFound');
       const data = await response.json();
       setFormData({
@@ -64,6 +66,7 @@ export default function EditMultimediaPage() {
       const response = await fetch(`/api/multimedia/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           titleEn: formData.titleEn,
           titleAm: formData.titleAm,

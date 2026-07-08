@@ -76,6 +76,7 @@ export default function NewBlogPage() {
       const response = await fetch('/api/blogs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           titleEn: formData.titleEn,
           titleAm: formData.titleAm,

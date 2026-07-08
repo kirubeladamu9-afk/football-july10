@@ -39,7 +39,9 @@ export default function EditBlogPage() {
 
   async function fetchBlog() {
     try {
-      const response = await fetch(`/api/blogs/${slug}`);
+      const response = await fetch(`/api/blogs/${slug}`, {
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('notFound');
       const data = await response.json();
       setFormData({
@@ -91,6 +93,7 @@ export default function EditBlogPage() {
       const response = await fetch(`/api/blogs/${slug}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           titleEn: formData.titleEn,
           titleAm: formData.titleAm,

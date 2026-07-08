@@ -21,7 +21,9 @@ export default function SettingsPage() {
 
   async function fetchSettings() {
     try {
-      const response = await fetch('/api/settings');
+      const response = await fetch('/api/settings', {
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
       setSettings({
@@ -62,6 +64,7 @@ export default function SettingsPage() {
       const response = await fetch('/api/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           key: key.replace(/([A-Z])/g, '_$1').toLowerCase().replace(/^_/, ''),
           valueEn: settings[key].en,

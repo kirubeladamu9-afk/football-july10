@@ -29,7 +29,9 @@ export default function BlogsPage() {
       if (filterStatus) params.append('status', filterStatus);
       if (filterCategory) params.append('category', filterCategory);
 
-      const response = await fetch(`/api/blogs?${params}`);
+      const response = await fetch(`/api/blogs?${params}`, {
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('Failed to fetch blogs');
       const data = await response.json();
       setBlogs(data.blogs);
@@ -44,7 +46,10 @@ export default function BlogsPage() {
     if (!confirm(language === 'en' ? 'Are you sure?' : 'እርግጠኛ ነው?')) return;
 
     try {
-      const response = await fetch(`/api/blogs/${slug}`, { method: 'DELETE' });
+      const response = await fetch(`/api/blogs/${slug}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('Failed to delete');
       setBlogs(blogs.filter((b) => b.slug !== slug));
     } catch (err) {
