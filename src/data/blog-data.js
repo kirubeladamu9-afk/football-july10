@@ -17,7 +17,7 @@ const blog_data = [
     category: "ስልታዊ ትንተና",
     color: "1",
     date: "ግንቦት 12, 2015",
-    title: <>ዘመናዊ እግር ኳስን <br /> የቀየሩ አሰልጣኞች ስልት</>,
+    title: <>ዘመናዊ እግር ኳስን የቀየሩ አሰልጣኞች ስልት</>,
     author_img: author_img_1,
     author_name: "ሄኖክ ተስፋዬ",
     job_title: "ዋና አዘጋጅ እና ተንታኝ"
@@ -39,7 +39,7 @@ const blog_data = [
     category: "የክለቦች ታሪክ",
     color: "3",
     date: "ግንቦት 18, 2015",
-    title: <>የአፍሪካ እግር ኳስ <br /> እና የክለቦች ተሳትፎ</>,
+    title: <>የአፍሪካ እግር ኳስ እና የክለቦች ተሳትፎ</>,
     author_img: author_img_3,
     author_name: "ዳዊት አበበ",
     job_title: "የፖድካስት አዘጋጅ"
