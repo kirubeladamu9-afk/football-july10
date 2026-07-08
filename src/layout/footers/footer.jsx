@@ -9,7 +9,7 @@ import LocationIcon from '@/src/svg/location-icon';
 import PhoneIcon from '@/src/svg/phone-icon';
 import RightArrow from '@/src/svg/right-arrow';
 
-import footer_logo from "../../../public/assets/img/logo/football-logo.webp";
+import footer_logo from "../../../public/assets/img/logo/footer-logo.webp";
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
 
