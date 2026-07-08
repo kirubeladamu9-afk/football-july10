@@ -23,11 +23,16 @@ export default async function handler(req, res) {
         ),
       ]);
 
+    const totalArticles = parseInt(articleCount.rows[0]?.count || 0);
+    const publishedArticles = parseInt(publishedCount.rows[0]?.count || 0);
+    const draftArticles = parseInt(draftCount.rows[0]?.count || 0);
+    const totalMultimedia = parseInt(multimediaCount.rows[0]?.count || 0);
+
     return res.status(200).json({
-      totalArticles: parseInt(articleCount.rows[0].count),
-      publishedArticles: parseInt(publishedCount.rows[0].count),
-      draftArticles: parseInt(draftCount.rows[0].count),
-      totalMultimedia: parseInt(multimediaCount.rows[0].count),
+      totalArticles,
+      publishedArticles,
+      draftArticles,
+      totalMultimedia,
       recentActivity: recentBlogs.rows.map((row) => ({
         id: row.id,
         slug: row.slug,
