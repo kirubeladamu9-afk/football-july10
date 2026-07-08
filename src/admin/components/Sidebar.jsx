@@ -45,11 +45,9 @@ export default function Sidebar() {
       <nav className="admin-sidebar__nav">
         {navItems.map((item) => (
           <li key={item.path}>
-            <Link href={item.path}>
-              <a className={`admin-nav-item ${isActive(item.path) ? 'active' : ''}`}>
-                <i className={item.icon}></i>
-                <span>{item.label}</span>
-              </a>
+            <Link href={item.path} className={`admin-nav-item ${isActive(item.path) ? 'active' : ''}`}>
+              <i className={item.icon}></i>
+              <span>{item.label}</span>
             </Link>
           </li>
         ))}

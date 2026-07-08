@@ -63,11 +63,9 @@ export default function BlogsPage() {
       </div>
 
       <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <Link href="/admin/blogs/new">
-          <a className="btn btn-primary">
-            <i className="fas fa-plus"></i>
-            {t('newBlog', language)}
-          </a>
+        <Link href="/admin/blogs/new" className="btn btn-primary">
+          <i className="fas fa-plus"></i>
+          {t('newBlog', language)}
         </Link>
 
         <select
@@ -151,10 +149,8 @@ export default function BlogsPage() {
                     </span>
                   </td>
                   <td style={{ display: 'flex', gap: '8px' }}>
-                    <Link href={`/admin/blogs/${blog.slug}`}>
-                      <a className="btn btn-secondary btn-icon" title="Edit">
-                        <i className="fas fa-edit"></i>
-                      </a>
+                    <Link href={`/admin/blogs/${blog.slug}`} className="btn btn-secondary btn-icon" title="Edit">
+                      <i className="fas fa-edit"></i>
                     </Link>
                     <button
                       className="btn btn-danger btn-icon"

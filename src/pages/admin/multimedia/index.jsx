@@ -55,11 +55,9 @@ export default function MultimediaPage() {
       </div>
 
       <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <Link href="/admin/multimedia/new">
-          <a className="btn btn-primary">
-            <i className="fas fa-plus"></i>
-            {language === 'en' ? 'New Item' : 'አዲስ ንጥል'}
-          </a>
+        <Link href="/admin/multimedia/new" className="btn btn-primary">
+          <i className="fas fa-plus"></i>
+          {language === 'en' ? 'New Item' : 'አዲስ ንጥል'}
         </Link>
 
         <select
@@ -129,10 +127,8 @@ export default function MultimediaPage() {
                     {item.duration ? `${Math.floor(item.duration / 60)}m ${item.duration % 60}s` : '-'}
                   </td>
                   <td style={{ display: 'flex', gap: '8px' }}>
-                    <Link href={`/admin/multimedia/${item.id}`}>
-                      <a className="btn btn-secondary btn-icon" title="Edit">
-                        <i className="fas fa-edit"></i>
-                      </a>
+                    <Link href={`/admin/multimedia/${item.id}`} className="btn btn-secondary btn-icon" title="Edit">
+                      <i className="fas fa-edit"></i>
                     </Link>
                     <button
                       className="btn btn-danger btn-icon"
