@@ -1,4 +1,8 @@
+import { setCorsHeaders } from '@/lib/middleware';
+
 export default function handler(req, res) {
+  setCorsHeaders(req, res);
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }

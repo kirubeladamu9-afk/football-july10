@@ -1,7 +1,8 @@
-import { requireAuth } from '@/lib/middleware';
+import { requireAuth, setCorsHeaders } from '@/lib/middleware';
 import { query, transaction } from '@/lib/db';
 
 export default async function handler(req, res) {
+  setCorsHeaders(req, res);
   const user = await requireAuth(req);
   if (!user) {
     return res.status(401).json({ error: 'Unauthorized' });

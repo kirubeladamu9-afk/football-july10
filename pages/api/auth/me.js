@@ -1,8 +1,7 @@
-import { requireAuth } from '@/lib/middleware';
+import { requireAuth, setCorsHeaders } from '@/lib/middleware';
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  setCorsHeaders(req, res);
 
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
