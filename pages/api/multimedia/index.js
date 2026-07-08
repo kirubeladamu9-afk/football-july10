@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
       if (type) {
         params.push(type);
-        sql += ` AND type = $${params.length}`;
+        sql += ` AND type = ?`;
       }
 
       sql += ' ORDER BY created_at DESC';
@@ -64,11 +64,10 @@ export default async function handler(req, res) {
       }
 
       const result = await query(
-        `INSERT INTO multimedia 
-        (title_en, title_am, description_en, description_am, type, 
-         file_url, thumbnail_url, duration, publish_date, created_by) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
-        RETURNING id`,
+        `INSERT INTO multimedia
+        (title_en, title_am, description_en, description_am, type,
+         file_url, thumbnail_url, duration, publish_date, created_by)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           titleEn,
           titleAm,
@@ -85,7 +84,7 @@ export default async function handler(req, res) {
 
       return res.status(201).json({
         success: true,
-        id: result.rows[0].id,
+        id: result.rows[0].insertId,
       });
     } catch (error) {
       console.error('Create multimedia error:', error);

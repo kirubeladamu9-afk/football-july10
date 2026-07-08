@@ -15,8 +15,8 @@ export default async function handler(req, res) {
     const [articleCount, publishedCount, draftCount, multimediaCount, recentBlogs] =
       await Promise.all([
         query('SELECT COUNT(*) as count FROM blogs'),
-        query('SELECT COUNT(*) as count FROM blogs WHERE status = $1', ['published']),
-        query('SELECT COUNT(*) as count FROM blogs WHERE status = $1', ['draft']),
+        query('SELECT COUNT(*) as count FROM blogs WHERE status = ?', ['published']),
+        query('SELECT COUNT(*) as count FROM blogs WHERE status = ?', ['draft']),
         query('SELECT COUNT(*) as count FROM multimedia'),
         query(
           'SELECT id, slug, title_en, title_am, status, updated_at FROM blogs ORDER BY updated_at DESC LIMIT 5'

@@ -1,59 +1,66 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+const mysql = require('mysql2/promise');
 
 async function initDb() {
-  const client = await pool.connect();
+  const pool = mysql.createPool({
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    port: parseInt(process.env.MYSQLPORT || '3306'),
+    charset: 'utf8mb4',
+  });
+
+  const connection = await pool.getConnection();
   try {
     // Create admin_users table
-    await client.query(`
+    await connection.execute(`
       CREATE TABLE IF NOT EXISTS admin_users (
-        id SERIAL PRIMARY KEY,
+        id INT AUTO_INCREMENT PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
         password_hash VARCHAR(255) NOT NULL,
         name VARCHAR(255) NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
+      ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     `);
 
-    // Create blogs table with proper UTF-8 encoding for Amharic
-    await client.query(`
+    // Create blogs table
+    await connection.execute(`
       CREATE TABLE IF NOT EXISTS blogs (
-        id SERIAL PRIMARY KEY,
+        id INT AUTO_INCREMENT PRIMARY KEY,
         slug VARCHAR(255) UNIQUE NOT NULL,
         title_en VARCHAR(255) NOT NULL,
         title_am VARCHAR(255) NOT NULL,
         excerpt_en TEXT,
         excerpt_am TEXT,
-        body_en TEXT NOT NULL,
-        body_am TEXT NOT NULL,
+        body_en LONGTEXT NOT NULL,
+        body_am LONGTEXT NOT NULL,
         featured_image_url VARCHAR(500),
         category VARCHAR(100) NOT NULL,
         status VARCHAR(20) DEFAULT 'draft',
-        publish_date TIMESTAMP,
+        publish_date TIMESTAMP NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        created_by INTEGER REFERENCES admin_users(id)
-      );
+        created_by INT,
+        FOREIGN KEY (created_by) REFERENCES admin_users(id)
+      ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     `);
 
     // Create blog_tags table
-    await client.query(`
+    await connection.execute(`
       CREATE TABLE IF NOT EXISTS blog_tags (
-        id SERIAL PRIMARY KEY,
-        blog_id INTEGER REFERENCES blogs(id) ON DELETE CASCADE,
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        blog_id INT,
         tag VARCHAR(100) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE
+      ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     `);
 
     // Create multimedia table
-    await client.query(`
+    await connection.execute(`
       CREATE TABLE IF NOT EXISTS multimedia (
-        id SERIAL PRIMARY KEY,
+        id INT AUTO_INCREMENT PRIMARY KEY,
         title_en VARCHAR(255) NOT NULL,
         title_am VARCHAR(255) NOT NULL,
         description_en TEXT,
@@ -61,40 +68,42 @@ async function initDb() {
         type VARCHAR(50) NOT NULL,
         file_url VARCHAR(500) NOT NULL,
         thumbnail_url VARCHAR(500),
-        duration INTEGER,
-        publish_date TIMESTAMP,
+        duration INT,
+        publish_date TIMESTAMP NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        created_by INTEGER REFERENCES admin_users(id)
-      );
+        created_by INT,
+        FOREIGN KEY (created_by) REFERENCES admin_users(id)
+      ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     `);
 
     // Create site_settings table
-    await client.query(`
+    await connection.execute(`
       CREATE TABLE IF NOT EXISTS site_settings (
-        id SERIAL PRIMARY KEY,
+        id INT AUTO_INCREMENT PRIMARY KEY,
         key VARCHAR(100) UNIQUE NOT NULL,
-        value_en TEXT,
-        value_am TEXT,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
+        value_en LONGTEXT,
+        value_am LONGTEXT,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     `);
 
-    // Create indexes for better query performance
-    await client.query(`
-      CREATE INDEX IF NOT EXISTS idx_blogs_status ON blogs(status);
-      CREATE INDEX IF NOT EXISTS idx_blogs_category ON blogs(category);
-      CREATE INDEX IF NOT EXISTS idx_blogs_created_at ON blogs(created_at DESC);
-      CREATE INDEX IF NOT EXISTS idx_multimedia_type ON multimedia(type);
-      CREATE INDEX IF NOT EXISTS idx_multimedia_created_at ON multimedia(created_at DESC);
-      CREATE INDEX IF NOT EXISTS idx_blog_tags_blog_id ON blog_tags(blog_id);
-    `);
+    // Create indexes
+    await connection.execute(`CREATE INDEX idx_blogs_status ON blogs(status)`);
+    await connection.execute(`CREATE INDEX idx_blogs_category ON blogs(category)`);
+    await connection.execute(`CREATE INDEX idx_blogs_created_at ON blogs(created_at DESC)`);
+    await connection.execute(`CREATE INDEX idx_multimedia_type ON multimedia(type)`);
+    await connection.execute(`CREATE INDEX idx_multimedia_created_at ON multimedia(created_at DESC)`);
+    await connection.execute(`CREATE INDEX idx_blog_tags_blog_id ON blog_tags(blog_id)`);
 
     console.log('✅ Database schema created successfully');
   } catch (error) {
-    console.error('❌ Error creating schema:', error.message);
+    if (error.code !== 'ER_TABLE_EXISTS_ERROR') {
+      console.error('❌ Error creating schema:', error.message);
+    }
   } finally {
-    await client.end();
+    await connection.release();
+    await pool.end();
   }
 }
 

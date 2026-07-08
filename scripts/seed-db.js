@@ -1,35 +1,40 @@
-const { Pool } = require('pg');
+const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
 async function seedDb() {
-  const client = await pool.connect();
+  const pool = mysql.createPool({
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    port: parseInt(process.env.MYSQLPORT || '3306'),
+    charset: 'utf8mb4',
+  });
+
+  const connection = await pool.getConnection();
   try {
     // Check if admin user already exists
-    const adminExists = await client.query(
-      'SELECT * FROM admin_users WHERE email = $1',
+    const [adminExists] = await connection.execute(
+      'SELECT * FROM admin_users WHERE email = ?',
       ['admin@football.com']
     );
 
-    if (adminExists.rows.length === 0) {
+    if (adminExists.length === 0) {
       // Create default admin user
       const hashedPassword = await bcrypt.hash('admin123', 10);
-      const adminResult = await client.query(
-        'INSERT INTO admin_users (email, password_hash, name) VALUES ($1, $2, $3) RETURNING id',
+      const [adminResult] = await connection.execute(
+        'INSERT INTO admin_users (email, password_hash, name) VALUES (?, ?, ?)',
         ['admin@football.com', hashedPassword, 'Admin User']
       );
 
-      const adminId = adminResult.rows[0].id;
+      const adminId = adminResult.insertId;
 
       // Add sample blogs
-      const blogSample1 = await client.query(
+      const [blogSample1] = await connection.execute(
         `INSERT INTO blogs 
         (slug, title_en, title_am, excerpt_en, excerpt_am, body_en, body_am, 
          category, status, publish_date, created_by) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           'sample-blog-1',
           'Understanding Football Politics',
@@ -45,20 +50,20 @@ async function seedDb() {
         ]
       );
 
-      const blogId1 = blogSample1.rows[0].id;
+      const blogId1 = blogSample1.insertId;
 
       // Add tags for first blog
-      await client.query(
-        'INSERT INTO blog_tags (blog_id, tag) VALUES ($1, $2), ($1, $3), ($1, $4)',
-        [blogId1, 'football', 'ዋጋ', 'politics']
+      await connection.execute(
+        'INSERT INTO blog_tags (blog_id, tag) VALUES (?, ?), (?, ?), (?, ?)',
+        [blogId1, 'football', blogId1, 'ዋጋ', blogId1, 'politics']
       );
 
       // Add sample multimedia
-      await client.query(
+      await connection.execute(
         `INSERT INTO multimedia 
         (title_en, title_am, description_en, description_am, type, 
          file_url, duration, publish_date, created_by) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           'Weekly Football Podcast Ep. 1',
           'ሳምንታዊ እግር ኳስ ፖድካስት',
@@ -73,9 +78,9 @@ async function seedDb() {
       );
 
       // Add site settings
-      await client.query(
+      await connection.execute(
         `INSERT INTO site_settings (key, value_en, value_am) 
-        VALUES ($1, $2, $3), ($4, $5, $6)`,
+        VALUES (?, ?, ?), (?, ?, ?)`,
         [
           'site_title',
           'Football, Politics and Law',
@@ -96,7 +101,8 @@ async function seedDb() {
   } catch (error) {
     console.error('❌ Error seeding database:', error.message);
   } finally {
-    await client.end();
+    await connection.release();
+    await pool.end();
   }
 }
 

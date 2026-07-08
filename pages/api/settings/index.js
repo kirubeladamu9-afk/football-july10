@@ -35,10 +35,10 @@ export default async function handler(req, res) {
       }
 
       await query(
-        `INSERT INTO site_settings (key, value_en, value_am) 
-        VALUES ($1, $2, $3)
-        ON CONFLICT (key) DO UPDATE SET 
-        value_en = $2, value_am = $3, updated_at = NOW()`,
+        `INSERT INTO site_settings (key, value_en, value_am)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+        value_en = VALUES(value_en), value_am = VALUES(value_am), updated_at = NOW()`,
         [key, valueEn, valueAm]
       );
 

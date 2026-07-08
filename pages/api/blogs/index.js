@@ -16,12 +16,12 @@ export default async function handler(req, res) {
 
       if (status) {
         params.push(status);
-        sql += ` AND status = $${params.length}`;
+        sql += ` AND status = ?`;
       }
 
       if (category) {
         params.push(category);
-        sql += ` AND category = $${params.length}`;
+        sql += ` AND category = ?`;
       }
 
       sql += ' ORDER BY updated_at DESC';
@@ -74,12 +74,11 @@ export default async function handler(req, res) {
       const finalSlug = slug || generateSlug(titleEn);
 
       await transaction(async (client) => {
-        const blogResult = await client.query(
-          `INSERT INTO blogs 
-          (slug, title_en, title_am, excerpt_en, excerpt_am, body_en, body_am, 
-           category, status, publish_date, created_by) 
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
-          RETURNING id`,
+        const [blogResult] = await client.execute(
+          `INSERT INTO blogs
+          (slug, title_en, title_am, excerpt_en, excerpt_am, body_en, body_am,
+           category, status, publish_date, created_by)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             finalSlug,
             titleEn,
@@ -95,15 +94,13 @@ export default async function handler(req, res) {
           ]
         );
 
-        const blogId = blogResult.rows[0].id;
+        const blogId = blogResult.insertId;
 
         if (tags.length > 0) {
-          const tagValues = tags
-            .map((tag, i) => `($${i * 2 + 1}, $${i * 2 + 2})`)
-            .join(',');
+          const tagValues = tags.map(() => '(?, ?)').join(',');
           const tagParams = tags.flatMap((tag) => [blogId, tag]);
 
-          await client.query(
+          await client.execute(
             `INSERT INTO blog_tags (blog_id, tag) VALUES ${tagValues}`,
             tagParams
           );

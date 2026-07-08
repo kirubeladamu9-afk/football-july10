@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const result = await query('SELECT * FROM multimedia WHERE id = $1', [id]);
+      const result = await query('SELECT * FROM multimedia WHERE id = ?', [id]);
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: 'notFound' });
@@ -53,11 +53,11 @@ export default async function handler(req, res) {
       } = req.body;
 
       const result = await query(
-        `UPDATE multimedia SET 
-        title_en = $1, title_am = $2, description_en = $3, description_am = $4,
-        type = $5, file_url = $6, thumbnail_url = $7, duration = $8,
-        publish_date = $9, updated_at = NOW()
-        WHERE id = $10`,
+        `UPDATE multimedia SET
+        title_en = ?, title_am = ?, description_en = ?, description_am = ?,
+        type = ?, file_url = ?, thumbnail_url = ?, duration = ?,
+        publish_date = ?, updated_at = NOW()
+        WHERE id = ?`,
         [
           titleEn,
           titleAm,
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
         ]
       );
 
-      if (result.rowCount === 0) {
+      if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'notFound' });
       }
 
@@ -85,9 +85,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'DELETE') {
     try {
-      const result = await query('DELETE FROM multimedia WHERE id = $1', [id]);
+      const result = await query('DELETE FROM multimedia WHERE id = ?', [id]);
 
-      if (result.rowCount === 0) {
+      if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'notFound' });
       }
 

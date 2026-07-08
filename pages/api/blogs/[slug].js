@@ -11,14 +11,14 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const result = await query('SELECT * FROM blogs WHERE slug = $1', [slug]);
+      const result = await query('SELECT * FROM blogs WHERE slug = ?', [slug]);
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: 'notFound' });
       }
 
       const blog = result.rows[0];
-      const tagsResult = await query('SELECT tag FROM blog_tags WHERE blog_id = $1', [
+      const tagsResult = await query('SELECT tag FROM blog_tags WHERE blog_id = ?', [
         blog.id,
       ]);
 
@@ -61,23 +61,23 @@ export default async function handler(req, res) {
       } = req.body;
 
       await transaction(async (client) => {
-        const blogResult = await client.query(
-          'SELECT id FROM blogs WHERE slug = $1',
+        const [blogResult] = await client.execute(
+          'SELECT id FROM blogs WHERE slug = ?',
           [slug]
         );
 
-        if (blogResult.rows.length === 0) {
+        if (blogResult.length === 0) {
           throw new Error('notFound');
         }
 
-        const blogId = blogResult.rows[0].id;
+        const blogId = blogResult[0].id;
 
-        await client.query(
-          `UPDATE blogs SET 
-          title_en = $1, title_am = $2, excerpt_en = $3, excerpt_am = $4,
-          body_en = $5, body_am = $6, category = $7, status = $8, 
-          publish_date = $9, updated_at = NOW() 
-          WHERE id = $10`,
+        await client.execute(
+          `UPDATE blogs SET
+          title_en = ?, title_am = ?, excerpt_en = ?, excerpt_am = ?,
+          body_en = ?, body_am = ?, category = ?, status = ?,
+          publish_date = ?, updated_at = NOW()
+          WHERE id = ?`,
           [
             titleEn,
             titleAm,
@@ -93,15 +93,13 @@ export default async function handler(req, res) {
         );
 
         // Update tags
-        await client.query('DELETE FROM blog_tags WHERE blog_id = $1', [blogId]);
+        await client.execute('DELETE FROM blog_tags WHERE blog_id = ?', [blogId]);
 
         if (tags.length > 0) {
-          const tagValues = tags
-            .map((tag, i) => `($${i * 2 + 1}, $${i * 2 + 2})`)
-            .join(',');
+          const tagValues = tags.map(() => '(?, ?)').join(',');
           const tagParams = tags.flatMap((tag) => [blogId, tag]);
 
-          await client.query(
+          await client.execute(
             `INSERT INTO blog_tags (blog_id, tag) VALUES ${tagValues}`,
             tagParams
           );
@@ -120,11 +118,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'DELETE') {
     try {
-      const result = await query('DELETE FROM blogs WHERE slug = $1 RETURNING id', [
-        slug,
-      ]);
+      const result = await query('DELETE FROM blogs WHERE slug = ?', [slug]);
 
-      if (result.rows.length === 0) {
+      if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'notFound' });
       }
 
