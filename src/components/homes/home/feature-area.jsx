@@ -19,7 +19,7 @@ const insights_content = {
             col: "md-6",
             cls: "2 tpfadeLeft",
             delay: ".3s",
-            title: "የፖለቲካ እና የኃይል ካርታ",
+            title: "መንግስታት እና ፖለቲካ ",
             des: <>መንግስታት እና የፖለቲካ መሪዎች እግር ኳስን ለስላሳ ስልጣን (Soft Power) እና ለዲፕሎማሲያዊ ተፅእኖ እንዴት እንደሚጠቀሙበት እንመረምራለን።</>,
             shapes: [
                 { id: 1, cls: "5", img: shapes_2 },
