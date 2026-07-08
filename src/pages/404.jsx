@@ -31,7 +31,7 @@ const index = () => {
                     </div>
                     <div className="tp-error-text-box text-center">
                       <h4 className="error-title-sm">Oops.! Page Not Found!</h4>
-                      <p>The page vou are looking for does not exist'</p>
+                      <p>The page you are looking for does not exist.</p>
                       <Link
                         className="tp-btn-inner tp-btn-hover alt-color-black"
                         href="/"
