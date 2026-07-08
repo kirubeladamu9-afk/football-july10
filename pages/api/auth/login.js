@@ -2,6 +2,9 @@ import { authenticate, createSessionToken } from '@/lib/auth';
 import { setSessionCookie } from '@/lib/middleware';
 
 export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
