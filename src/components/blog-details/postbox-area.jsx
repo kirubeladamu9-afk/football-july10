@@ -4,10 +4,8 @@ import DoubleSemicolon from '@/src/svg/double-semicolon';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import Categories from '../blog-list/categories';
 import RecentPost from '../blog-list/recent-post';
 import Search from '../blog-list/search';
-import Tags from '../blog-list/tags';
 import Comments from './comments';
 
 
@@ -165,9 +163,7 @@ const PostboxArea = ({style_details_2}) => {
                   <div className="col-xxl-4 col-xl-4 col-lg-4">
                      <div className="sidebar__wrapper">
                         <Search />
-                        <RecentPost />  
-                        <Categories /> 
-                        <Tags />  
+                        <RecentPost />
                      </div>
                   </div>
                </div>
