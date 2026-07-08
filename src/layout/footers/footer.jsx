@@ -17,7 +17,7 @@ import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 const footer_content = {
   title: <>የቅርብ ጊዜ ዜናዎችን እና <br /> አዳዲስ መረጃዎችን ያግኙ</>,
   description: <>በእግር ኳስ ትንተና እና ስፖርታዊ <br /> መረጃዎች ላይ ያተኮረ የፖድካስት መድረክ።</>,
-  phone: "+806(000)8899",
+  phone: "+251(000)8899",
   contact_mail: "contact@info.com",
   location: "አዲስ አበባ፣ ኢትዮጵያ",
 
@@ -200,12 +200,6 @@ const Footer = () => {
 
                           {isOppen &&
                             <ul className={`tp-copyright__lang-submenu ${isOppen && "open"}`}>
-                              <li>
-                                <Link href="#">ዓረብኛ</Link>
-                              </li>
-                              <li>
-                                <Link href="#">ስፓኝኛ</Link>
-                              </li>
                               <li>
                                 <Link href="#">እንግሊዝኛ</Link>
                               </li>
