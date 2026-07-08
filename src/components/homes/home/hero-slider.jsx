@@ -15,7 +15,7 @@ import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 const hero_content = { 
    title_1: <>እግር ኳስ  <span>Customer</span></>,
    title_2: " ከሜዳው በላይ ነው",
-   info: <>Softec provides all customer management service within one software. <br /> Our landing works on all devices.</>,
+   info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
    btn_1: "Live Damo",
    btn_2: "Try it on Browser",
    
