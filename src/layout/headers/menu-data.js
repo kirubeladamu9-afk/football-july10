@@ -12,12 +12,12 @@ const menu_data = [
     mega_menu: true, // ረዘም ያሉ ዘርፎችን በግልጽ ለማሳየት Mega Menu ወይም Dropdown መጠቀም ይቻላል
     has_dropdown: true,
     title: "የይዘት ምሰሶዎች", // Content Pillars
-    link: "#pillars",
+    link: "/",
     active: "",
     sub_menus: [
-      { link: "/pillars/politics-and-power", title: "ፖለቲካ እና ስልጣን (Politics & Power)" },
-      { link: "/pillars/law-and-governance", title: "ህግ እና አስተዳደር (Law & Governance)" },
-      { link: "/pillars/socio-political", title: "ማህበረሰብ እና ክለቦች (Socio-Political)" },
+      { link: "/", title: "ፖለቲካ እና ስልጣን (Politics & Power)" },
+      { link: "/", title: "ህግ እና አስተዳደር (Law & Governance)" },
+      { link: "/", title: "ማህበረሰብ እና ክለቦች (Socio-Political)" },
     ],
   },
   {
@@ -25,12 +25,12 @@ const menu_data = [
     mega_menu: false,
     has_dropdown: true,
     title: "የምርምር ማዕከል", // Research Hub
-    link: "/research",
+    link: "/",
     active: "",
     sub_menus: [
-      { link: "/research/case-studies", title: "ጥናታዊ ምሳሌዎች (Case Studies)" },
-      { link: "/research/legal-deep-dives", title: "ጥልቅ የህግ ጥናቶች" },
-      { link: "/research/papers", title: "የምርምር ወረቀቶች" },
+      { link: "/", title: "ጥናታዊ ምሳሌዎች (Case Studies)" },
+      { link: "/", title: "ጥልቅ የህግ ጥናቶች" },
+      { link: "/", title: "የምርምር ወረቀቶች" },
     ],
   },
   {
@@ -41,9 +41,9 @@ const menu_data = [
     link: "/multimedia",
     active: "",
     sub_menus: [
-      { link: "/multimedia/podcasts", title: "ፖድካስቶች" },
-      { link: "/multimedia/infographics", title: "የመረጃ እይታ (Infographics)" },
-      { link: "/multimedia/videos", title: "የቪዲዮ ትንተናዎች" },
+      { link: "/", title: "ፖድካስቶች" },
+      { link: "/", title: "የመረጃ እይታ (Infographics)" },
+      { link: "/", title: "የቪዲዮ ትንተናዎች" },
     ],
   },
   {
@@ -51,12 +51,12 @@ const menu_data = [
     mega_menu: false,
     has_dropdown: true,
     title: "ስለ እኛ", // About / Pages
-    link: "/about",
+    link: "/",
     active: "",
     sub_menus: [
-      { link: "/about", title: "ስለ ፕሮጀክቱ" },
-      { link: "/team", title: "የምርምር ቡድን" },
-      { link: "/contact", title: "ግንኙነት (Contact)" },
+      { link: "/", title: "ስለ ፕሮጀክቱ" },
+      { link: "/", title: "የምርምር ቡድን" },
+      { link: "/", title: "ግንኙነት (Contact)" },
     ],
   },
 ];
