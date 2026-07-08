@@ -12,27 +12,17 @@ import about_img_5 from "../../public/assets/img/about/about-5.png"
 // about data
 const about_data =[
     {
-        id: 1, 
+        id: 1,
         cls: "bg-shape",
         img: about_img_1
     },
     {
-        id: 2, 
+        id: 2,
         cls: "main-img z-index",
         img: about_img_2
     },
     {
-        id: 3, 
-        cls: "sub-img-1 d-none d-sm-block z-index-3",
-        img: about_img_3
-    },
-    {
-        id: 4, 
-        cls: "sub-img-2 d-none d-sm-block",
-        img: about_img_4
-    },
-    {
-        id: 5, 
+        id: 5,
         cls: "sub-img-3 d-none d-sm-block z-index-3",
         img: about_img_5
     },
