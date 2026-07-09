@@ -1,28 +1,33 @@
 import React from 'react';
 import Image from 'next/image';
 import SocialLinks from '../social-links';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
 import img_1 from "../../../public/assets/img/breadcrumb/breadcrumb-shape-1.png";
 import img_2 from "../../../public/assets/img/breadcrumb/breadcrumb-shape-2.png";
 import img_3 from "../../../public/assets/img/blog/blog-avata-1.png";
 
-
-const breadcrumb_content = {
-    sub_title: "Resources",
-    title: "Developing Privacy User Centric Apps",
-    author_name: "Rudra Ghosh",
-    author_info: "CEO Dulalix  •   April 24, 2022",
-
+function pickLang(blog, baseField, language) {
+    if (!blog) return '';
+    const en = blog[`${baseField}En`];
+    const am = blog[`${baseField}Am`];
+    if (language === 'am') return am || en || '';
+    return en || am || '';
 }
 
 const BreadcrumbSix = ({ blog }) => {
-    const sub_title = blog?.category || breadcrumb_content.sub_title;
-    const title = blog?.titleEn || breadcrumb_content.title;
-    const author_name = blog?.authorName || breadcrumb_content.author_name;
+    const { language } = useLanguage();
+
+    const sub_title = blog?.category || '';
+    const title = pickLang(blog, 'title', language);
+    const author_name = blog?.authorName || '';
     const author_avatar = blog?.authorAvatar || img_3;
-    const author_role = blog?.authorRoleEn || breadcrumb_content.author_info.split("•")[0].trim();
-    const publish_date = blog?.publishDate ? new Date(blog.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : breadcrumb_content.author_info.split("•")[1].trim();
-    const author_info = `${author_role} • ${publish_date}`;
+    const author_role = pickLang(blog, 'authorRole', language);
+    const publish_date = blog?.publishDate
+        ? new Date(blog.publishDate).toLocaleDateString(language === 'am' ? 'am-ET' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : '';
+    const author_info = [author_role, publish_date].filter(Boolean).join(' • ');
+
     return (
         <>
             <div className="breadcrumb__area breadcrumb-ptb-4 p-relative blue-bg-2">
