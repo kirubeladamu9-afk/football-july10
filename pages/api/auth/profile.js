@@ -15,13 +15,13 @@ export default async function handler(req, res) {
       const { name, email, currentPassword, newPassword } = req.body;
 
       if (newPassword && currentPassword) {
-        const userResult = await query('SELECT password FROM users WHERE id = ?', [user.id]);
+        const userResult = await query('SELECT password_hash FROM admin_users WHERE id = ?', [user.id]);
 
         if (!userResult.rows || !userResult.rows[0]) {
           return res.status(404).json({ error: 'User not found' });
         }
 
-        const storedPassword = userResult.rows[0].password;
+        const storedPassword = userResult.rows[0].password_hash;
         if (!storedPassword) {
           return res.status(500).json({ error: 'User password not found in database' });
         }
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         }
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, user.id]);
+        await query('UPDATE admin_users SET password_hash = ? WHERE id = ?', [hashedPassword, user.id]);
       }
 
       if (name || email) {
@@ -51,7 +51,7 @@ export default async function handler(req, res) {
 
         if (updates.length > 0) {
           values.push(user.id);
-          await query(`UPDATE users SET ${updates.join(', ')} WHERE id = ?`, values);
+          await query(`UPDATE admin_users SET ${updates.join(', ')} WHERE id = ?`, values);
         }
       }
 
