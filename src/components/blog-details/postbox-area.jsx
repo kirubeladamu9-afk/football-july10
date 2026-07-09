@@ -10,7 +10,7 @@ import Search from '../blog-list/search';
 import blog_details_img_1  from "../../../public/assets/img/blog/blog-details-1.jpg";
 import blog_details_img_2  from "../../../public/assets/img/blog/blog-details-2.jpg";
 import blog_details_img_3  from "../../../public/assets/img/blog/blog-details-3.jpg";
-import blog_details_avata  from "../../../public/assets/img/blog/blog-details-avata-1.jpg";
+import blog_avata_default  from "../../../public/assets/img/blog/blog-avata-1.png";
 
 
 const post_box_content = {
@@ -249,13 +249,13 @@ const PostboxArea = ({ blog, style_details_2 }) => {
 
                            <div className="postbox__details-author-info-box mb-100 d-flex align-items-start">
                               <div className="postbox__details-author-avata">
-                                 <Image src={blog?.authorAvatar || blog_details_avata} alt={blog?.authorName || "Author"} width={120} height={120} onError={(e) => { e.currentTarget.src = blog_details_avata; }} />
+                                 <Image src={blog?.authorAvatar || blog_avata_default} alt={blog?.authorName || "Author"} width={120} height={120} onError={(e) => { e.currentTarget.src = blog_avata_default.src; }} />
                               </div>
                               <div className="postbox__details-author-content">
                                  <h5 className="postbox__details-author-title">{blog?.authorName || "Dianne Ameter"}</h5>
                                  <p>{blog?.excerptEn || "Ex erat referrentur vis. Vim ad consul molestie, eu malorum aliquando referrentur pro, erroribus gloriatur sed at.!"}</p>
                                  <div className="postbox__details-author-social">
-                                    <SocialLinks />  
+                                    <SocialLinks />
                                  </div>
                               </div>
                            </div>
