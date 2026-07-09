@@ -19,41 +19,43 @@ export default async function handler(req, res) {
       `SELECT 
         id,
         slug,
-        title_en as titleEn,
-        title_am as titleAm,
-        excerpt_en as excerptEn,
-        excerpt_am as excerptAm,
-        cover_image as coverImage,
-        author_name as authorName,
-        author_avatar as authorAvatar,
-        author_role_en as authorRoleEn,
-        author_role_am as authorRoleAm,
+        title_en,
+        title_am,
+        excerpt_en,
+        excerpt_am,
+        cover_image,
+        author_name,
+        author_avatar,
+        author_role_en,
+        author_role_am,
         category,
-        publish_date as publishDate,
-        created_at as createdAt,
-        updated_at as updatedAt
+        publish_date,
+        created_at,
+        updated_at
       FROM blogs ${sqlWhere}
       ORDER BY publish_date DESC, updated_at DESC
       LIMIT ${parseInt(limit)}`,
       params
     );
 
+    // Keep snake_case as-is so getTranslatedField(item, 'title', language)
+    // correctly finds item['title_en'] / item['title_am'].
     const blogs = result.rows.map((blog) => ({
       id: blog.id,
       slug: blog.slug,
-      titleEn: blog.titleEn,
-      titleAm: blog.titleAm,
-      excerptEn: blog.excerptEn,
-      excerptAm: blog.excerptAm,
-      coverImage: blog.coverImage,
-      authorName: blog.authorName,
-      authorAvatar: blog.authorAvatar,
-      authorRoleEn: blog.authorRoleEn,
-      authorRoleAm: blog.authorRoleAm,
+      title_en: blog.title_en,
+      title_am: blog.title_am,
+      excerpt_en: blog.excerpt_en,
+      excerpt_am: blog.excerpt_am,
+      coverImage: blog.cover_image,
+      authorName: blog.author_name,
+      authorAvatar: blog.author_avatar,
+      author_role_en: blog.author_role_en,
+      author_role_am: blog.author_role_am,
       category: blog.category,
-      publishDate: blog.publishDate,
-      createdAt: blog.createdAt,
-      updatedAt: blog.updatedAt,
+      publishDate: blog.publish_date,
+      createdAt: blog.created_at,
+      updatedAt: blog.updated_at,
     }));
 
     res.status(200).json({ blogs });
