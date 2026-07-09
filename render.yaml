@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: football-governance-tactics
+    env: node
+    plan: standard
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: NODE_ENV
+        value: production
+      - key: MYSQL_HOST
+        fromService:
+          name: football-db
+          type: mysql
+          property: host
+      - key: MYSQL_PORT
+        fromService:
+          name: football-db
+          type: mysql
+          property: port
+      - key: MYSQL_DATABASE
+        fromService:
+          name: football-db
+          type: mysql
+          property: database
+      - key: MYSQL_USER
+        fromService:
+          name: football-db
+          type: mysql
+          property: username
+      - key: MYSQL_PASSWORD
+        fromService:
+          name: football-db
+          type: mysql
+          property: password
+
+  - type: mysql
+    name: football-db
+    plan: standard
+    ipAllowList: []

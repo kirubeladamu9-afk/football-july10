@@ -65,7 +65,7 @@ const ServicesArea = () => {
                            <div className="tp-service__top-content">
                               <h3 className="tp-service__title-white">{title_2}</h3>
                               <p>{des}</p>
-                              <Link className="tp-btn-orange tp-btn-hover alt-color-white" href="/project-details">
+                              <Link className="tp-btn-orange tp-btn-hover alt-color-white" href="/">
                                  <span>{btn_text}</span>
                                  <b></b>
                               </Link>
