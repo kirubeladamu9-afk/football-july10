@@ -54,6 +54,26 @@ const translations = {
       researchBtn: 'የምርምር ማዕከሉን ይጎብኙ',
     },
 
+    // Podcast section
+    podcast: {
+      title: 'የቅርብ ጊዜ የፖድካስት ክፍሎችን ያዳምጡ።',
+    },
+
+    // Blog
+    blog: {
+      readMore: 'ተጨማሪ ያንብቡ',
+      postedBy: 'ፁሁፍ:',
+      category: 'ምድብ',
+      date: 'ቀን',
+    },
+
+    // Multimedia
+    multimedia: {
+      videos: 'ቪዲዮዎች',
+      infographics: 'ግራፎች',
+      podcasts: 'ፖድካስቶች',
+    },
+
     // Footer
     footer: {
       newsTitle: 'የቅርብ ጊዜ ዜናዎችን እና አዳዲስ መረጃዎችን ያግኙ',
@@ -134,6 +154,26 @@ const translations = {
       box3Title: <>Community Clubs & <br /> Socio-Political Impact.</>,
       box3Des: <>A study showing how grassroots clubs reflect local politics, discrimination, and mental health challenges in sports.</>,
       researchBtn: 'Visit Research Hub',
+    },
+
+    // Podcast section
+    podcast: {
+      title: 'Listen to Our Latest Podcast Episodes.',
+    },
+
+    // Blog
+    blog: {
+      readMore: 'Read More',
+      postedBy: 'Posted by',
+      category: 'Category',
+      date: 'Date',
+    },
+
+    // Multimedia
+    multimedia: {
+      videos: 'Videos',
+      infographics: 'Infographics',
+      podcasts: 'Podcasts',
     },
 
     // Footer

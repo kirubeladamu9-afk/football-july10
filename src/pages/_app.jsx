@@ -3,6 +3,7 @@ import "@/public/assets/scss/admin-panel.scss";
 import { useRouter } from "next/router";
 import { AuthProvider } from "@/src/admin/hooks/useAuth";
 import { LanguageProvider } from "@/src/context/LanguageContext";
+import ContextProvider from "@/src/context/ContextProvider";
 
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
@@ -22,7 +23,9 @@ function AppWrapper({ Component, pageProps }) {
 
   return (
     <LanguageProvider>
-      <Component {...pageProps} />
+      <ContextProvider>
+        <Component {...pageProps} />
+      </ContextProvider>
     </LanguageProvider>
   );
 }

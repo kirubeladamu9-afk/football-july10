@@ -1,0 +1,42 @@
+// Language-specific styles for proper rendering in both Amharic and English
+
+// RTL support for Amharic
+html[lang="am"],
+.language-am {
+  direction: ltr; // Amharic uses LTR despite being a complex script
+  font-family: 'Noto Sans Ethiopic', 'Arial Unicode MS', Arial, sans-serif;
+
+  // Adjust margins/padding for cleaner Amharic text
+  p, span, h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.5px;
+    word-spacing: 2px;
+  }
+}
+
+// LTR support for English
+html[lang="en"],
+.language-en {
+  direction: ltr;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+// Smooth transitions when language changes
+* {
+  transition: font-family 0.3s ease, letter-spacing 0.3s ease, direction 0.3s ease;
+}
+
+// Ensure buttons and interactive elements have proper text alignment
+button, a, .btn, .link {
+  transition: color 0.3s ease;
+}
+
+// Hero section responsive text
+.tp-hero-title-3 {
+  transition: font-size 0.3s ease;
+}
+
+// Ensure footer text is properly aligned
+.tp-footer__text,
+.tp-footer__widget {
+  transition: text-align 0.3s ease;
+}

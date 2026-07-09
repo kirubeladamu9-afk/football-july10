@@ -9,10 +9,11 @@ export const LanguageProvider = ({ children }) => {
   useEffect(() => {
     // Load language preference from localStorage on mount
     if (typeof window !== 'undefined') {
-      const savedLanguage = localStorage.getItem('preferred_language');
-      if (savedLanguage) {
-        setLanguageState(savedLanguage);
-      }
+      const savedLanguage = localStorage.getItem('preferred_language') || 'am';
+      setLanguageState(savedLanguage);
+      // Set lang attribute on html element for CSS/SEO
+      document.documentElement.lang = savedLanguage;
+      document.documentElement.setAttribute('lang', savedLanguage);
       setIsLoaded(true);
     }
   }, []);
@@ -21,6 +22,9 @@ export const LanguageProvider = ({ children }) => {
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
       localStorage.setItem('preferred_language', lang);
+      // Update lang attribute on html element
+      document.documentElement.lang = lang;
+      document.documentElement.setAttribute('lang', lang);
     }
   };
 
