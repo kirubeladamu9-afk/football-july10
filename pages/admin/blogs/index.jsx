@@ -83,8 +83,9 @@ export default function BlogsPage() {
           onChange={(e) => setFilterStatus(e.target.value)}
           className="form-select"
           style={{ padding: '10px 12px', borderRadius: '6px', border: '1px solid #eeeef5' }}
+          title={language === 'en' ? 'Status' : 'ሁኔታ'}
         >
-          <option value="">{language === 'en' ? 'All Status' : 'ሁሉም ሁኔታ'}</option>
+          <option value="">{language === 'en' ? 'Status' : 'ሁኔታ'}</option>
           <option value="draft">{language === 'en' ? 'Draft' : 'ረቂቅ'}</option>
           <option value="published">{language === 'en' ? 'Published' : 'ታተመ'}</option>
         </select>
@@ -94,8 +95,9 @@ export default function BlogsPage() {
           onChange={(e) => setFilterCategory(e.target.value)}
           className="form-select"
           style={{ padding: '10px 12px', borderRadius: '6px', border: '1px solid #eeeef5' }}
+          title={t('category', language)}
         >
-          <option value="">{t('category', language)}</option>
+          <option value="">{language === 'en' ? 'Category' : 'ምድብ'}</option>
           {CATEGORIES.map((cat) => (
             <option key={cat.value} value={cat.value}>
               {language === 'en' ? cat.label : cat.labelAm}

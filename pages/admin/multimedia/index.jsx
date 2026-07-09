@@ -75,8 +75,9 @@ export default function MultimediaPage() {
           onChange={(e) => setFilterType(e.target.value)}
           className="form-select"
           style={{ padding: '10px 12px', borderRadius: '6px', border: '1px solid #eeeef5' }}
+          title={language === 'en' ? 'Type' : 'ዓይነት'}
         >
-          <option value="">{language === 'en' ? 'All Types' : 'ሁሉም ዓይነቶች'}</option>
+          <option value="">{language === 'en' ? 'Type' : 'ዓይነት'}</option>
           <option value="audio">{t('audio', language)}</option>
           <option value="video">{t('video', language)}</option>
         </select>
