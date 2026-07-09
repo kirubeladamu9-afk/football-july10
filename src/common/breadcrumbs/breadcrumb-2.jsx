@@ -8,7 +8,7 @@ import translations from "@/src/i18n/translations";
 
 import shape_1  from "../../../public/assets/img/breadcrumb/breadcrumb-shape-1.png";
 import shape_2  from "../../../public/assets/img/breadcrumb/breadcrumb-shape-2.png";
-import shape_3  from "../../../public/assets/img/breadcrumb/breadcrumb-3.png";
+import shape_3  from "../../../public/assets/img/breadcrumb/breadcrumb-custom.png";
 import shape_4  from "../../../public/assets/img/breadcrumb/breadcrumb-sub-1.png";
  
 
