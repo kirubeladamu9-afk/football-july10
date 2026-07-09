@@ -22,7 +22,7 @@ const BlogDetail = () => {
     const fetchBlog = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/blogs/${slug}`);
+        const response = await fetch(`/api/blogs/public-detail?slug=${encodeURIComponent(slug)}`);
         if (!response.ok) {
           throw new Error("Blog not found");
         }
@@ -49,9 +49,9 @@ const BlogDetail = () => {
         <Header />
         <div id="smooth-wrapper">
           <div id="smooth-content">
-            <main>
-              <div style={{ padding: "100px 20px", textAlign: "center" }}>
-                <div className="spinner" style={{ margin: "0 auto 20px" }}></div>
+            <main className="blog-loading-wrapper">
+              <div className="blog-loading-container">
+                <div className="blog-loading-spinner"></div>
                 <p>Loading blog...</p>
               </div>
             </main>
@@ -69,8 +69,8 @@ const BlogDetail = () => {
         <Header />
         <div id="smooth-wrapper">
           <div id="smooth-content">
-            <main>
-              <div style={{ padding: "100px 20px", textAlign: "center" }}>
+            <main className="blog-error-wrapper">
+              <div className="blog-error-container">
                 <h2>Blog Not Found</h2>
                 <p>{error || "The blog you're looking for doesn't exist."}</p>
               </div>

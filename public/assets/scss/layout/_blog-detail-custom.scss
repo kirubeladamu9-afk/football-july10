@@ -1,0 +1,47 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  BLOG LOADING & ERROR STATES
+/*----------------------------------------*/
+
+.blog-loading-wrapper,
+.blog-error-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 60px 20px;
+}
+
+.blog-loading-container,
+.blog-error-container {
+    text-align: center;
+    max-width: 600px;
+}
+
+.blog-loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #1e40af;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.blog-error-container h2 {
+    margin-bottom: 15px;
+    color: #1e40af;
+}
+
+.blog-error-container p {
+    color: #666;
+    font-size: 16px;
+}
