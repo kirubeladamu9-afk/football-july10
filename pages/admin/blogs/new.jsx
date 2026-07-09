@@ -69,14 +69,48 @@ export default function NewBlogPage() {
     });
   };
 
-  const handleImageUpload = (field, e) => {
+  const uploadImage = async (file) => {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onload = async (event) => {
+        try {
+          const response = await fetch('/api/blogs/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              image: event.target.result,
+              filename: file.name,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to upload image');
+          }
+
+          const data = await response.json();
+          resolve(data.url);
+        } catch (err) {
+          reject(err);
+        }
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageUpload = async (field, e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        handleChange(field, event.target.result);
-      };
-      reader.readAsDataURL(file);
+      try {
+        setLoading(true);
+        const url = await uploadImage(file);
+        handleChange(field, url);
+      } catch (err) {
+        setError('Failed to upload image');
+        console.error('Image upload error:', err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -362,17 +396,22 @@ export default function NewBlogPage() {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       const file = e.target.files[0];
                       if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
+                        try {
+                          setLoading(true);
+                          const url = await uploadImage(file);
                           setFormData((prev) => ({
                             ...prev,
-                            galleryInput: { ...prev.galleryInput, image: event.target.result },
+                            galleryInput: { ...prev.galleryInput, image: url },
                           }));
-                        };
-                        reader.readAsDataURL(file);
+                        } catch (err) {
+                          setError('Failed to upload image');
+                          console.error('Image upload error:', err);
+                        } finally {
+                          setLoading(false);
+                        }
                       }
                     }}
                     className="form-input"
