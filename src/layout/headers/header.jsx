@@ -84,7 +84,7 @@ const Header = () => {
                                  </div>
                               </div>
                               <div className="header-bottom__btn d-flex align-items-center">
-                                 <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/service-details">
+                                 <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/">
                                     <span className="white-text">{t.header.register}</span>
                                     <b></b>
                                  </Link>
