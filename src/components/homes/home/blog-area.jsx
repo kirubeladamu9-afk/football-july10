@@ -125,6 +125,15 @@ const BlogArea = () => {
               </div>
             )}
           </div>
+          {blogs.length > 0 && (
+            <div className="row">
+              <div className="col-12 text-center mt-50">
+                <Link href="/blog" className="tp-btn-inner white-bg text-black">
+                  {language === 'am' ? 'ሁሉም መጣጥፍ ይመልከቱ' : 'View All Articles'}
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
