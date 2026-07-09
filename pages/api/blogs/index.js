@@ -61,10 +61,21 @@ export default async function handler(req, res) {
         excerptAm,
         bodyEn,
         bodyAm,
+        coverImage,
+        authorName,
+        authorAvatar,
+        authorRoleEn,
+        authorRoleAm,
+        gallery = [],
+        pullQuoteEn,
+        pullQuoteAm,
+        pullQuoteAttribution,
         category,
         status,
         publishDate,
         slug,
+        previousPostId,
+        nextPostId,
         tags = [],
       } = req.body;
 
@@ -78,8 +89,10 @@ export default async function handler(req, res) {
         const [blogResult] = await client.execute(
           `INSERT INTO blogs
           (slug, title_en, title_am, excerpt_en, excerpt_am, body_en, body_am,
-           category, status, publish_date, created_by)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           cover_image, author_name, author_avatar, author_role_en, author_role_am,
+           gallery, pull_quote_en, pull_quote_am, pull_quote_attribution,
+           previous_post_slug, next_post_slug, category, status, publish_date, created_by)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             finalSlug,
             titleEn,
@@ -88,6 +101,17 @@ export default async function handler(req, res) {
             excerptAm,
             bodyEn,
             bodyAm,
+            coverImage || null,
+            authorName || null,
+            authorAvatar || null,
+            authorRoleEn || null,
+            authorRoleAm || null,
+            gallery.length > 0 ? JSON.stringify(gallery) : null,
+            pullQuoteEn || null,
+            pullQuoteAm || null,
+            pullQuoteAttribution || null,
+            previousPostId || null,
+            nextPostId || null,
             category,
             status || 'draft',
             publishDate || null,
