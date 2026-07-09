@@ -12,6 +12,8 @@ const Portfolio = () => {
    const [items, setItems] = useState([]);
    const [allBlogs, setAllBlogs] = useState([]);
    const [categories, setCategories] = useState(["All"]);
+   const [currentPage, setCurrentPage] = useState(1);
+   const itemsPerPage = 9;
 
    useEffect(() => {
       const fetchBlogs = async () => {
@@ -49,6 +51,7 @@ const Portfolio = () => {
 
     const filterItems = (cateItem) => {
       setActiveCategory(cateItem);
+      setCurrentPage(1);
 
       if (cateItem === "All") {
         return setItems(allBlogs);
@@ -59,6 +62,9 @@ const Portfolio = () => {
         setItems(findItems);
       }
     };
+
+    const paginatedItems = items.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const totalPages = Math.ceil(items.length / itemsPerPage);
 
     return (
         <>
@@ -89,8 +95,8 @@ const Portfolio = () => {
                      </div>
                   </div>
                   <div className="row grid blog-grid-inner" ref={dataRef}>
-               
-                     {items.map((item, i ) =>
+
+                     {paginatedItems.map((item, i ) =>
                         <div key={i} data-index={i} className="col-xl-4 col-lg-6 col-md-6 mb-30 grid-item cat1 cat4 cat3 cat5">
                            <div className="tp-blog-item">
                               <div className="tp-blog-thumb fix">
@@ -121,9 +127,40 @@ const Portfolio = () => {
                            </div>
                         </div>
                         )
-                     } 
+                     }
 
                   </div>
+                  {totalPages > 1 && (
+                     <div className="row">
+                        <div className="col-12">
+                           <div className="pagination-wrapper d-flex justify-content-center align-items-center gap-2 mt-50">
+                              <button
+                                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                 disabled={currentPage === 1}
+                                 className="pagination-btn pagination-prev"
+                              >
+                                 <i className="far fa-chevron-left"></i>
+                              </button>
+                              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                 <button
+                                    key={page}
+                                    onClick={() => setCurrentPage(page)}
+                                    className={`pagination-btn ${currentPage === page ? 'active' : ''}`}
+                                 >
+                                    {page}
+                                 </button>
+                              ))}
+                              <button
+                                 onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                 disabled={currentPage === totalPages}
+                                 className="pagination-btn pagination-next"
+                              >
+                                 <i className="far fa-chevron-right"></i>
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                  )}
                </div>
             </div>
         </>
