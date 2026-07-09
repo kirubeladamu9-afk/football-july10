@@ -3,60 +3,60 @@ const menu_data = [
     id: 1,
     mega_menu: false,
     has_dropdown: false,
-    title: "መነሻ", // Home
+    title: (t) => t.nav.home,
     link: "/",
     active: "active",
   },
   {
     id: 2,
-    mega_menu: true, // ረዘም ያሉ ዘርፎችን በግልጽ ለማሳየት Mega Menu ወይም Dropdown መጠቀም ይቻላል
+    mega_menu: true,
     has_dropdown: true,
-    title: "የይዘት ምሰሶዎች", // Content Pillars
+    title: (t) => t.nav.contentPillars,
     link: "/",
     active: "",
     sub_menus: [
-      { link: "/", title: "ፖለቲካ እና ስልጣን (Politics & Power)" },
-      { link: "/", title: "ህግ እና አስተዳደር (Law & Governance)" },
-      { link: "/", title: "ማህበረሰብ እና ክለቦች (Socio-Political)" },
+      { link: "/", title: (t) => t.nav.politics },
+      { link: "/", title: (t) => t.nav.law },
+      { link: "/", title: (t) => t.nav.sociopolitical },
     ],
   },
   {
     id: 3,
     mega_menu: false,
     has_dropdown: true,
-    title: "የምርምር ማዕከል", // Research Hub
+    title: (t) => t.nav.researchHub,
     link: "/",
     active: "",
     sub_menus: [
-      { link: "/", title: "ጥናታዊ ምሳሌዎች (Case Studies)" },
-      { link: "/", title: "ጥልቅ የህግ ጥናቶች" },
-      { link: "/", title: "የምርምር ወረቀቶች" },
+      { link: "/", title: (t) => t.nav.caseStudies },
+      { link: "/", title: (t) => t.nav.legalStudies },
+      { link: "/", title: (t) => t.nav.researchPapers },
     ],
   },
   {
     id: 4,
     mega_menu: false,
     has_dropdown: true,
-    title: "መልቲሚዲያ", // Multimedia
+    title: (t) => t.nav.multimedia,
     link: "/multimedia",
     active: "",
     sub_menus: [
-      { link: "/", title: "ፖድካስቶች" },
-      { link: "/", title: "የመረጃ እይታ (Infographics)" },
-      { link: "/", title: "የቪዲዮ ትንተናዎች" },
+      { link: "/", title: (t) => t.nav.podcasts },
+      { link: "/", title: (t) => t.nav.infographics },
+      { link: "/", title: (t) => t.nav.videoAnalysis },
     ],
   },
   {
     id: 5,
     mega_menu: false,
     has_dropdown: true,
-    title: "ስለ እኛ", // About / Pages
+    title: (t) => t.nav.about,
     link: "/",
     active: "",
     sub_menus: [
-      { link: "/", title: "ስለ ፕሮጀክቱ" },
-      { link: "/", title: "የምርምር ቡድን" },
-      { link: "/", title: "ግንኙነት (Contact)" },
+      { link: "/", title: (t) => t.nav.aboutProject },
+      { link: "/", title: (t) => t.nav.researchTeam },
+      { link: "/contact", title: (t) => t.nav.contact },
     ],
   },
 ];

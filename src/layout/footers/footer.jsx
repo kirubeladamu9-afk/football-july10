@@ -8,64 +8,62 @@ import EmailIcon from '@/src/svg/email';
 import LocationIcon from '@/src/svg/location-icon';
 import PhoneIcon from '@/src/svg/phone-icon';
 import RightArrow from '@/src/svg/right-arrow';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
 import footer_logo from "../../../public/assets/img/logo/footer-logo.webp";
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
 
-// footer_content 
-const footer_content = {
-  title: <>የቅርብ ጊዜ ዜናዎችን እና አዳዲስ መረጃዎችን ያግኙ</>,
-  description: <>በእግር ኳስ ትንተና እና ስፖርታዊ መረጃዎች ላይ ያተኮረ የፖድካስት መድረክ።</>,
-  phone: "+251(000)8899",
-  contact_mail: "contact@info.com",
-  location: "አዲስ አበባ፣ ኢትዮጵያ",
-
-  copy_right: <>መብቱ በህግ የተጠበቀ ነው & በዲዛይን የተሰራው በ <Link href="#">EKD Tech .</Link> – {new Date().getFullYear()}</>,
-
-  footer_lisks: [
-    {
-      id: 1,
-      cls_1: "col-xl-3 col-lg-3 col-md-5",
-      cls_2: "footer-col-2",
-      title: "የምንሰራቸው ስራዎች",
-      delay: ".7s",
-      links: [
-        { name: "ፖድካስት", link: "#" },
-        { name: "ስልታዊ ትንተና", link: "#" },
-        { name: "የቀጥታ ስርጭት", link: "#" },
-        { name: "የስፖርት ማስታወቂያ", link: "#" },
-        { name: "የክለቦች ታሪክ", link: "#" },
-        { name: "የታዳጊዎች ስልጠና", link: "#" },
-      ]
-    },
-    {
-      id: 2,
-      cls_1: "col-xl-2 col-lg-2 col-md-6",
-      cls_2: "footer-col-3",
-      title: "ሌሎች ገጾች",
-      delay: ".9s",
-      links: [
-        { name: "ስለ እኛ", link: "/about" },
-        { name: "አገልግሎቶች", link: "/service" },
-        { name: "እንዴት ይሰራል", link: "#" },
-        { name: "የክፍያ እቅድ", link: "/price" },
-        { name: "ብሎግ", link: "/blog" },
-        { name: "ያግኙን", link: "/contact" },
-      ]
-    },
-
-  ],
-
-}
-const { title, description, phone, contact_mail, location, copy_right, footer_lisks } = footer_content
-
-
 const Footer = () => {
+  const { t } = useLanguage();
   const [isOppen, setIsOppen] = useState(false)
+
   const oppenLan = () => {
     setIsOppen(!isOppen)
   }
+
+  const footer_content = {
+    title: t.footer.newsTitle,
+    description: t.footer.newsDescription,
+    phone: t.footer.phone,
+    contact_mail: "contact@info.com",
+    location: t.footer.location,
+    copy_right: t.footer.copyright,
+    footer_lisks: [
+      {
+        id: 1,
+        cls_1: "col-xl-3 col-lg-3 col-md-5",
+        cls_2: "footer-col-2",
+        title: t.footer.ourServices,
+        delay: ".7s",
+        links: [
+          { name: t.footer.podcasts, link: "#" },
+          { name: t.footer.strategicAnalysis, link: "#" },
+          { name: t.footer.liveStreaming, link: "#" },
+          { name: t.footer.sportAdvertising, link: "#" },
+          { name: t.footer.clubHistory, link: "#" },
+          { name: t.footer.youthTraining, link: "#" },
+        ]
+      },
+      {
+        id: 2,
+        cls_1: "col-xl-2 col-lg-2 col-md-6",
+        cls_2: "footer-col-3",
+        title: t.footer.otherPages,
+        delay: ".9s",
+        links: [
+          { name: t.footer.about, link: "/about" },
+          { name: t.footer.services, link: "/service" },
+          { name: t.footer.howItWorks, link: "#" },
+          { name: t.footer.pricingPlans, link: "/price" },
+          { name: t.footer.blog, link: "/blog" },
+          { name: t.footer.contact, link: "/contact" },
+        ]
+      },
+    ],
+  }
+
+  const { title, description, phone, contact_mail, location, copy_right, footer_lisks } = footer_content
 
   useIsomorphicLayoutEffect(() => {
     gsap.set(".tp-gsap-bg", { scaleX: 1 });
@@ -105,7 +103,7 @@ const Footer = () => {
                   <div className="col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">
                     <div className="tp-footer__input p-relative">
                       <form onSubmit={(e) => e.preventDefault()}>
-                        <input type="text" placeholder="የስራ ኢሜይል አድራሻ" />
+                        <input type="text" placeholder={t.footer.emailPlaceholder} />
                         <span>
                           <EmailIcon />
                         </span>
@@ -151,7 +149,7 @@ const Footer = () => {
 
                   <div className="col-xl-3 col-lg-3 col-md-6 pb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay="1s">
                     <div className="tp-footer__widget footer-col-4">
-                      <h4 className="tp-footer__widget-title">ያግኙን</h4>
+                      <h4 className="tp-footer__widget-title">{t.footer.contact}</h4>
                       <div className="tp-footer__contact-info tp-footer__icon-space">
                         <ul>
                           <li>
@@ -195,13 +193,13 @@ const Footer = () => {
                       <ul>
                         <li>
                           <button id="tp-copyright__lang-toggle" onClick={() => oppenLan()} >
-                            <span>አማርኛ (ET)<i className="fal fa-angle-down"></i></span>
+                            <span>{t.footer.language}<i className="fal fa-angle-down"></i></span>
                           </button>
 
                           {isOppen &&
                             <ul className={`tp-copyright__lang-submenu ${isOppen && "open"}`}>
                               <li>
-                                <Link href="#">እንግሊዝኛ</Link>
+                                <Link href="#">{t.footer.englishLang}</Link>
                               </li>
                             </ul>
                           }

@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from 'react';
 import useTitleAnimation from "@/src/hooks/useTitleAnimation";
 import Brwoser from '@/src/common/brwoser';
 import BounceLine from '@/src/svg/bounce-line';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
 import left_shape from "../../../../public/assets/img/hero/hero-left-shape-3-1.webp" ;
 import gradient_bg from "../../../../public/images/hero-gradient-3.webp" ;
@@ -12,17 +13,16 @@ import img_1 from "../../../../public/images/hero-img-3-1.webp";
 import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
-const hero_content = { 
-   title_1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
-  title_2: " የህግ፣ የፖለቲካና ማህበረሰብ ትስስር",
-   info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
-   btn_1: "የመጀመሪያውን መጣጥፍ ያንብቡ",
-   btn_2: "ፖድካስት ያድምጡ",
-   
-}
-const { title_1, title_2, info, btn_1, btn_2 } = hero_content
-
 const HeroArea = () => {
+   const { t } = useLanguage();
+
+   const { title_1, title_2, info, btn_1, btn_2 } = {
+      title_1: t.hero.title1,
+      title_2: t.hero.title2,
+      info: t.hero.info,
+      btn_1: t.hero.readFirstArticle,
+      btn_2: t.hero.listenPodcast,
+   };
 
    let info_anim = useRef(null)
 

@@ -1,27 +1,27 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
-// የፕሮጀክቱን ፅንሰ-ሀሳብ የሚገልጹ ምስሎች ስሞች (Paths can remain or be updated in public folder)
-import shapes_2 from "../../../../public/assets/img/payment/mobile.png"; // ለዲጂታል መድረክ
-import shapes_3 from "../../../../public/assets/img/payment/hand.png"; // ለስልጣን/ዲፕሎማሲ
-import shapes_4 from "../../../../public/assets/img/payment/coin-1.png"; // ለኢኮኖሚ/ክለቦች
+import shapes_2 from "../../../../public/assets/img/payment/mobile.png";
+import shapes_3 from "../../../../public/assets/img/payment/hand.png";
+import shapes_4 from "../../../../public/assets/img/payment/coin-1.png";
 import shapes_5 from "../../../../public/assets/img/payment/coin-2.png";
-import shapes_6 from "../../../../public/assets/img/payment/payment-3.png"; // ለህግ ሰነዶች
-import payment_img_1 from "../../../../public/assets/img/payment/image.png"; // ለዋናው ጥናታዊ ግራፊክስ
+import shapes_6 from "../../../../public/assets/img/payment/payment-3.png";
+import payment_img_1 from "../../../../public/assets/img/payment/image.png";
 
-const insights_content = {
-  title: <>ከሜዳው ባሻገር ያለውን እውነታ <br /> በጥልቀት ይመርምሩ።</>,
-  sub_title: <>በእግር ኳስ፣ ህግ እና ፖለቲካ ዙሪያ የተሰናዱ ሁለንተናዊ ትንተናዎች</>,
-  box_1: [
+const InsightsArea = () => {
+  const { t } = useLanguage();
+
+  const box_1 = [
     {
       id: 1,
       col: "md-6",
       cls: "2 tpfadeLeft",
       delay: ".3s",
-      title: "መንግስታት እና ፖለቲካ ",
-      des: <>መንግስታት እና የፖለቲካ መሪዎች እግር ኳስን ለስላሳ ስልጣን (Soft Power) እና ለዲፕሎማሲያዊ ተፅእኖ እንዴት እንደሚጠቀሙበት እንመረምራለን።</>,
-      btn: "የምርምር ማዕከሉን ይጎብኙ",
+      title: t.insights.box1Title,
+      des: t.insights.box1Des,
+      btn: t.insights.researchBtn,
       link: "/politics",
       shapes: [
         { id: 1, cls: "5", img: shapes_2 },
@@ -35,23 +35,16 @@ const insights_content = {
       col: "md-6",
       cls: "3 tpfadeRight",
       delay: ".5s",
-      title: "የእግር ኳስ ህግ እና አስተዳደር",
-      des: <>ትክክለኛው የእግር ኳስ ህግ ምንድነው? የጨዋታውን የወደፊት ዕጣ ፈንታ የሚቀርጹ ቀጣዮቹን ትላልቅ የህግ ጉዳዮች እና የዝውውር ደንቦች እንፈትሻለን።</>,
-      btn: "የምርምር ማዕከሉን ይጎብኙ",
+      title: t.insights.box2Title,
+      des: t.insights.box2Des,
+      btn: t.insights.researchBtn,
       link: "/law",
       shapes: [
         { id: 1, cls: "9", img: shapes_6 },
       ]
     },
-  ],
-  box_3_title: <>የማህበረሰብ ክለቦች እና <br /> ማህበራዊ-ፖለቲካዊ ተፅእኖ።</>,
-  box_3_des: <>በታችኛው ደረጃ ያሉ ክለቦች የአካባቢውን ፖለቲካ፣ ዘረኝነትን፣ እና በአጠቃላይ በስፖርቱ ውስጥ ያለውን የአእምሮ ጤና ተግዳሮት እንዴት እንደሚያንፀባርቁ የሚያሳይ ጥናት።</>,
-  box_3_btn: "የምርምር ማዕከሉን ይጎብኙ",
-}
+  ];
 
-const { title, sub_title, box_1, box_3_title, box_3_des, box_3_btn } = insights_content;
-
-const InsightsArea = () => {
   return (
     <>
       <div id="insights-section" className="tp-payment__area pt-110 pb-110">
@@ -59,8 +52,8 @@ const InsightsArea = () => {
           <div className="row justify-content-center">
             <div className="col-xl-7">
               <div className="tp-payment__title-box text-center mb-55">
-                <h3 className="tp-section-title-lg">{title}</h3>
-                <p>{sub_title}</p>
+                <h3 className="tp-section-title-lg">{t.insights.title}</h3>
+                <p>{t.insights.subtitle}</p>
               </div>
             </div>
           </div>
@@ -101,9 +94,9 @@ const InsightsArea = () => {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="tp-payment__content tp-payment__content-space">
-                      <h3 className="tp-payment__title">{box_3_title}</h3>
-                      <p>{box_3_des}</p>
-                      <Link href="/research" className="tp-btn-link">{box_3_btn}<i className="far fa-arrow-right"></i></Link>
+                      <h3 className="tp-payment__title">{t.insights.box3Title}</h3>
+                      <p>{t.insights.box3Des}</p>
+                      <Link href="/research" className="tp-btn-link">{t.insights.researchBtn}<i className="far fa-arrow-right"></i></Link>
                     </div>
                   </div>
                   <div className="col-md-6">

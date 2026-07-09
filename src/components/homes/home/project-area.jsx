@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
 const setting = {
    loop: true,
@@ -36,6 +37,7 @@ const setting = {
 }
 
 const ProjectArea = () => {
+   const { t } = useLanguage();
    const [isDragged, setIsDragged] = useState(false);
 
    const handleSlideChange = () => {
@@ -52,8 +54,7 @@ const ProjectArea = () => {
                <div className="row">
                   <div className="col-xl-6">
                      <div className="tp-project__section-box wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".3s">
-                        {/* ጽሑፉ ወደ አማርኛ ተቀይሯል */}
-                        <h3 className="tp-section-title">የቅርብ ጊዜ የፖድካስት ክፍሎቻችንን ያዳምጡ።</h3>
+                        <h3 className="tp-section-title">{t.insights.podcastTitle}</h3>
                      </div>
                   </div>
                </div>
@@ -90,13 +91,11 @@ const ProjectArea = () => {
                                           </div>
                                           <div className="tp-project__meta d-flex align-items-center">
                                              <div className="tp-project__author-info">
-                                                {/* ጽሑፉ ወደ አማርኛ ተቀይሯል */}
-                                                <span>ክፍል</span>
+                                                <span>{t.insights.episodeLabel}</span>
                                                 <h4>{item.client_name}</h4>
                                              </div>
                                              <div className="tp-project__budget">
-                                                {/* ጽሑፉ ወደ አማርኛ ተቀይሯል */}
-                                                <span>ቆይታ</span>
+                                                <span>{t.insights.durationLabel}</span>
                                                 <h4>{item.budget}{item.budget_simble}</h4>
                                              </div>
                                              <div className="tp-project__link">

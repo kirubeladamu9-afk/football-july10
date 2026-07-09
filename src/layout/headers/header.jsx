@@ -5,18 +5,14 @@ import Offcanvus from '@/src/common/offcanvus';
 import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
 import NavMenu from './nav-menu';
 import useSticky from '@/src/hooks/use-sticky';
-
-
+import { useLanguage } from '@/src/hooks/useLanguage';
 
 import logo from "../../../public/assets/img/logo/football-logo.webp"
 
-
-
 const Header = () => {
-
       const {sticky}  =  useSticky()
+      const { language, setLanguage, t } = useLanguage()
       const [sidebarOpen, setSidebarOpen] = useState(false)
-      const [language, setLanguage] = useState('am')
       const [langDropdownOpen, setLangDropdownOpen] = useState(false)
 
       // gsa use
@@ -65,7 +61,7 @@ const Header = () => {
                                        onClick={() => setLangDropdownOpen(!langDropdownOpen)}
                                     >
                                        <i className="fal fa-globe"></i>
-                                       <span>{language === 'am' ? 'አማርኛ' : 'English'}</span>
+                                       <span>{t?.header?.language}</span>
                                     </button>
                                     {langDropdownOpen && (
                                        <div className="language-dropdown">
@@ -76,7 +72,7 @@ const Header = () => {
                                                 setLangDropdownOpen(false)
                                              }}
                                           >
-                                             አማርኛ (Amharic)
+                                             {t?.header?.amharic}
                                           </button>
                                           <button
                                              className={`language-option ${language === 'en' ? 'active' : ''}`}
@@ -85,7 +81,7 @@ const Header = () => {
                                                 setLangDropdownOpen(false)
                                              }}
                                           >
-                                             English
+                                             {t?.header?.english}
                                           </button>
                                        </div>
                                     )}
@@ -93,7 +89,7 @@ const Header = () => {
                               </div>
                               <div className="header-bottom__btn d-flex align-items-center">
                                  <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/service-details">
-                        <span className="white-text">ይመዝገቡ</span>
+                        <span className="white-text">{t?.header?.register}</span>
                                     <b></b>
                                  </Link>
                                  <a className="header-bottom__bar d-lg-none tp-menu-bar" onClick={() => setSidebarOpen(true)}><i className="fal fa-bars"></i></a>
