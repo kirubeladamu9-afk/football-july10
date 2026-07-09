@@ -11,6 +11,11 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showPasswords, setShowPasswords] = useState({
+    currentPassword: false,
+    newPassword: false,
+    confirmPassword: false,
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -35,6 +40,13 @@ export default function ProfilePage() {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const togglePasswordVisibility = (field) => {
+    setShowPasswords((prev) => ({
+      ...prev,
+      [field]: !prev[field],
     }));
   };
 
@@ -191,38 +203,68 @@ export default function ProfilePage() {
           <form onSubmit={handleUpdatePassword} className="admin-form">
             <div className="form-group">
               <label className="form-label">{language === 'en' ? 'Current Password' : 'የአሁኑ ይለፋት'}</label>
-              <input
-                type="password"
-                name="currentPassword"
-                value={formData.currentPassword}
-                onChange={handleChange}
-                className="form-input"
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  type={showPasswords.currentPassword ? 'text' : 'password'}
+                  name="currentPassword"
+                  value={formData.currentPassword}
+                  onChange={handleChange}
+                  className="form-input"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle-btn"
+                  onClick={() => togglePasswordVisibility('currentPassword')}
+                  title={showPasswords.currentPassword ? 'Hide password' : 'Show password'}
+                >
+                  <i className={`fas fa-${showPasswords.currentPassword ? 'eye-slash' : 'eye'}`}></i>
+                </button>
+              </div>
             </div>
 
             <div className="form-group">
               <label className="form-label">{language === 'en' ? 'New Password' : 'አዲስ ይለፋት'}</label>
-              <input
-                type="password"
-                name="newPassword"
-                value={formData.newPassword}
-                onChange={handleChange}
-                className="form-input"
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  type={showPasswords.newPassword ? 'text' : 'password'}
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                  className="form-input"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle-btn"
+                  onClick={() => togglePasswordVisibility('newPassword')}
+                  title={showPasswords.newPassword ? 'Hide password' : 'Show password'}
+                >
+                  <i className={`fas fa-${showPasswords.newPassword ? 'eye-slash' : 'eye'}`}></i>
+                </button>
+              </div>
             </div>
 
             <div className="form-group">
               <label className="form-label">{language === 'en' ? 'Confirm Password' : 'ይለፋት ያረጋግጡ'}</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="form-input"
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  type={showPasswords.confirmPassword ? 'text' : 'password'}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="form-input"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle-btn"
+                  onClick={() => togglePasswordVisibility('confirmPassword')}
+                  title={showPasswords.confirmPassword ? 'Hide password' : 'Show password'}
+                >
+                  <i className={`fas fa-${showPasswords.confirmPassword ? 'eye-slash' : 'eye'}`}></i>
+                </button>
+              </div>
             </div>
 
             <div className="form-actions">
@@ -267,6 +309,12 @@ export default function ProfilePage() {
           color: #1a1a1a;
         }
 
+        :global(.password-input-wrapper) {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+
         :global(.form-input) {
           padding: 10px 12px;
           border: 1px solid #eeeef5;
@@ -274,12 +322,36 @@ export default function ProfilePage() {
           font-size: 14px;
           font-family: 'Inter', 'Noto Sans Ethiopic', sans-serif;
           color: #1a1a1a;
+          width: 100%;
+        }
+
+        :global(.password-input-wrapper .form-input) {
+          padding-right: 40px;
         }
 
         :global(.form-input:focus) {
           outline: none;
           border-color: #0066cc;
           box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        :global(.password-toggle-btn) {
+          position: absolute;
+          right: 12px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          color: #666;
+          padding: 4px 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color 0.2s ease;
+        }
+
+        :global(.password-toggle-btn:hover) {
+          color: #1a1a1a;
         }
 
         :global(.form-actions) {
