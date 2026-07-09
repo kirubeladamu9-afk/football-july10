@@ -59,7 +59,7 @@ const BlogGrid = () => {
                         slug: blog.slug,
                         bg_img: blog.coverImage || "/assets/img/blog/inner-blog-1.png",
                         child_1: blog.category || "Resources",
-                        date: blog.publishDate ? new Date(blog.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
+                        date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
                         title: blog.titleEn,
                         des: blog.excerptEn || blog.titleEn,
                         author_img: blog.authorAvatar || authorImgs[index % authorImgs.length],

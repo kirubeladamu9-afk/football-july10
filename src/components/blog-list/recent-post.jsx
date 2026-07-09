@@ -46,7 +46,7 @@ const RecentPost = () => {
         <div className="sidebar__widget-content">
           <div className="sidebar__post rc__post">
             {recentPosts.map((item, i) => {
-              const date = new Date(item.publishDate).toLocaleDateString('en-US', {
+              const date = new Date(item.createdAt).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'

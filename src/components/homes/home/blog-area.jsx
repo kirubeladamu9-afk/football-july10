@@ -84,7 +84,7 @@ const BlogArea = () => {
                         <span>{item.category}</span>
                       </div>
                       <div className="tp-blog-date">
-                        <span>{formatDate(item.publishDate)}</span>
+                        <span>{formatDate(item.createdAt)}</span>
                       </div>
                     </div>
                     <div className="tp-blog-title-box">

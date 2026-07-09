@@ -73,7 +73,7 @@ const Portfolio = ({ blog }) => {
                             <div className="blog-details-slider-wrapper">
                                 <Swiper {...setting} className="swiper-container blog-slider-active pb-50">
                                     {relatedPosts.map((item, i) => {
-                                        const date = new Date(item.publishDate).toLocaleDateString('en-US', {
+                                        const date = new Date(item.createdAt).toLocaleDateString('en-US', {
                                             year: 'numeric',
                                             month: 'long',
                                             day: 'numeric'

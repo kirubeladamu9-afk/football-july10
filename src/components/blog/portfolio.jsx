@@ -22,7 +22,7 @@ const Portfolio = () => {
                slug: blog.slug,
                thumb_img: blog.coverImage || "/assets/img/blog/blog-grid-1.jpg",
                category: blog.category || "Blog",
-               date: blog.publishDate ? new Date(blog.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently",
+               date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently",
                title: blog.titleEn,
                avata_img: blog.authorAvatar || "/assets/img/blog/blog-avata-1.png",
                name: blog.authorName || "Author",
