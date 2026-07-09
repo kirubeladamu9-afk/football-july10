@@ -1,43 +1,52 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import translations from '@/src/i18n/translations';
 
-export const LanguageContext = createContext();
+export const LanguageContext = createContext({
+  language: 'am',
+  setLanguage: () => { },
+  t: translations.am,
+});
 
-export const LanguageProvider = ({ children }) => {
+export function LanguageProvider({ children }) {
   const [language, setLanguageState] = useState('am');
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
+  // On mount, read any saved preference. Defaults to 'am' if none exists.
   useEffect(() => {
-    // Load language preference from localStorage on mount
-    if (typeof window !== 'undefined') {
-      const savedLanguage = localStorage.getItem('preferred_language') || 'am';
-      setLanguageState(savedLanguage);
-      // Set lang attribute on html element for CSS/SEO
-      document.documentElement.lang = savedLanguage;
-      document.documentElement.setAttribute('lang', savedLanguage);
+    const saved = typeof window !== 'undefined'
+      ? window.localStorage.getItem('site_language')
+      : null;
+    if (saved === 'en' || saved === 'am') {
+      setLanguageState(saved);
     }
-    // Always mark as loaded after effect runs, even on server
-    setIsLoaded(true);
+    setHydrated(true);
   }, []);
 
-  const setLanguage = (lang) => {
+  // Keep <html lang="..."> in sync for accessibility/SEO
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = language;
+    }
+  }, [language]);
+
+  function setLanguage(lang) {
+    if (lang !== 'en' && lang !== 'am') return;
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('preferred_language', lang);
-      // Update lang attribute on html element
-      document.documentElement.lang = lang;
-      document.documentElement.setAttribute('lang', lang);
+      window.localStorage.setItem('site_language', lang);
     }
-  };
+  }
 
-  const value = {
-    language,
-    setLanguage,
-    isLoaded,
-  };
+  const t = translations[language] || translations.am;
+
+  // Avoid a flash of wrong-language content before localStorage is read
+  if (!hydrated) {
+    return null;
+  }
 
   return (
-    <LanguageContext.Provider value={value}>
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
-};
+}
