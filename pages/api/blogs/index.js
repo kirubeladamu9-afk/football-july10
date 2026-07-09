@@ -67,6 +67,7 @@ export default async function handler(req, res) {
         authorRoleEn,
         authorRoleAm,
         gallery = [],
+        galleryInput,
         pullQuoteEn,
         pullQuoteAm,
         pullQuoteAttribution,
@@ -78,6 +79,7 @@ export default async function handler(req, res) {
         nextPostId,
         featuredImageUrl,
         tags = [],
+        imageCaption,
       } = req.body;
 
       if (!titleEn || !titleAm || !bodyEn || !bodyAm) {
@@ -92,8 +94,8 @@ export default async function handler(req, res) {
           (slug, title_en, title_am, excerpt_en, excerpt_am, body_en, body_am,
            cover_image, author_name, author_avatar, author_role_en, author_role_am,
            gallery, pull_quote_en, pull_quote_am, pull_quote_attribution,
-           previous_post_slug, next_post_slug, featured_image_url, category, status, publish_date, created_by)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           previous_post_slug, next_post_slug, featured_image_url, category, status, publish_date, tags, image_caption, created_by)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             finalSlug,
             titleEn,
@@ -117,6 +119,8 @@ export default async function handler(req, res) {
             category,
             status || 'draft',
             publishDate || null,
+            tags.length > 0 ? JSON.stringify(tags) : null,
+            imageCaption || null,
             user.id,
           ]
         );

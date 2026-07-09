@@ -47,7 +47,8 @@ export default async function handler(req, res) {
         category: blog.category,
         status: blog.status,
         publishDate: blog.publish_date,
-        tags: tagsResult.rows.map((r) => r.tag),
+        tags: blog.tags ? JSON.parse(blog.tags) : tagsResult.rows.map((r) => r.tag),
+        imageCaption: blog.image_caption,
         createdAt: blog.created_at,
         updatedAt: blog.updated_at,
       });
@@ -82,6 +83,7 @@ export default async function handler(req, res) {
         nextPostId,
         featuredImageUrl,
         tags = [],
+        imageCaption,
       } = req.body;
 
       await transaction(async (client) => {
@@ -104,7 +106,7 @@ export default async function handler(req, res) {
           gallery = ?, pull_quote_en = ?, pull_quote_am = ?,
           pull_quote_attribution = ?, previous_post_slug = ?,
           next_post_slug = ?, featured_image_url = ?, category = ?, status = ?,
-          publish_date = ?, updated_at = NOW()
+          publish_date = ?, tags = ?, image_caption = ?, updated_at = NOW()
           WHERE id = ?`,
           [
             titleEn,
@@ -128,6 +130,8 @@ export default async function handler(req, res) {
             category,
             status,
             publishDate || null,
+            tags.length > 0 ? JSON.stringify(tags) : null,
+            imageCaption || null,
             blogId,
           ]
         );
