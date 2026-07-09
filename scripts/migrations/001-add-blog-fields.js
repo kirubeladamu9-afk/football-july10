@@ -36,18 +36,18 @@ async function runMigration() {
 
     // Add missing columns to blogs table
     const alterStatements = [
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS cover_image LONGTEXT`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS author_name VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS author_avatar LONGTEXT`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS author_role_en VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS author_role_am VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS gallery JSON`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS pull_quote_en TEXT`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS pull_quote_am TEXT`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS pull_quote_attribution VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS previous_post_slug VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS next_post_slug VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN IF NOT EXISTS created_by INT`,
+      `ALTER TABLE blogs ADD COLUMN cover_image LONGTEXT`,
+      `ALTER TABLE blogs ADD COLUMN author_name VARCHAR(255)`,
+      `ALTER TABLE blogs ADD COLUMN author_avatar LONGTEXT`,
+      `ALTER TABLE blogs ADD COLUMN author_role_en VARCHAR(255)`,
+      `ALTER TABLE blogs ADD COLUMN author_role_am VARCHAR(255)`,
+      `ALTER TABLE blogs ADD COLUMN gallery JSON`,
+      `ALTER TABLE blogs ADD COLUMN pull_quote_en TEXT`,
+      `ALTER TABLE blogs ADD COLUMN pull_quote_am TEXT`,
+      `ALTER TABLE blogs ADD COLUMN pull_quote_attribution VARCHAR(255)`,
+      `ALTER TABLE blogs ADD COLUMN previous_post_slug VARCHAR(255)`,
+      `ALTER TABLE blogs ADD COLUMN next_post_slug VARCHAR(255)`,
+      `ALTER TABLE blogs ADD COLUMN created_by INT`,
       `ALTER TABLE blogs ADD CONSTRAINT fk_blogs_created_by FOREIGN KEY (created_by) REFERENCES admin_users(id)`,
     ];
 
