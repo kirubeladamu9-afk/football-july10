@@ -32,21 +32,6 @@ const payment_content = {
                     cls: "5",
                     img: shapes_2,
                 },
-                {
-                    id: 2,
-                    cls: "6",
-                    img: shapes_3,
-                },
-                {
-                    id: 3,
-                    cls: "7",
-                    img: shapes_4,
-                },
-                {
-                    id: 4,
-                    cls: "8",
-                    img: shapes_5,
-                },
             ]
 
         },
