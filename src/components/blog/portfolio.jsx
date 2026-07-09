@@ -88,7 +88,7 @@ const Portfolio = () => {
                         <div key={i} data-index={i} className="col-xl-4 col-lg-6 col-md-6 mb-30 grid-item cat1 cat4 cat3 cat5">
                            <div className="tp-blog-item">
                               <div className="tp-blog-thumb fix">
-                                 <Link href={`/blog/${item.slug}`}><Image src={item.thumb_img} alt={item.title} fill style={{objectFit: 'cover'}} /></Link>
+                                 <Link href={`/blog/${item.slug}`}><Image src={item.thumb_img} alt={item.title} width={400} height={300} style={{color: 'transparent'}} /></Link>
                               </div>
                               <div className="tp-blog-content">
                                  <div className="tp-blog-meta d-flex align-items-center">
