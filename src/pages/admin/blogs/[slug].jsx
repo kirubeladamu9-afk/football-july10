@@ -29,6 +29,16 @@ export default function EditBlogPage() {
     status: 'draft',
     tags: [],
     tagInput: '',
+    coverImage: '',
+    authorName: '',
+    authorAvatar: '',
+    authorRoleEn: '',
+    authorRoleAm: '',
+    pullQuoteEn: '',
+    pullQuoteAm: '',
+    pullQuoteAttribution: '',
+    publishDate: '',
+    featuredImageUrl: '',
   });
 
   useEffect(() => {
@@ -55,6 +65,16 @@ export default function EditBlogPage() {
         status: data.status,
         tags: data.tags || [],
         tagInput: '',
+        coverImage: data.coverImage || '',
+        authorName: data.authorName || '',
+        authorAvatar: data.authorAvatar || '',
+        authorRoleEn: data.authorRoleEn || '',
+        authorRoleAm: data.authorRoleAm || '',
+        pullQuoteEn: data.pullQuoteEn || '',
+        pullQuoteAm: data.pullQuoteAm || '',
+        pullQuoteAttribution: data.pullQuoteAttribution || '',
+        publishDate: data.publishDate || '',
+        featuredImageUrl: data.featuredImageUrl || '',
       });
     } catch (err) {
       setError(err.message);
@@ -104,6 +124,16 @@ export default function EditBlogPage() {
           category: formData.category,
           status: formData.status,
           tags: formData.tags,
+          coverImage: formData.coverImage || null,
+          authorName: formData.authorName || null,
+          authorAvatar: formData.authorAvatar || null,
+          authorRoleEn: formData.authorRoleEn || null,
+          authorRoleAm: formData.authorRoleAm || null,
+          pullQuoteEn: formData.pullQuoteEn || null,
+          pullQuoteAm: formData.pullQuoteAm || null,
+          pullQuoteAttribution: formData.pullQuoteAttribution || null,
+          publishDate: formData.publishDate || null,
+          featuredImageUrl: formData.featuredImageUrl || null,
         }),
       });
 
@@ -253,6 +283,113 @@ export default function EditBlogPage() {
                 <option value="draft">{t('drafts', language)}</option>
                 <option value="published">{t('published', language)}</option>
               </select>
+            </div>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Featured Image URL' : 'ይገባ ሙስና ምስል URL'}</label>
+              <input
+                type="url"
+                value={formData.featuredImageUrl}
+                onChange={(e) => handleChange('featuredImageUrl', e.target.value)}
+                className="form-input"
+                placeholder="https://..."
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Cover Image' : 'ሽፋን ምስል'}</label>
+              <input
+                type="text"
+                value={formData.coverImage}
+                onChange={(e) => handleChange('coverImage', e.target.value)}
+                className="form-input"
+              />
+            </div>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Name' : 'ደራሲ ስም'}</label>
+              <input
+                type="text"
+                value={formData.authorName}
+                onChange={(e) => handleChange('authorName', e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Avatar URL' : 'ደራሲ የምስል URL'}</label>
+              <input
+                type="url"
+                value={formData.authorAvatar}
+                onChange={(e) => handleChange('authorAvatar', e.target.value)}
+                className="form-input"
+                placeholder="https://..."
+              />
+            </div>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Role' : 'ደራሲ ሚና'} (English)</label>
+              <input
+                type="text"
+                value={formData.authorRoleEn}
+                onChange={(e) => handleChange('authorRoleEn', e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Role' : 'ደራሲ ሚና'} (Amharic)</label>
+              <input
+                type="text"
+                value={formData.authorRoleAm}
+                onChange={(e) => handleChange('authorRoleAm', e.target.value)}
+                className="form-input"
+              />
+            </div>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Pull Quote' : 'ይወለወል ጥቅስ'} (English)</label>
+              <textarea
+                value={formData.pullQuoteEn}
+                onChange={(e) => handleChange('pullQuoteEn', e.target.value)}
+                className="form-textarea"
+                style={{ minHeight: '60px' }}
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Pull Quote' : 'ይወለወል ጥቅስ'} (Amharic)</label>
+              <textarea
+                value={formData.pullQuoteAm}
+                onChange={(e) => handleChange('pullQuoteAm', e.target.value)}
+                className="form-textarea"
+                style={{ minHeight: '60px' }}
+              />
+            </div>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Pull Quote Attribution' : 'ይወለወል ጥቅስ ምንጭ'}</label>
+              <input
+                type="text"
+                value={formData.pullQuoteAttribution}
+                onChange={(e) => handleChange('pullQuoteAttribution', e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Publish Date' : 'ለህትመት ጊዜ'}</label>
+              <input
+                type="datetime-local"
+                value={formData.publishDate}
+                onChange={(e) => handleChange('publishDate', e.target.value)}
+                className="form-input"
+              />
             </div>
           </div>
 

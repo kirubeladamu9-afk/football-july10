@@ -80,6 +80,7 @@ export default async function handler(req, res) {
         publishDate,
         previousPostId,
         nextPostId,
+        featuredImageUrl,
         tags = [],
       } = req.body;
 
@@ -102,7 +103,7 @@ export default async function handler(req, res) {
           author_avatar = ?, author_role_en = ?, author_role_am = ?,
           gallery = ?, pull_quote_en = ?, pull_quote_am = ?,
           pull_quote_attribution = ?, previous_post_slug = ?,
-          next_post_slug = ?, category = ?, status = ?,
+          next_post_slug = ?, featured_image_url = ?, category = ?, status = ?,
           publish_date = ?, updated_at = NOW()
           WHERE id = ?`,
           [
@@ -123,6 +124,7 @@ export default async function handler(req, res) {
             pullQuoteAttribution || null,
             previousPostId || null,
             nextPostId || null,
+            featuredImageUrl || null,
             category,
             status,
             publishDate || null,

@@ -76,6 +76,7 @@ export default async function handler(req, res) {
         slug,
         previousPostId,
         nextPostId,
+        featuredImageUrl,
         tags = [],
       } = req.body;
 
@@ -91,8 +92,8 @@ export default async function handler(req, res) {
           (slug, title_en, title_am, excerpt_en, excerpt_am, body_en, body_am,
            cover_image, author_name, author_avatar, author_role_en, author_role_am,
            gallery, pull_quote_en, pull_quote_am, pull_quote_attribution,
-           previous_post_slug, next_post_slug, category, status, publish_date, created_by)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           previous_post_slug, next_post_slug, featured_image_url, category, status, publish_date, created_by)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             finalSlug,
             titleEn,
@@ -112,6 +113,7 @@ export default async function handler(req, res) {
             pullQuoteAttribution || null,
             previousPostId || null,
             nextPostId || null,
+            featuredImageUrl || null,
             category,
             status || 'draft',
             publishDate || null,
