@@ -21,7 +21,7 @@ const insights_content = {
             delay: ".3s",
         title: "መንግስታት እና ፖለቲካ ",
         des: <>መንግስታት እና የፖለቲካ መሪዎች እግር ኳስን ለስላሳ ስልጣን (Soft Power) እና ለዲፕሎማሲያዊ ተፅእኖ እንዴት እንደሚጠቀሙበት እንመረምራለን።</>,
-            box_3_btn: "የምርምር ማዕከሉን ይጎብኙ",
+            box_1_btn: "የምርምር ማዕከሉን ይጎብኙ",
             shapes: [
                 { id: 1, cls: "5", img: shapes_2 },
                 { id: 2, cls: "6", img: shapes_3 },
