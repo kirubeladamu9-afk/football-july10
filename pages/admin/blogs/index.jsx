@@ -72,8 +72,8 @@ export default function BlogsPage() {
         <h1>{t('blogs', language)}</h1>
       </div>
 
-      <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <Link href="/admin/blogs/new" className="btn btn-primary">
+      <div style={{ marginBottom: '16px', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'nowrap' }}>
+        <Link href="/admin/blogs/new" className="btn btn-primary" style={{ padding: '8px 14px', fontSize: '14px' }}>
           <i className="fas fa-plus"></i>
           {t('newBlog', language)}
         </Link>
@@ -82,7 +82,7 @@ export default function BlogsPage() {
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
           className="form-select"
-          style={{ padding: '10px 12px', borderRadius: '6px', border: '1px solid #eeeef5' }}
+          style={{ padding: '8px 10px', borderRadius: '4px', border: '1px solid #eeeef5', fontSize: '14px', height: '36px', minWidth: '100px' }}
           title={language === 'en' ? 'Status' : 'ሁኔታ'}
         >
           <option value="">{language === 'en' ? 'Status' : 'ሁኔታ'}</option>
@@ -94,7 +94,7 @@ export default function BlogsPage() {
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
           className="form-select"
-          style={{ padding: '10px 12px', borderRadius: '6px', border: '1px solid #eeeef5' }}
+          style={{ padding: '8px 10px', borderRadius: '4px', border: '1px solid #eeeef5', fontSize: '14px', height: '36px', minWidth: '130px' }}
           title={t('category', language)}
         >
           <option value="">{language === 'en' ? 'Category' : 'ምድብ'}</option>
