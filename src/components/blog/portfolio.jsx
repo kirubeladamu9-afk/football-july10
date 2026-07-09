@@ -23,10 +23,10 @@ const Portfolio = () => {
                thumb_img: blog.coverImage || "/assets/img/blog/blog-grid-1.jpg",
                category: blog.category || "Blog",
                date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently",
-               title: blog.titleEn,
+               title: blog.title_en || blog.titleEn,
                avata_img: blog.authorAvatar || "/assets/img/blog/blog-avata-1.png",
                name: blog.authorName || "Author",
-               job_title: blog.authorRoleEn || "Writer",
+               job_title: blog.author_role_en || blog.authorRoleEn || "Writer",
             }))
 
             setAllBlogs(formattedBlogs)
@@ -88,7 +88,7 @@ const Portfolio = () => {
                         <div key={i} data-index={i} className="col-xl-4 col-lg-6 col-md-6 mb-30 grid-item cat1 cat4 cat3 cat5">
                            <div className="tp-blog-item">
                               <div className="tp-blog-thumb fix">
-                                 <Link href={`/blog-details?id=${item.id}`}><Image src={item.thumb_img} alt={item.title} /></Link>
+                                 <Link href={`/blog/${item.slug}`}><Image src={item.thumb_img} alt={item.title} /></Link>
                               </div>
                               <div className="tp-blog-content">
                                  <div className="tp-blog-meta d-flex align-items-center">
@@ -100,7 +100,7 @@ const Portfolio = () => {
                                     </div>
                                  </div>
                                  <div className="tp-blog-title-box">
-                                    <Link className="tp-blog-title-sm" href={`/blog-details?id=${item.id}`}>{item.title}</Link>
+                                    <Link className="tp-blog-title-sm" href={`/blog/${item.slug}`}>{item.title}</Link>
                                  </div>
                                  <div className="tp-blog-author-info-box d-flex align-items-center">
                                     <div className="tp-blog-avata">

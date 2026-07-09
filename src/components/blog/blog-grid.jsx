@@ -120,7 +120,7 @@ const BlogGrid = () => {
                                                     <span className="child-two">{item.date}</span>
                                                 </div>
                                                 <div className="blog-grid-slider-title-box">
-                                                    <h4 className="blog-grid-slider-title"><Link href={`/blog-details?id=${item.id}`}>{item.title}</Link></h4>
+                                                    <h4 className="blog-grid-slider-title"><Link href={`/blog/${item.slug}`}>{item.title}</Link></h4>
                                                     <p> {item.des}</p>
                                                 </div>
                                                 <div className="tp-blog-author-info-box blog-grid-avata-box d-flex align-items-center">
