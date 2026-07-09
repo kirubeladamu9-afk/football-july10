@@ -64,8 +64,8 @@ export default function MultimediaPage() {
         <h1>{t('multimedia', language)}</h1>
       </div>
 
-      <div style={{ marginBottom: '16px', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'nowrap' }}>
-        <Link href="/admin/multimedia/new" className="btn btn-primary" style={{ padding: '8px 14px', fontSize: '14px' }}>
+      <div style={{ marginBottom: '16px', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+        <Link href="/admin/multimedia/new" className="btn btn-primary" style={{ padding: '8px 14px', fontSize: '14px', flexShrink: 0 }}>
           <i className="fas fa-plus"></i>
           {language === 'en' ? 'New Item' : 'አዲስ ንጥል'}
         </Link>
@@ -74,7 +74,7 @@ export default function MultimediaPage() {
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
           className="form-select"
-          style={{ padding: '8px 10px', borderRadius: '4px', border: '1px solid #eeeef5', fontSize: '14px', height: '36px', minWidth: '100px' }}
+          style={{ padding: '8px 10px', borderRadius: '4px', border: '1px solid #eeeef5', fontSize: '14px', height: '36px', minWidth: '100px', flex: 1 }}
           title={language === 'en' ? 'Type' : 'ዓይነት'}
         >
           <option value="">{language === 'en' ? 'Type' : 'ዓይነት'}</option>
