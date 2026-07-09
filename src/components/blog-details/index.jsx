@@ -99,7 +99,7 @@ const BlogDetails = () => {
             <BreadcrumbSix blog={blog} />
             <Banner blog={blog} />
             <PostboxArea blog={blog} />
-            <Portfolio />
+            <Portfolio blog={blog} />
           </main>
           <Footer />
         </div>

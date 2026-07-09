@@ -2,7 +2,7 @@ import SocialLinks from '@/src/common/social-links';
 import DoubleSemicolon from '@/src/svg/double-semicolon';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RecentPost from '../blog-list/recent-post';
 import Search from '../blog-list/search';
 
@@ -10,8 +10,6 @@ import Search from '../blog-list/search';
 import blog_details_img_1  from "../../../public/assets/img/blog/blog-details-1.jpg";
 import blog_details_img_2  from "../../../public/assets/img/blog/blog-details-2.jpg";
 import blog_details_img_3  from "../../../public/assets/img/blog/blog-details-3.jpg";
-import navigation_img_1  from "../../../public/assets/img/blog/navigation-1.png";
-import navigation_img_2  from "../../../public/assets/img/blog/navigation-2.png";
 import blog_details_avata  from "../../../public/assets/img/blog/blog-details-avata-1.jpg";
 
 
@@ -37,6 +35,53 @@ const {title_1, des_1, des_2, checkmark_list, title_2, des_3, des_4, des_5, des_
 
 
 const PostboxArea = ({ blog, style_details_2 }) => {
+    const [nextPost, setNextPost] = useState(null);
+    const [prevPost, setPrevPost] = useState(null);
+    const [navLoading, setNavLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchNavigationPosts = async () => {
+            if (!blog) {
+                setNavLoading(false);
+                return;
+            }
+
+            try {
+                const requests = [];
+
+                if (blog.previousPostSlug) {
+                    requests.push(
+                        fetch(`/api/blogs/public-detail?slug=${encodeURIComponent(blog.previousPostSlug)}`)
+                            .then(res => res.ok ? res.json() : null)
+                            .catch(() => null)
+                    );
+                } else {
+                    requests.push(Promise.resolve(null));
+                }
+
+                if (blog.nextPostSlug) {
+                    requests.push(
+                        fetch(`/api/blogs/public-detail?slug=${encodeURIComponent(blog.nextPostSlug)}`)
+                            .then(res => res.ok ? res.json() : null)
+                            .catch(() => null)
+                    );
+                } else {
+                    requests.push(Promise.resolve(null));
+                }
+
+                const [prevData, nextData] = await Promise.all(requests);
+                setPrevPost(prevData);
+                setNextPost(nextData);
+            } catch (error) {
+                console.error('Error fetching navigation posts:', error);
+            } finally {
+                setNavLoading(false);
+            }
+        };
+
+        fetchNavigationPosts();
+    }, [blog]);
+
     return (
         <>
             <div className={`postbox__area ${style_details_2 && "pt-100"} pb-100`}>
@@ -149,36 +194,58 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                               )}
                            </div>
 
-                           <div className="postbox__navigation-more mb-70 d-flex justify-content-between">
-                              <div className="postbox__navigation-left d-flex align-items-center">
-                                 <div className="postbox__navigation-img">
-                                    <Link href="#"><Image src={navigation_img_1} alt="theme-pure" width={80} height={80} /></Link>
-                                 </div>
-                                 <div className="postbox__navigation-content">
-                                    <Link href="#">
-                                       <span>
-                                          <i className="far fa-arrow-left"></i>
-                                          Previous post
-                                       </span>
-                                    </Link>
-                                    <h5><Link href="#">Leveraging Feedback...</Link></h5>
-                                 </div>
+                           {!navLoading && (prevPost || nextPost) && (
+                              <div className="postbox__navigation-more mb-70 d-flex justify-content-between">
+                                 {prevPost && (
+                                    <div className="postbox__navigation-left d-flex align-items-center">
+                                       <div className="postbox__navigation-img">
+                                          <Link href={`/blog/${prevPost.slug}`}>
+                                             <Image
+                                                src={prevPost.coverImage || blog_details_img_1}
+                                                alt={prevPost.titleEn}
+                                                width={80}
+                                                height={80}
+                                                onError={(e) => { e.currentTarget.src = blog_details_img_1; }}
+                                             />
+                                          </Link>
+                                       </div>
+                                       <div className="postbox__navigation-content">
+                                          <Link href={`/blog/${prevPost.slug}`}>
+                                             <span>
+                                                <i className="far fa-arrow-left"></i>
+                                                Previous post
+                                             </span>
+                                          </Link>
+                                          <h5><Link href={`/blog/${prevPost.slug}`}>{prevPost.titleEn}</Link></h5>
+                                       </div>
+                                    </div>
+                                 )}
+                                 {nextPost && (
+                                    <div className="postbox__navigation-right d-flex align-items-center">
+                                       <div className="postbox__navigation-content">
+                                          <Link href={`/blog/${nextPost.slug}`}>
+                                             <span>
+                                                Next post
+                                                <i className="far fa-arrow-right"></i>
+                                             </span>
+                                          </Link>
+                                          <h5><Link href={`/blog/${nextPost.slug}`}>{nextPost.titleEn}</Link></h5>
+                                       </div>
+                                       <div className="postbox__navigation-img">
+                                          <Link href={`/blog/${nextPost.slug}`}>
+                                             <Image
+                                                src={nextPost.coverImage || blog_details_img_1}
+                                                alt={nextPost.titleEn}
+                                                width={80}
+                                                height={80}
+                                                onError={(e) => { e.currentTarget.src = blog_details_img_1; }}
+                                             />
+                                          </Link>
+                                       </div>
+                                    </div>
+                                 )}
                               </div>
-                              <div className="postbox__navigation-right d-flex align-items-center">
-                                 <div className="postbox__navigation-content">
-                                    <Link href="#">
-                                       <span>
-                                          Next post
-                                          <i className="far fa-arrow-right"></i> 
-                                       </span>
-                                    </Link>
-                                    <h5><Link href="#">Typing Tutorials For...</Link></h5>
-                                 </div>
-                                 <div className="postbox__navigation-img">
-                                    <Link href="#"><Image src={navigation_img_2} alt="theme-pure" width={80} height={80} /></Link>
-                                 </div>
-                              </div>
-                           </div>
+                           )}
 
                            <div className="postbox__details-author-info-box mb-100 d-flex align-items-start">
                               <div className="postbox__details-author-avata">

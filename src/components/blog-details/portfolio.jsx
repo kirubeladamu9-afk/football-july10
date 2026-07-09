@@ -1,10 +1,7 @@
-import portfolio_blog from '@/src/data/portfolio-blog';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-
 
 const setting = {
     slidesPerView: 3,
@@ -26,11 +23,39 @@ const setting = {
             slidesPerView: 1,
         },
     },
-
 }
 
+const Portfolio = ({ blog }) => {
+    const [relatedPosts, setRelatedPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-const Portfolio = () => {
+    useEffect(() => {
+        const fetchRelatedPosts = async () => {
+            if (!blog || !blog.category) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/blogs/public?limit=5&category=${encodeURIComponent(blog.category)}`);
+                if (!response.ok) throw new Error('Failed to fetch related posts');
+                const data = await response.json();
+                const filtered = data.blogs.filter(post => post.id !== blog.id);
+                setRelatedPosts(filtered);
+            } catch (error) {
+                console.error('Error fetching related posts:', error);
+                setRelatedPosts([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRelatedPosts();
+    }, [blog]);
+
+    if (loading || relatedPosts.length === 0) {
+        return null;
+    }
 
     return (
         <>
@@ -47,38 +72,56 @@ const Portfolio = () => {
                         <div className="col-12">
                             <div className="blog-details-slider-wrapper">
                                 <Swiper {...setting} className="swiper-container blog-slider-active pb-50">
-                                    {portfolio_blog.map((item, i) =>
-                                        <SwiperSlide key={i} className="swiper-slide">
-                                            <div className="tp-blog-item">
-                                                <div className="tp-blog-thumb fix">
-                                                    <Link href="#"><Image src={item.thumb_img} alt="theme-pure" /></Link>
+                                    {relatedPosts.map((item, i) => {
+                                        const date = new Date(item.publishDate).toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric'
+                                        });
+                                        return (
+                                            <SwiperSlide key={i} className="swiper-slide">
+                                                <div className="tp-blog-item">
+                                                    <div className="tp-blog-thumb fix">
+                                                        <Link href={`/blog/${item.slug}`}>
+                                                            <Image
+                                                                src={item.coverImage || '/assets/img/blog/blog-1.jpg'}
+                                                                alt={item.titleEn}
+                                                                width={300}
+                                                                height={200}
+                                                            />
+                                                        </Link>
+                                                    </div>
+                                                    <div className="tp-blog-content">
+                                                        <div className="tp-blog-meta d-flex align-items-center">
+                                                            <div className="tp-blog-category category-color-1">
+                                                                <span>{item.category}</span>
+                                                            </div>
+                                                            <div className="tp-blog-date">
+                                                                <span>{date}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="tp-blog-title-box">
+                                                            <Link className="tp-blog-title-sm" href={`/blog/${item.slug}`}>{item.titleEn}</Link>
+                                                        </div>
+                                                        <div className="tp-blog-author-info-box d-flex align-items-center">
+                                                            <div className="tp-blog-avata">
+                                                                <Image
+                                                                    src={item.authorAvatar || '/assets/img/blog/blog-list-avata-1.jpg'}
+                                                                    alt={item.authorName}
+                                                                    width={40}
+                                                                    height={40}
+                                                                />
+                                                            </div>
+                                                            <div className="tp-blog-author-info">
+                                                                <h5>{item.authorName}</h5>
+                                                                <span>{item.authorRoleEn || 'Author'}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="tp-blog-content">
-                                                    <div className="tp-blog-meta d-flex align-items-center">
-                                                        <div className="tp-blog-category category-color-1">
-                                                            <span>{item.category}</span>
-                                                        </div>
-                                                        <div className="tp-blog-date">
-                                                            <span>{item.date}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="tp-blog-title-box">
-                                                        <Link className="tp-blog-title-sm" href="#">{item.title}</Link>
-                                                    </div>
-                                                    <div className="tp-blog-author-info-box d-flex align-items-center">
-                                                        <div className="tp-blog-avata">
-                                                            <Image src={item.avata_img} alt="theme-pure" />
-                                                        </div>
-                                                        <div className="tp-blog-author-info">
-                                                            <h5>{item.name}</h5>
-                                                            <span>{item.job_title}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </SwiperSlide>
-                                    )
-                                    }
+                                            </SwiperSlide>
+                                        );
+                                    })}
                                 </Swiper>
                             </div>
                         </div>
