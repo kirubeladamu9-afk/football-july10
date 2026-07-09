@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import blog_avata_default from '../../../../public/assets/img/blog/blog-avata-1.png';
 
 const BlogArea = () => {
   const [blogs, setBlogs] = useState([]);
@@ -93,14 +94,13 @@ const BlogArea = () => {
                     </div>
                     <div className="tp-blog-author-info-box d-flex align-items-center">
                       <div className="tp-blog-avata">
-                        {item.authorAvatar && (
-                          <Image
-                            src={item.authorAvatar}
-                            alt={item.authorName}
-                            width={50}
-                            height={50}
-                          />
-                        )}
+                        <Image
+                          src={item.authorAvatar || blog_avata_default}
+                          alt={item.authorName || 'Author'}
+                          width={50}
+                          height={50}
+                          onError={(e) => { e.currentTarget.src = blog_avata_default.src; }}
+                        />
                       </div>
                       <div className="tp-blog-author-info">
                         <h5>{item.authorName}</h5>
