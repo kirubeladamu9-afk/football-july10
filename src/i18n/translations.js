@@ -79,6 +79,11 @@ const translations = {
       postedBy: 'ፁሁፍ:',
       category: 'ምድብ',
       date: 'ቀን',
+      blogGridTitle: 'አንብብ ወደ እኛ ብሎግ',
+      blogGridClassic: 'ብሎግ ግሪድ ክላሲክ',
+      clientsTitle: 'ከ 150K+ ሌላ ደንበኞች',
+      accomplishMore: 'ብዙ ይወጣ፣ አንድ ላይ',
+      blogDescription: 'Softuch ብሎግ ስለ ሩቅ ስራ ሁሉ ነገር ለእንደዚህ ያለ እውቀት ማእከል ነው።',
     },
 
     // Multimedia
@@ -195,6 +200,11 @@ const translations = {
       postedBy: 'Posted by',
       category: 'Category',
       date: 'Date',
+      blogGridTitle: 'Read our blogs',
+      blogGridClassic: 'Blog Grid Classic',
+      clientsTitle: 'OVER 150K+ CLIENT',
+      accomplishMore: 'Accomplish more, Together',
+      blogDescription: 'Softuch blog is your knowledge center for everything remote.',
     },
 
     // Multimedia

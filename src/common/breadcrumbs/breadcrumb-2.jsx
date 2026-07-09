@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import useTitleAnimation from "@/src/hooks/useTitleAnimation";
 import useBreadcrumbTitleAnime from "@/src/hooks/useBreadcrumbTitleAnime";
+import { useLanguage } from "@/src/hooks/useLanguage";
+import translations from "@/src/i18n/translations";
 
 import shape_1  from "../../../public/assets/img/breadcrumb/breadcrumb-shape-1.png";
 import shape_2  from "../../../public/assets/img/breadcrumb/breadcrumb-shape-2.png";
@@ -13,9 +15,11 @@ import shape_4  from "../../../public/assets/img/breadcrumb/breadcrumb-sub-1.png
 
 const BreadcrumbTwo = ({ title, innertitle, team_details, career_details }) => {
   const { animeRef } = useBreadcrumbTitleAnime();
+  const { language } = useLanguage();
   let subtitleRef = useRef(null)
 
  useTitleAnimation(subtitleRef);
+  const t = translations[language] || translations['en'];
   return (
     <>
       <div className="breadcrumb__area breadcrumb-height p-relative blue-bg-2">
@@ -37,7 +41,7 @@ const BreadcrumbTwo = ({ title, innertitle, team_details, career_details }) => {
                 </h3>
                 <div ref={subtitleRef} className="breadcrumb__list tp-title-anim tp__title_anime">
                   <span className="child-one">
-                    <Link href="/">Home</Link>
+                    <Link href="/">{language === 'am' ? 'ወደ ማውጫ' : 'Home'}</Link>
                   </span>
                   <span className="dvdr">
                     <i className="fal fa-angle-right"></i>
@@ -47,7 +51,7 @@ const BreadcrumbTwo = ({ title, innertitle, team_details, career_details }) => {
                       career_details && "child-one"
                     }`}
                   >
-                    {innertitle}
+                    {innertitle || (title === 'Read our blogs' ? t.blog.blogGridClassic : innertitle)}
                   </span>
                   {team_details && (
                     <>

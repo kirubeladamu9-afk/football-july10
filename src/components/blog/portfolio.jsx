@@ -4,10 +4,12 @@ import React, {useState, useEffect} from 'react';
 import useMultipleAnime from '@/src/hooks/useMultipleAnime';
 import { useLanguage } from '@/src/hooks/useLanguage';
 import { getTranslatedField } from '@/src/utils/i18n';
+import translations from '@/src/i18n/translations';
 
 const Portfolio = () => {
    const {dataRef} = useMultipleAnime();
    const { language } = useLanguage();
+   const t = translations[language] || translations['en'];
    const [activeCategory, setActiveCategory] = useState("All");
    const [items, setItems] = useState([]);
    const [allBlogs, setAllBlogs] = useState([]);
@@ -73,9 +75,9 @@ const Portfolio = () => {
                   <div className="row justify-content-center">
                      <div className="col-lg-8">
                         <div className="tp-about__section-box text-center mb-40">
-                           <h4 className="inner-section-subtitle">OVER 150K+ CLIENT</h4>
-                           <h3 className="tp-section-title">Accomplish more, Together</h3>
-                           <p>Softuch blog is your knowledge center for everything remote.</p>
+                           <h4 className="inner-section-subtitle">{t.blog.clientsTitle}</h4>
+                           <h3 className="tp-section-title">{t.blog.accomplishMore}</h3>
+                           <p>{t.blog.blogDescription}</p>
                         </div>
                      </div>
                   </div>
