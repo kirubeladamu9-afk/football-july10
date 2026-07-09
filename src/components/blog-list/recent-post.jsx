@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useLanguage } from "@/src/hooks/useLanguage";
+import { getTranslatedField } from "@/src/utils/i18n";
 
 const RecentPost = () => {
+  const { language } = useLanguage();
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,18 +49,18 @@ const RecentPost = () => {
         <div className="sidebar__widget-content">
           <div className="sidebar__post rc__post">
             {recentPosts.map((item, i) => {
-              const date = new Date(item.createdAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              });
+              const title = getTranslatedField(item, 'title', language);
+              const date = new Date(item.createdAt).toLocaleDateString(
+                language === 'am' ? 'am-ET' : 'en-US',
+                { year: 'numeric', month: 'long', day: 'numeric' }
+              );
               return (
                 <div key={i} className="rc__post mb-20 d-flex">
                   <div className="rc__post-thumb mr-20">
                     <Link href={`/blog/${item.slug}`}>
                       <Image
                         src={item.coverImage || '/assets/img/blog/blog-list-avata-1.jpg'}
-                        alt={item.titleEn}
+                        alt={title}
                         width={60}
                         height={60}
                       />
@@ -65,7 +68,7 @@ const RecentPost = () => {
                   </div>
                   <div className="rc__post-content">
                     <h3 className="rc__post-title">
-                      <Link href={`/blog/${item.slug}`}>{item.titleEn}</Link>
+                      <Link href={`/blog/${item.slug}`}>{title}</Link>
                     </h3>
                     <div className="rc__meta">
                       <span>{date}</span>
