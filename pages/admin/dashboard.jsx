@@ -97,7 +97,7 @@ export default function DashboardPage() {
 
                 {stats.recentActivity.length > 0 ? (
                   <ul className="recent-activity">
-                    {stats.recentActivity.map((activity) => (
+                    {stats.recentActivity.slice(0, 3).map((activity) => (
                       <li key={activity.id}>
                         <i className="activity-icon fas fa-pen-fancy"></i>
                         <strong>
