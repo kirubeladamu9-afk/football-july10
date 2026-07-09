@@ -1,27 +1,53 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, {useState} from 'react';
-import portfolio_blog from '@/src/data/portfolio-blog';
+import React, {useState, useEffect} from 'react';
 import useMultipleAnime from '@/src/hooks/useMultipleAnime';
- 
-// data
-const categories = [
-   "All",
-   ...new Set(portfolio_blog.map((item) => item.category)),
- ]; 
 
 const Portfolio = () => {
    const {dataRef} = useMultipleAnime();
    const [activeCategory, setActiveCategory] = useState("All");
-   const [items, setItems] = useState(portfolio_blog); 
-  
+   const [items, setItems] = useState([]);
+   const [allBlogs, setAllBlogs] = useState([]);
+   const [categories, setCategories] = useState(["All"]);
+
+   useEffect(() => {
+      const fetchBlogs = async () => {
+         try {
+            const response = await fetch('/api/blogs/public?limit=12')
+            if (!response.ok) throw new Error('Failed to fetch blogs')
+            const data = await response.json()
+
+            const formattedBlogs = data.blogs.map(blog => ({
+               id: blog.id,
+               slug: blog.slug,
+               thumb_img: blog.coverImage || "/assets/img/blog/blog-grid-1.jpg",
+               category: blog.category || "Blog",
+               date: blog.publishDate ? new Date(blog.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently",
+               title: blog.titleEn,
+               avata_img: blog.authorAvatar || "/assets/img/blog/blog-avata-1.png",
+               name: blog.authorName || "Author",
+               job_title: blog.authorRoleEn || "Writer",
+            }))
+
+            setAllBlogs(formattedBlogs)
+            setItems(formattedBlogs)
+
+            const uniqueCategories = ["All", ...new Set(formattedBlogs.map(item => item.category))]
+            setCategories(uniqueCategories)
+         } catch (error) {
+            console.error('Error fetching blogs:', error)
+         }
+      }
+      fetchBlogs()
+   }, [])
+
     const filterItems = (cateItem) => {
       setActiveCategory(cateItem);
-  
+
       if (cateItem === "All") {
-        return setItems(portfolio_blog);
+        return setItems(allBlogs);
       } else {
-        const findItems = portfolio_blog.filter((findItem) => {
+        const findItems = allBlogs.filter((findItem) => {
           return findItem.category == cateItem;
         });
         setItems(findItems);
@@ -58,11 +84,11 @@ const Portfolio = () => {
                   </div>
                   <div className="row grid blog-grid-inner" ref={dataRef}>
                
-                     {items.map((item, i ) => 
+                     {items.map((item, i ) =>
                         <div key={i} data-index={i} className="col-xl-4 col-lg-6 col-md-6 mb-30 grid-item cat1 cat4 cat3 cat5">
                            <div className="tp-blog-item">
                               <div className="tp-blog-thumb fix">
-                                 <Link href="/blog-details"><Image src={item.thumb_img} alt="theme-pure" /></Link>
+                                 <Link href={`/blog-details?id=${item.id}`}><Image src={item.thumb_img} alt={item.title} /></Link>
                               </div>
                               <div className="tp-blog-content">
                                  <div className="tp-blog-meta d-flex align-items-center">
@@ -74,11 +100,11 @@ const Portfolio = () => {
                                     </div>
                                  </div>
                                  <div className="tp-blog-title-box">
-                                    <Link className="tp-blog-title-sm" href="/blog-details">{item.title}</Link>
+                                    <Link className="tp-blog-title-sm" href={`/blog-details?id=${item.id}`}>{item.title}</Link>
                                  </div>
                                  <div className="tp-blog-author-info-box d-flex align-items-center">
                                     <div className="tp-blog-avata">
-                                       <Image src={item.avata_img} alt="theme-pure" />
+                                       <Image src={item.avata_img} alt={item.name} />
                                     </div>
                                     <div className="tp-blog-author-info">
                                        <h5>{item.name}</h5>

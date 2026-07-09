@@ -4,15 +4,12 @@ import React, {useState , useEffect} from 'react';
 import { EffectFade, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// author img import here 
+// author img import here
 import author_img_1 from "../../../public/assets/img/blog/blog-avata-3.png";
 import author_img_2 from "../../../public/assets/img/blog/blog-avata-2.png";
 import author_img_3 from "../../../public/assets/img/blog/blog-avata-1.png";
-import author_img_4 from "../../../public/assets/img/blog/blog-avata-3.png";
-import author_img_5 from "../../../public/assets/img/blog/blog-avata-2.png";
-import author_img_6 from "../../../public/assets/img/blog/blog-avata-1.png";
 
-const setting = { 
+const setting = {
     slidesPerView: 1,
     effect:'fade',
     // arrows:false,
@@ -39,95 +36,46 @@ const setting = {
     },
   }
 
-const blog_grid_content = {
-
-    grid_slider_data: [
-        {
-            id: 1, 
-            bg_img: "/assets/img/blog/inner-blog-1.png",
-            child_1: "Resources",
-            date: "October 20, 2023",
-            title: <>5 Companies doing Brand <br /> Marketing Right</>,
-            des: <>From publishing content and hoping to acquire leads to <br />
-            gaining audience insights and making personalized <br />
-            content, content marketing.</>,
-            author_img: author_img_1,
-            author_name: "Hilary Ouse",
-            author_info: "Founder & CEO Dulalix",
-        } ,
-        {
-            id: 2, 
-            bg_img: "/assets/img/blog/inner-blog-2.png",
-            child_1: "Resources",
-            date: "October 12, 2023",
-            title: <>5 Companies doing Brand <br /> Marketing Right</>,
-            des: <>From publishing content and hoping to acquire leads to <br />
-            gaining audience insights and making personalized <br />
-            content, content marketing.</>,
-            author_img: author_img_2,
-            author_name: "Ouse Hilary",
-            author_info: "Founder & CEO Dulalix",
-        } ,
-        {
-            id: 3, 
-            bg_img: "/assets/img/blog/inner-blog-3.png",
-            child_1: "Resources",
-            date: "October 25, 2023",
-            title: <>5 Companies doing Brand <br /> Marketing Right</>,
-            des: <>From publishing content and hoping to acquire leads to <br />
-            gaining audience insights and making personalized <br />
-            content, content marketing.</>,
-            author_img: author_img_3,
-            author_name: "Mahful Alom",
-            author_info: "Founder & CEO Dulalix",
-        } ,
-        {
-            id: 4, 
-            bg_img: "/assets/img/blog/inner-blog-1.png",
-            child_1: "Resources",
-            date: "October 20, 2023",
-            title: <>5 Companies doing Brand <br /> Marketing Right</>,
-            des: <>From publishing content and hoping to acquire leads to <br />
-            gaining audience insights and making personalized <br />
-            content, content marketing.</>,
-            author_img: author_img_4,
-            author_name: "Hilary Ouse",
-            author_info: "Founder & CEO Dulalix",
-        } ,
-        {
-            id: 5, 
-            bg_img: "/assets/img/blog/inner-blog-2.png",
-            child_1: "Resources",
-            date: "October 12, 2023",
-            title: <>5 Companies doing Brand <br /> Marketing Right</>,
-            des: <>From publishing content and hoping to acquire leads to <br />
-            gaining audience insights and making personalized <br />
-            content, content marketing.</>,
-            author_img: author_img_5,
-            author_name: "Ouse Hilary",
-            author_info: "Founder & CEO Dulalix",
-        } ,
-        {
-            id: 6, 
-            bg_img: "/assets/img/blog/inner-blog-3.png",
-            child_1: "Resources",
-            date: "October 25, 2023",
-            title: <>5 Companies doing Brand <br /> Marketing Right</>,
-            des: <>From publishing content and hoping to acquire leads to <br />
-            gaining audience insights and making personalized <br />
-            content, content marketing.</>,
-            author_img: author_img_6,
-            author_name: "Mahful Alom",
-            author_info: "Founder & CEO Dulalix",
-        } ,
-    ]
-}
-const {grid_slider_data}  = blog_grid_content
 const BlogGrid = () => {
-
     const [isLoop, setIsLoop] = useState(false)
+    const [blogs, setBlogs] = useState([])
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
        setIsLoop(true)
+    }, [])
+
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            try {
+                setLoading(true)
+                const response = await fetch('/api/blogs/public?limit=6')
+                if (!response.ok) throw new Error('Failed to fetch blogs')
+                const data = await response.json()
+                const formattedBlogs = data.blogs.map((blog, index) => {
+                    const authorImgs = [author_img_1, author_img_2, author_img_3]
+                    return {
+                        id: blog.id,
+                        slug: blog.slug,
+                        bg_img: blog.coverImage || "/assets/img/blog/inner-blog-1.png",
+                        child_1: blog.category || "Resources",
+                        date: blog.publishDate ? new Date(blog.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
+                        title: blog.titleEn,
+                        des: blog.excerptEn || blog.titleEn,
+                        author_img: blog.authorAvatar || authorImgs[index % authorImgs.length],
+                        author_name: blog.authorName || "Author",
+                        author_info: blog.authorRoleEn || "Content Creator",
+                    }
+                })
+                setBlogs(formattedBlogs)
+            } catch (error) {
+                console.error('Error fetching blogs:', error)
+                setBlogs([])
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchBlogs()
     }, [])
     
     return (
@@ -153,14 +101,14 @@ const BlogGrid = () => {
                                 </svg>
                                 </button>
                             </div>
-                            <Swiper 
-                            {...setting} 
+                            <Swiper
+                            {...setting}
                             loop={isLoop}
-                            modules={[Navigation, EffectFade]} 
-                            className="swiper-container blog-grid-slider-active"> 
-                                {grid_slider_data.map((item, i)  => 
-                                        <SwiperSlide key={i} className="swiper-slide"> 
-                                            <div  className="blog-grid-slider blog-grid-slider-bg d-flex align-items-center blog-grid-slider-height" 
+                            modules={[Navigation, EffectFade]}
+                            className="swiper-container blog-grid-slider-active">
+                                {(blogs && blogs.length > 0 ? blogs : []).map((item, i)  =>
+                                        <SwiperSlide key={i} className="swiper-slide">
+                                            <div  className="blog-grid-slider blog-grid-slider-bg d-flex align-items-center blog-grid-slider-height"
                                                         style={{backgroundImage: `url(${item.bg_img})`}}>
                                             <div className="blog-grid-slider-wrapper">
                                                 <div className="blog-grid-slider-meta">
@@ -168,7 +116,7 @@ const BlogGrid = () => {
                                                     <span className="child-two">{item.date}</span>
                                                 </div>
                                                 <div className="blog-grid-slider-title-box">
-                                                    <h4 className="blog-grid-slider-title"><Link href="/blog-details">{item.title}</Link></h4>
+                                                    <h4 className="blog-grid-slider-title"><Link href={`/blog-details?id=${item.id}`}>{item.title}</Link></h4>
                                                     <p> {item.des}</p>
                                                 </div>
                                                 <div className="tp-blog-author-info-box blog-grid-avata-box d-flex align-items-center">
@@ -182,8 +130,8 @@ const BlogGrid = () => {
                                                 </div>
                                             </div>
                                             </div>
-                                        </SwiperSlide> 
-                                 )}  
+                                        </SwiperSlide>
+                                 )}
                             </Swiper>
                         </div>
                     </div>

@@ -6,14 +6,25 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { slug } = req.query;
+    const { slug, id } = req.query;
 
-    if (!slug) {
-      return res.status(400).json({ error: 'Slug is required' });
+    if (!slug && !id) {
+      return res.status(400).json({ error: 'Either slug or id is required' });
+    }
+
+    let whereClause = 'WHERE status = "published"';
+    let params = [];
+
+    if (slug) {
+      whereClause += ' AND slug = ?';
+      params.push(slug);
+    } else if (id) {
+      whereClause += ' AND id = ?';
+      params.push(parseInt(id));
     }
 
     const result = await query(
-      `SELECT 
+      `SELECT
         id,
         slug,
         title_en as titleEn,
@@ -39,9 +50,9 @@ export default async function handler(req, res) {
         publish_date as publishDate,
         created_at as createdAt,
         updated_at as updatedAt
-      FROM blogs 
-      WHERE slug = ? AND status = 'published'`,
-      [slug]
+      FROM blogs
+      ${whereClause}`,
+      params
     );
 
     if (result.rows.length === 0) {

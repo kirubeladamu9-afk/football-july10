@@ -1,77 +1,54 @@
 import VideoPopup from '@/src/modals/video-popup';
 import SearchIcon from '@/src/svg/search-icon';
 import Link from 'next/link';
-import React,{useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Categories from './categories';
 import RecentPost from './recent-post';
 import Search from './search';
 import Tags from './tags';
- 
+
 
 import img_1 from "../../../public/assets/img/blog/blog-list-1.jpg";
 import img_2 from "../../../public/assets/img/blog/blog-list-3.jpg";
-import thumb from "../../../public/assets/img/blog/blog-list-2.jpg";
 import Image from 'next/image';
 
 
-
-// blog page data  
-const blog_page_data = [
-    {
-      id: 1,
-      img: img_1,
-      cls: "format-image",
-      slider_img: false,
-      category: "Resources",
-      date: "April 12, 2023",
-      video: [],
-      title: "Typing Tutorials For Kids And Beginners",
-      des: (
-        <>
-          From publishing content and hoping to acquire leads to gaining audience insights and making personalized content, content marketing.                             
-        </>
-      ),
-    },
-    {
-      id: 2,
-      img: "",
-      cls: "format-video",
-      slider_img: false,
-      category: "Resources",
-      date: "April 20, 2023",
-      video: [
-        {
-          video_tum: thumb,
-          videoId: "-WRZI63emjs",
-        },
-      ],
-      title: "Designing the Kids Space Universe",
-      des: (
-        <>
-          From publishing content and hoping to acquire leads to gaining audience insights and making personalized content, content marketing.
-        </>
-      ),
-    },
-    {
-      id: 3,
-      img: img_2,
-      cls: "format-image fix",
-      slider_img: false,
-      category: "Resources",
-      date: "April 12, 2023",
-      video: [],
-      title: "Typing Tutorials For Kids And Beginners",
-      des: (
-        <>
-          From publishing content and hoping to acquire leads to gaining audience insights and making personalized content, content marketing.
-        </>
-      ),
-    },
-  ];
-   
-  
 const PostboxArea = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/blogs/public?limit=10');
+        if (!response.ok) throw new Error('Failed to fetch blogs');
+        const data = await response.json();
+
+        const formattedBlogs = data.blogs.map(blog => ({
+          id: blog.id,
+          slug: blog.slug,
+          img: blog.coverImage || img_1,
+          cls: "format-image",
+          slider_img: false,
+          category: blog.category || "Resources",
+          date: blog.publishDate ? new Date(blog.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
+          video: [],
+          title: blog.titleEn,
+          des: blog.excerptEn || blog.titleEn,
+        }));
+        setBlogs(formattedBlogs);
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+        setBlogs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
   
     return (
         <>
@@ -80,33 +57,33 @@ const PostboxArea = () => {
                <div className="row">
                   <div className="col-xxl-8 col-xl-8 col-lg-8">
                      <div id="blog" className="postbox__wrapper pr-20">
-                        {blog_page_data.map((item, i)  => 
+                        {(blogs && blogs.length > 0 ? blogs : []).map((item, i)  =>
                             <article key={i} className={`postbox__item ${item.cls} mb-70 transition-3`}>
-                                {item.img && 
+                                {item.img &&
                                     <div className="postbox__thumb w-img">
-                                        <Link href="/blog-details">
-                                            <Image src={item.img} alt="theme-pure" />
+                                        <Link href={`/blog-details?id=${item.id}`}>
+                                            <Image src={item.img} alt={item.title} />
                                         </Link>
                                     </div>
                                 }
-                                {item.video  && 
-                                item.video.map((item, i) => 
-                                    <div key={i} className="postbox__thumb postbox__video w-img  p-relative">
-                                        <Link href="/blog-details">
-                                            <Image src={item.video_tum} alt="theme-pure" />
+                                {item.video  &&
+                                item.video.map((videoItem, vidIdx) =>
+                                    <div key={vidIdx} className="postbox__thumb postbox__video w-img  p-relative">
+                                        <Link href={`/blog-details?id=${item.id}`}>
+                                            <Image src={videoItem.video_tum} alt={item.title} />
                                         </Link>
                                         {/* video modal start */}
                                         <VideoPopup
                                             isVideoOpen={isVideoOpen}
                                             setIsVideoOpen={setIsVideoOpen}
-                                            videoId={item.videoId}
+                                            videoId={videoItem.videoId}
                                         />
                                         {/* video modal end */}
                                         <button onClick={() => setIsVideoOpen(true)}
                                         className="play-btn pulse-btn popup-video"
                                         ><i className="fas fa-play"></i></button>
                                     </div>
-                                
+
                                 )
                                 }
 
@@ -116,20 +93,20 @@ const PostboxArea = () => {
                                         <span><Link href="#">{item.date}</Link></span>
                                     </div>
                                     <h3 className="postbox__title">
-                                        <Link href="/blog-details">{item.title}</Link>
+                                        <Link href={`/blog-details?id=${item.id}`}>{item.title}</Link>
                                     </h3>
                                     <div className="postbox__text">
                                         <p>{item.des}</p>
                                     </div>
                                     <div className="postbox__btn mt-35">
-                                        <Link className="tp-btn-inner tp-btn-hover alt-color-black" href="/blog-details">
+                                        <Link className="tp-btn-inner tp-btn-hover alt-color-black" href={`/blog-details?id=${item.id}`}>
                                             <span>Read More</span>
                                             <b></b>
                                         </Link>
                                     </div>
                                 </div>
                             </article>
-                            
+
                             )
                         } 
 
