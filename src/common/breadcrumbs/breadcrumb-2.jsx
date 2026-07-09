@@ -75,13 +75,6 @@ const BreadcrumbTwo = ({ title, innertitle, team_details, career_details }) => {
             <div className="col-xl-4 col-lg-5 col-lg-4 text-center text-md-end">
               <div className="breadcrumb__img p-relative text-start z-index">
                 <Image className="z-index-3" src={shape_3} alt="theme-pure" />
-                <div
-                  className="breadcrumb__sub-img wow tpfadeUp"
-                  data-wow-duration=".9s"
-                  data-wow-delay=".4s"
-                >
-                  <Image src={shape_4} alt="theme-pure" />
-                </div>
               </div>
             </div>
           </div>
