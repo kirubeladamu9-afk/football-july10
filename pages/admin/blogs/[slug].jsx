@@ -52,6 +52,7 @@ export default function EditBlogPage() {
       const response = await fetch(`/api/blogs/${slug}`);
       if (!response.ok) throw new Error('notFound');
       const data = await response.json();
+      console.log('Fetched blog data:', { authorAvatar: data.authorAvatar });
       setFormData({
         titleEn: data.titleEn,
         titleAm: data.titleAm,
@@ -335,7 +336,12 @@ export default function EditBlogPage() {
               />
               {formData.authorAvatar && (
                 <div className="avatar-preview">
-                  <img src={formData.authorAvatar} alt="Avatar" />
+                  <img src={formData.authorAvatar} alt="Avatar" onError={() => console.log('Avatar image failed to load:', formData.authorAvatar)} />
+                </div>
+              )}
+              {!formData.authorAvatar && slug && (
+                <div style={{ fontSize: '12px', color: '#9a9da7', marginTop: '4px' }}>
+                  {language === 'en' ? 'No avatar uploaded' : 'አምሳያ አልተወነ'}
                 </div>
               )}
             </div>
