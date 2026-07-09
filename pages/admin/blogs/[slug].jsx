@@ -701,6 +701,7 @@ export default function EditBlogPage() {
           position: relative;
           width: 100%;
           max-width: 200px;
+          height: 200px;
           border-radius: 6px;
           overflow: hidden;
           background-color: #f5f5f5;
@@ -709,7 +710,8 @@ export default function EditBlogPage() {
         :global(.image-preview img),
         :global(.avatar-preview img) {
           width: 100%;
-          height: auto;
+          height: 100%;
+          object-fit: cover;
           display: block;
         }
 
