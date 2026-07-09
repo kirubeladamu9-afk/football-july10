@@ -15,7 +15,7 @@ import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const [isOppen, setIsOppen] = useState(false)
 
   const oppenLan = () => {
@@ -199,7 +199,14 @@ const Footer = () => {
                           {isOppen &&
                             <ul className={`tp-copyright__lang-submenu ${isOppen && "open"}`}>
                               <li>
-                                <Link href="#">{t.footer.englishLang}</Link>
+                                <button onClick={() => { setLanguage('am'); setIsOppen(false); }} style={{ background: 'none', border: 'none', color: language === 'am' ? '#0066cc' : 'inherit', cursor: 'pointer', padding: '0', textDecoration: 'none' }}>
+                                  {t?.header?.amharic}
+                                </button>
+                              </li>
+                              <li>
+                                <button onClick={() => { setLanguage('en'); setIsOppen(false); }} style={{ background: 'none', border: 'none', color: language === 'en' ? '#0066cc' : 'inherit', cursor: 'pointer', padding: '0', textDecoration: 'none' }}>
+                                  {t?.header?.english}
+                                </button>
                               </li>
                             </ul>
                           }

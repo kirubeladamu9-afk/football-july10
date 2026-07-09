@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
-// images import 
+// images import
 import about_img_1 from "../../public/assets/img/about/about-bg-shape.png"
-import about_img_2 from "../../public/assets/img/about/about-2.jpg" // የሀዩ ወይም የምርምር ቡድኑ ምስል የሚሆን
+import about_img_2 from "../../public/assets/img/about/about-2.jpg"
 import about_img_5 from "../../public/assets/img/about/about-5.png"
 
 // about data
@@ -26,23 +27,18 @@ const about_data =[
     },
 ]
 
-// about content
-const about_content = {
-    title: "የሃሳብ አመንጪ እና መሪ",
-    sub_title: "የሀዩ ራዕይ፡ ከሜዳው ባሻገር ያለው እውነታ", 
-    des: <>ይህ ፕሮጀክት በሀዩ (Hayu) መሪነትና ሙሉ ክትትል የሚመራ ሲሆን፣ እግር ኳስን ከቀላል ስፖርትነቱ ባሻገር በስልጣን ኮሪደሮች እና በህግ ፍርድ ቤቶች ያለውን ጥልቅ ትስስር ለይቶ ለማሳየት የተወለደ ልዩ መድረክ ነው።</>,
-
-    about_list: [
-        <>የስፖርት ጋዜጠኝነትን፣ ፖለቲካን እና ህግን ማገናኘት።</>,
-        <>የመንግስታትን ለስላሳ ስልጣን (Soft Power) ስትራቴጂ መተንተን።</>,
-        <>የማህበረሰብ ክለቦችን ማህበራዊና ስነ-ልቦናዊ ተፅእኖ መፈተሽ።</>,
-    ],
-    btn_text: "ስለ ፕሮጀክቱ መሪ ያንብቡ",
-}
-
-const { title, sub_title, des, about_list, btn_text } = about_content;
-
 const AboutArea = () => {
+    const { t } = useLanguage();
+
+    const about_content = {
+        title: t?.about?.founderTitle,
+        sub_title: t?.about?.founderSubtitle,
+        des: t?.about?.founderDesc,
+        about_list: t?.about?.founderList || [],
+        btn_text: t?.about?.learnMore,
+    }
+
+    const { title, sub_title, des, about_list, btn_text } = about_content;
     return (
         <>
             <div className="tp-about__area tp-about__pt-pb pt-100 pb-160">

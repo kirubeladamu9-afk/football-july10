@@ -38,6 +38,19 @@ const translations = {
       listenPodcast: 'ፖድካስት ያድምጡ',
     },
 
+    // About section
+    about: {
+      founderTitle: 'የሃሳብ አመንጪ እና መሪ',
+      founderSubtitle: 'የሀዩ ራዕይ፡ ከሜዳው ባሻገር ያለው እውነታ',
+      founderDesc: <>ይህ ፕሮጀክት በሀዩ (Hayu) መሪነትና ሙሉ ክትትል የሚመራ ሲሆን፣ እግር ኳስን ከቀላል ስፖርትነቱ ባሻገር በስልጣን ኮሪደሮች እና በህግ ፍርድ ቤቶች ያለውን ጥልቅ ትስስር ለይቶ ለማሳየት የተወለደ ልዩ መድረክ ነው።</>,
+      founderList: [
+        <>የስፖርት ጋዜጠኝነትን፣ ፖለቲካን እና ህግን ማገናኘት።</>,
+        <>የመንግስታትን ለስላሳ ስልጣን (Soft Power) ስትራቴጂ መተንተን።</>,
+        <>የማህበረሰብ ክለቦችን ማህበራዊና ስነ-ልቦናዊ ተፅእኖ መፈተሽ።</>,
+      ],
+      learnMore: 'ስለ ፕሮጀክቱ መሪ ያንብቡ',
+    },
+
     // Feature/Insights
     insights: {
       title: <>ከሜዳው ባሻገር ያለውን እውነታ <br /> በጥልቀት ይመርምሩ።</>,
@@ -138,6 +151,19 @@ const translations = {
       info: <>Politics, Law, Society — we investigate all three.<br />Football is more than the game; it's politics, law, and society.</>,
       readFirstArticle: 'Read First Article',
       listenPodcast: 'Listen to Podcast',
+    },
+
+    // About section
+    about: {
+      founderTitle: 'Thought Leader and Visionary',
+      founderSubtitle: 'Hayu Vision: Beyond the Field Reality',
+      founderDesc: <>This project is led and closely monitored by Hayu, serving as a unique platform designed to reveal the deep connection between football and the corridors of power and legal courts, beyond simple sports.</>,
+      founderList: [
+        <>Connecting sports journalism, politics, and law.</>,
+        <>Analyzing governments' soft power strategies.</>,
+        <>Examining grassroots clubs' social and psychological impact.</>,
+      ],
+      learnMore: 'Read About the Project Leader',
     },
 
     // Feature/Insights

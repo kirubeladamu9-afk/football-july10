@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '@/src/hooks/useLanguage';
+import { getTranslatedField } from '@/src/utils/i18n';
 import blog_avata_default from '../../../../public/assets/img/blog/blog-avata-1.png';
 
 const BlogArea = () => {
+  const { language } = useLanguage();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,12 +33,17 @@ const BlogArea = () => {
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    const locale = language === 'am' ? 'am-ET' : 'en-US';
+    return date.toLocaleDateString(locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
   };
+
+  const getTitle = (blog) => getTranslatedField(blog, 'title', language);
+  const getAuthorRole = (blog) => getTranslatedField(blog, 'authorRole', language);
+  const getCategory = (blog) => getTranslatedField(blog, 'category', language);
 
   return (
     <>
@@ -72,7 +80,7 @@ const BlogArea = () => {
                         {item.coverImage && (
                           <Image
                             src={item.coverImage}
-                            alt={item.titleEn}
+                            alt={getTitle(item)}
                             width={400}
                             height={300}
                           />
@@ -81,7 +89,7 @@ const BlogArea = () => {
                     </div>
                     <div className="tp-blog-meta d-flex align-items-center">
                       <div className="tp-blog-category category-color-1">
-                        <span>{item.category}</span>
+                        <span>{getCategory(item)}</span>
                       </div>
                       <div className="tp-blog-date">
                         <span>{formatDate(item.createdAt)}</span>
@@ -89,7 +97,7 @@ const BlogArea = () => {
                     </div>
                     <div className="tp-blog-title-box">
                       <Link className="tp-blog-title-sm" href={`/blog-details?slug=${item.slug}`}>
-                        {item.titleEn}
+                        {getTitle(item)}
                       </Link>
                     </div>
                     <div className="tp-blog-author-info-box d-flex align-items-center">
@@ -104,7 +112,7 @@ const BlogArea = () => {
                       </div>
                       <div className="tp-blog-author-info">
                         <h5>{item.authorName}</h5>
-                        <span>{item.authorRoleEn}</span>
+                        <span>{getAuthorRole(item)}</span>
                       </div>
                     </div>
                   </div>

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import React, {useState , useEffect} from 'react';
 import { EffectFade, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useLanguage } from '@/src/hooks/useLanguage';
+import { getTranslatedField } from '@/src/utils/i18n';
 
 // author img import here
 import author_img_1 from "../../../public/assets/img/blog/blog-avata-3.png";
@@ -37,6 +39,7 @@ const setting = {
   }
 
 const BlogGrid = () => {
+    const { language } = useLanguage();
     const [isLoop, setIsLoop] = useState(false)
     const [blogs, setBlogs] = useState([])
     const [loading, setLoading] = useState(true)
@@ -54,17 +57,18 @@ const BlogGrid = () => {
                 const data = await response.json()
                 const formattedBlogs = data.blogs.map((blog, index) => {
                     const authorImgs = [author_img_1, author_img_2, author_img_3]
+                    const locale = language === 'am' ? 'am-ET' : 'en-US';
                     return {
                         id: blog.id,
                         slug: blog.slug,
                         bg_img: blog.coverImage || "/assets/img/blog/inner-blog-1.png",
-                        child_1: blog.category || "Resources",
-                        date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
-                        title: blog.titleEn,
-                        des: blog.excerptEn || blog.titleEn,
+                        child_1: getTranslatedField(blog, 'category', language) || "Resources",
+                        date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
+                        title: getTranslatedField(blog, 'title', language),
+                        des: getTranslatedField(blog, 'excerpt', language) || getTranslatedField(blog, 'title', language),
                         author_img: blog.authorAvatar || authorImgs[index % authorImgs.length],
                         author_name: blog.authorName || "Author",
-                        author_info: blog.authorRoleEn || "Content Creator",
+                        author_info: getTranslatedField(blog, 'authorRole', language) || "Content Creator",
                     }
                 })
                 setBlogs(formattedBlogs)
@@ -76,7 +80,7 @@ const BlogGrid = () => {
             }
         }
         fetchBlogs()
-    }, [])
+    }, [language])
     
     return (
         <>
