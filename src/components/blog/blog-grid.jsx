@@ -61,12 +61,12 @@ const BlogGrid = () => {
                     return {
                         id: blog.id,
                         slug: blog.slug,
-                        bg_img: blog.coverImage || "/assets/img/blog/inner-blog-1.png",
+                        bg_img: (blog.coverImage && blog.coverImage.trim()) ? blog.coverImage : "/assets/img/blog/inner-blog-1.png",
                         child_1: getTranslatedField(blog, 'category', language) || "Resources",
                         date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
                         title: getTranslatedField(blog, 'title', language),
                         des: getTranslatedField(blog, 'excerpt', language) || getTranslatedField(blog, 'title', language),
-                        author_img: blog.authorAvatar || authorImgs[index % authorImgs.length],
+                        author_img: (blog.authorAvatar && blog.authorAvatar.trim()) ? blog.authorAvatar : authorImgs[index % authorImgs.length],
                         author_name: blog.authorName || "Author",
                         author_info: getTranslatedField(blog, 'authorRole', language) || "Content Creator",
                     }
