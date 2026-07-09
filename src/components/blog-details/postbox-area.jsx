@@ -36,7 +36,7 @@ const post_box_content = {
 const {title_1, des_1, des_2, checkmark_list, title_2, des_3, des_4, des_5, des_6}  = post_box_content
 
 
-const PostboxArea = ({style_details_2}) => {
+const PostboxArea = ({ blog, style_details_2 }) => {
     return (
         <>
             <div className={`postbox__area ${style_details_2 && "pt-100"} pb-100`}>
@@ -45,66 +45,114 @@ const PostboxArea = ({style_details_2}) => {
                   <div className="col-xxl-8 col-xl-8 col-lg-8">
                      <div className="postbox__details-wrapper pr-20">
                         <article>
-                           {style_details_2 && 
+                           {style_details_2 &&
                               <div className="postbox__thumb w-img">
-                                 <Link href="/blog-details">
-                                    <Image src={blog_details_img_1} alt="" />
+                                 <Link href={`/blog/${blog?.slug}`}>
+                                    <Image src={blog?.coverImage || blog_details_img_1} alt={blog?.titleEn || ""} width={800} height={500} onError={(e) => { e.currentTarget.src = blog_details_img_1; }} />
                                  </Link>
                               </div>
                            }
                            <div className="postbox__details-title-box pb-30">
-                              <h4 className="postbox__details-title">{title_1}</h4>
-                              <p>{des_1}</p>
-                              <p>{des_2}</p>
+                              <h4 className="postbox__details-title">{blog?.titleEn || title_1}</h4>
+                              <p>{blog ? blog.excerptEn || blog.bodyEn?.substring(0, 300) : des_1}</p>
+                              {blog && blog.excerptAm && <p>{blog.excerptAm}</p>}
                            </div>
-                           <div className="postbox__details-checkmark">
-                              <ul>
-                                {checkmark_list.map((item, i)  => <li key={i}><i className="fal fa-check"></i>{item}</li>)} 
-                              </ul>
-                           </div>
-                           <div className="postbox__details-title-box pb-30">
-                              <h4 className="postbox__details-title">{title_2}</h4>
-                              <p>{des_3}</p>
-                           </div>
-                           <div className="postbox__details-img-box d-flex">
-                              <div className="mr-20 text-center">
-                                 <Image className="mb-20" src={blog_details_img_2} alt="theme-pure" />
-                                 <h4 className="postbox__details-img-caption"><span>Images by</span>@sample</h4>
+                           {!blog && (
+                              <div className="postbox__details-checkmark">
+                                 <ul>
+                                   {checkmark_list.map((item, i)  => <li key={i}><i className="fal fa-check"></i>{item}</li>)}
+                                 </ul>
                               </div>
-                              <div className="text-center">
-                                 <Image className="mb-20" src={blog_details_img_3} alt="theme-pure" />
-                                 <h5 className="postbox__details-img-caption"><span>Images by</span>@sample</h5>
+                           )}
+                           {blog && (
+                              <div className="postbox__details-title-box pb-30">
+                                 <h4 className="postbox__details-title">{blog.titleAm}</h4>
+                                 <p>{blog.bodyEn}</p>
+                                 {blog.bodyAm && <p>{blog.bodyAm}</p>}
                               </div>
-                           </div>
-                           <div className="postbox__details-title-box pb-15">
-                              <p>{des_4}</p>
-                           </div>
-                           <div className="postbox__details-qoute mb-30">
-                              <blockquote className="d-flex align-items-start">
-                                 <div className="postbox__details-qoute-icon">
-                                    <DoubleSemicolon /> 
+                           )}
+                           {!blog && (
+                              <div className="postbox__details-title-box pb-30">
+                                 <h4 className="postbox__details-title">{title_2}</h4>
+                                 <p>{des_3}</p>
+                              </div>
+                           )}
+                           {!blog && (
+                              <div className="postbox__details-img-box d-flex">
+                                 <div className="mr-20 text-center">
+                                    <Image className="mb-20" src={blog_details_img_2} alt="theme-pure" width={400} height={300} />
+                                    <h4 className="postbox__details-img-caption"><span>Images by</span>@sample</h4>
                                  </div>
-                                 <div className="postbox__details-qoute-text">
-                                    <p>“The team at @softecagency is incredibly dedicated, knowledgeable, and helpful.</p>
-                                    <span>Socrates</span>
+                                 <div className="text-center">
+                                    <Image className="mb-20" src={blog_details_img_3} alt="theme-pure" width={400} height={300} />
+                                    <h5 className="postbox__details-img-caption"><span>Images by</span>@sample</h5>
                                  </div>
-                              </blockquote>
-                           </div>
-                           <div className="postbox__details-title-box pb-15">
-                              <p>{des_5}</p>
-                           </div>
+                              </div>
+                           )}
+                           {blog?.gallery && blog.gallery.length > 0 && (
+                              <div className="postbox__details-img-box d-flex">
+                                 {blog.gallery.slice(0, 2).map((img, i) => (
+                                    <div key={i} className={i === 0 ? "mr-20 text-center" : "text-center"}>
+                                       <Image className="mb-20" src={img.image} alt={img.caption || "Gallery image"} width={400} height={300} onError={(e) => { e.currentTarget.src = blog_details_img_2; }} />
+                                       {img.caption && <h5 className="postbox__details-img-caption">{img.caption}</h5>}
+                                    </div>
+                                 ))}
+                              </div>
+                           )}
+                           {!blog && (
+                              <div className="postbox__details-title-box pb-15">
+                                 <p>{des_4}</p>
+                              </div>
+                           )}
+                           {!blog && (
+                              <div className="postbox__details-qoute mb-30">
+                                 <blockquote className="d-flex align-items-start">
+                                    <div className="postbox__details-qoute-icon">
+                                       <DoubleSemicolon /> 
+                                    </div>
+                                    <div className="postbox__details-qoute-text">
+                                       <p>"The team at @softecagency is incredibly dedicated, knowledgeable, and helpful.</p>
+                                       <span>Socrates</span>
+                                    </div>
+                                 </blockquote>
+                              </div>
+                           )}
+                           {blog?.pullQuoteEn && (
+                              <div className="postbox__details-qoute mb-30">
+                                 <blockquote className="d-flex align-items-start">
+                                    <div className="postbox__details-qoute-icon">
+                                       <DoubleSemicolon /> 
+                                    </div>
+                                    <div className="postbox__details-qoute-text">
+                                       <p>"{blog.pullQuoteEn}"</p>
+                                       {blog.pullQuoteAttribution && <span>{blog.pullQuoteAttribution}</span>}
+                                    </div>
+                                 </blockquote>
+                              </div>
+                           )}
+                           {!blog && (
+                              <div className="postbox__details-title-box pb-15">
+                                 <p>{des_5}</p>
+                              </div>
+                           )}
                            <div className="postbox__details tagcloud mb-50">
                               <span>Tags:</span>
-                              <Link href="#">Envato</Link>
-                              <Link href="#">Development</Link>
-                              <Link href="#">Technology</Link>
-                              <Link href="#">Wordpress</Link>
+                              {blog?.tags && blog.tags.length > 0 ? (
+                                 blog.tags.map((tag, i) => <Link key={i} href="#">{tag}</Link>)
+                              ) : (
+                                 <>
+                                    <Link href="#">Envato</Link>
+                                    <Link href="#">Development</Link>
+                                    <Link href="#">Technology</Link>
+                                    <Link href="#">Wordpress</Link>
+                                 </>
+                              )}
                            </div>
 
                            <div className="postbox__navigation-more mb-70 d-flex justify-content-between">
                               <div className="postbox__navigation-left d-flex align-items-center">
                                  <div className="postbox__navigation-img">
-                                    <Link href="#"><Image src={navigation_img_1} alt="theme-pure" /></Link>
+                                    <Link href="#"><Image src={navigation_img_1} alt="theme-pure" width={80} height={80} /></Link>
                                  </div>
                                  <div className="postbox__navigation-content">
                                     <Link href="#">
@@ -127,20 +175,18 @@ const PostboxArea = ({style_details_2}) => {
                                     <h5><Link href="#">Typing Tutorials For...</Link></h5>
                                  </div>
                                  <div className="postbox__navigation-img">
-                                    <Link href="#"><Image src={navigation_img_2} alt="theme-pure" /></Link>
+                                    <Link href="#"><Image src={navigation_img_2} alt="theme-pure" width={80} height={80} /></Link>
                                  </div>
                               </div>
                            </div>
 
                            <div className="postbox__details-author-info-box mb-100 d-flex align-items-start">
                               <div className="postbox__details-author-avata">
-                                 <Image src={blog_details_avata} alt="theme-pure" />
+                                 <Image src={blog?.authorAvatar || blog_details_avata} alt={blog?.authorName || "Author"} width={120} height={120} onError={(e) => { e.currentTarget.src = blog_details_avata; }} />
                               </div>
                               <div className="postbox__details-author-content">
-                                 <h5 className="postbox__details-author-title">Dianne Ameter</h5>
-                                 <p>Ex erat referrentur vis. Vim ad consul molestie, eu malorum aliquando
-                                    referrentur pro, erroribus gloriatur sed at.!
-                                 </p>
+                                 <h5 className="postbox__details-author-title">{blog?.authorName || "Dianne Ameter"}</h5>
+                                 <p>{blog?.excerptEn || "Ex erat referrentur vis. Vim ad consul molestie, eu malorum aliquando referrentur pro, erroribus gloriatur sed at.!"}</p>
                                  <div className="postbox__details-author-social">
                                     <SocialLinks />  
                                  </div>

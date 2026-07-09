@@ -14,9 +14,15 @@ const breadcrumb_content = {
     author_info: "CEO Dulalix  •   April 24, 2022",
 
 }
-const {sub_title, title, author_name, author_info}  = breadcrumb_content
 
-const BreadcrumbSix = () => {
+const BreadcrumbSix = ({ blog }) => {
+    const sub_title = blog?.category || breadcrumb_content.sub_title;
+    const title = blog?.titleEn || breadcrumb_content.title;
+    const author_name = blog?.authorName || breadcrumb_content.author_name;
+    const author_avatar = blog?.authorAvatar || img_3;
+    const author_role = blog?.authorRoleEn || breadcrumb_content.author_info.split("•")[0].trim();
+    const publish_date = blog?.publishDate ? new Date(blog.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : breadcrumb_content.author_info.split("•")[1].trim();
+    const author_info = `${author_role} • ${publish_date}`;
     return (
         <>
             <div className="breadcrumb__area breadcrumb-ptb-4 p-relative blue-bg-2">
@@ -36,7 +42,7 @@ const BreadcrumbSix = () => {
                         </div>
                         <div className="tp-blog-author-info-box d-flex align-items-center">
                            <div className="tp-blog-avata">
-                              <Image src={img_3} alt="theme-pure" />
+                              <Image src={author_avatar} alt={author_name} width={60} height={60} onError={(e) => { e.currentTarget.src = img_3; }} />
                            </div>
                            <div className="tp-blog-author-info">
                               <h5>{author_name}</h5>
