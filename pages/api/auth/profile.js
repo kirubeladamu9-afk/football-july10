@@ -16,12 +16,17 @@ export default async function handler(req, res) {
 
       if (newPassword && currentPassword) {
         const userResult = await query('SELECT password FROM users WHERE id = ?', [user.id]);
-        
-        if (!userResult.rows[0]) {
+
+        if (!userResult.rows || !userResult.rows[0]) {
           return res.status(404).json({ error: 'User not found' });
         }
 
-        const passwordMatch = await bcrypt.compare(currentPassword, userResult.rows[0].password);
+        const storedPassword = userResult.rows[0].password;
+        if (!storedPassword) {
+          return res.status(500).json({ error: 'User password not found in database' });
+        }
+
+        const passwordMatch = await bcrypt.compare(currentPassword, storedPassword);
         if (!passwordMatch) {
           return res.status(400).json({ error: 'Current password is incorrect' });
         }
@@ -44,15 +49,16 @@ export default async function handler(req, res) {
           values.push(email);
         }
 
-        values.push(user.id);
-
-        await query(`UPDATE users SET ${updates.join(', ')} WHERE id = ?`, values);
+        if (updates.length > 0) {
+          values.push(user.id);
+          await query(`UPDATE users SET ${updates.join(', ')} WHERE id = ?`, values);
+        }
       }
 
       return res.status(200).json({ success: true });
     } catch (error) {
       console.error('Profile update error:', error);
-      return res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: error?.message || 'Internal server error' });
     }
   }
 
