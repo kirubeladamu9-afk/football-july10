@@ -12,7 +12,7 @@ const {bg_img, title, description, btn_text}  = cta_content
 const CtaArea = () => {
     return (
         <>
-            <div className="tp-cta-area p-relative">
+            <div>
                <div className="tp-cta-grey-bg grey-bg-2"></div>
                <div className="container">
                   <div className="row">
