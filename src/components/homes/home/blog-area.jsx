@@ -2,8 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import blog_avata_default from '../../../../public/assets/img/blog/blog-avata-1.png';
+import { useLanguage } from '@/src/context/LanguageContext';
+import { getTranslation } from '@/src/data/translations';
 
 const BlogArea = () => {
+  const { language } = useLanguage();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -45,7 +48,11 @@ const BlogArea = () => {
             <div className="col-xl-5">
               <div className="tp-blog-section-box text-center mb-50">
                 <h3 className="tp-section-title-3">
-                  Our Latest <span>News and Articles</span>
+                  {language === 'am' ? (
+                    <>የቅርብ ጊዜ <span>ዜናዎች እና መጣጥፎች</span></>
+                  ) : (
+                    <>Our Latest <span>News and Articles</span></>
+                  )}
                 </h3>
               </div>
             </div>
@@ -89,7 +96,7 @@ const BlogArea = () => {
                     </div>
                     <div className="tp-blog-title-box">
                       <Link className="tp-blog-title-sm" href={`/blog-details?slug=${item.slug}`}>
-                        {item.titleEn}
+                        {language === 'am' ? (item.titleAm || item.titleEn) : (item.titleEn || item.titleAm)}
                       </Link>
                     </div>
                     <div className="tp-blog-author-info-box d-flex align-items-center">
@@ -104,7 +111,7 @@ const BlogArea = () => {
                       </div>
                       <div className="tp-blog-author-info">
                         <h5>{item.authorName}</h5>
-                        <span>{item.authorRoleEn}</span>
+                        <span>{language === 'am' ? (item.authorRoleAm || item.authorRoleEn) : (item.authorRoleEn || item.authorRoleAm)}</span>
                       </div>
                     </div>
                   </div>

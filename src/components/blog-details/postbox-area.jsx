@@ -3,6 +3,7 @@ import DoubleSemicolon from '@/src/svg/double-semicolon';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '@/src/context/LanguageContext';
 import RecentPost from '../blog-list/recent-post';
 import Search from '../blog-list/search';
 
@@ -35,6 +36,7 @@ const {title_1, des_1, des_2, checkmark_list, title_2, des_3, des_4, des_5, des_
 
 
 const PostboxArea = ({ blog, style_details_2 }) => {
+    const { language } = useLanguage();
     const [nextPost, setNextPost] = useState(null);
     const [prevPost, setPrevPost] = useState(null);
     const [navLoading, setNavLoading] = useState(true);
@@ -98,9 +100,12 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                               </div>
                            }
                            <div className="postbox__details-title-box pb-30">
-                              <h4 className="postbox__details-title">{blog?.titleEn || title_1}</h4>
-                              <p>{blog ? blog.excerptEn || blog.bodyEn?.substring(0, 300) : des_1}</p>
-                              {blog && blog.excerptAm && <p>{blog.excerptAm}</p>}
+                              <h4 className="postbox__details-title">
+                                 {blog ? (language === 'am' ? (blog.titleAm || blog.titleEn) : (blog.titleEn || blog.titleAm)) : title_1}
+                              </h4>
+                              <p>
+                                 {blog ? (language === 'am' ? (blog.excerptAm || blog.excerptEn || blog.bodyAm?.substring(0, 300) || blog.bodyEn?.substring(0, 300)) : (blog.excerptEn || blog.excerptAm || blog.bodyEn?.substring(0, 300) || blog.bodyAm?.substring(0, 300))) : des_1}
+                              </p>
                            </div>
                            {!blog && (
                               <div className="postbox__details-checkmark">
@@ -111,9 +116,9 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                            )}
                            {blog && (
                               <div className="postbox__details-title-box pb-30">
-                                 <h4 className="postbox__details-title">{blog.titleAm}</h4>
-                                 <p>{blog.bodyEn}</p>
-                                 {blog.bodyAm && <p>{blog.bodyAm}</p>}
+                                 <p>
+                                    {language === 'am' ? (blog.bodyAm || blog.bodyEn) : (blog.bodyEn || blog.bodyAm)}
+                                 </p>
                               </div>
                            )}
                            {!blog && (
@@ -162,14 +167,14 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                  </blockquote>
                               </div>
                            )}
-                           {blog?.pullQuoteEn && (
+                           {(language === 'am' ? blog?.pullQuoteAm : blog?.pullQuoteEn) && (
                               <div className="postbox__details-qoute mb-30">
                                  <blockquote className="d-flex align-items-start">
                                     <div className="postbox__details-qoute-icon">
-                                       <DoubleSemicolon /> 
+                                       <DoubleSemicolon />
                                     </div>
                                     <div className="postbox__details-qoute-text">
-                                       <p>"{blog.pullQuoteEn}"</p>
+                                       <p>"{language === 'am' ? (blog.pullQuoteAm || blog.pullQuoteEn) : (blog.pullQuoteEn || blog.pullQuoteAm)}"</p>
                                        {blog.pullQuoteAttribution && <span>{blog.pullQuoteAttribution}</span>}
                                     </div>
                                  </blockquote>
@@ -181,7 +186,7 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                               </div>
                            )}
                            <div className="postbox__details tagcloud mb-50">
-                              <span>Tags:</span>
+                              <span>{language === 'am' ? 'መለያዎች:' : 'Tags:'}</span>
                               {blog?.tags && blog.tags.length > 0 ? (
                                  blog.tags.map((tag, i) => <Link key={i} href="#">{tag}</Link>)
                               ) : (
@@ -213,10 +218,10 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                           <Link href={`/blog/${prevPost.slug}`}>
                                              <span>
                                                 <i className="far fa-arrow-left"></i>
-                                                Previous post
+                                                {language === 'am' ? 'ቀደም ያለ ፅሑፍ' : 'Previous post'}
                                              </span>
                                           </Link>
-                                          <h5><Link href={`/blog/${prevPost.slug}`}>{prevPost.titleEn}</Link></h5>
+                                          <h5><Link href={`/blog/${prevPost.slug}`}>{language === 'am' ? (prevPost.titleAm || prevPost.titleEn) : (prevPost.titleEn || prevPost.titleAm)}</Link></h5>
                                        </div>
                                     </div>
                                  )}
@@ -225,11 +230,11 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                        <div className="postbox__navigation-content">
                                           <Link href={`/blog/${nextPost.slug}`}>
                                              <span>
-                                                Next post
+                                                {language === 'am' ? 'ቀጣይ ፅሑፍ' : 'Next post'}
                                                 <i className="far fa-arrow-right"></i>
                                              </span>
                                           </Link>
-                                          <h5><Link href={`/blog/${nextPost.slug}`}>{nextPost.titleEn}</Link></h5>
+                                          <h5><Link href={`/blog/${nextPost.slug}`}>{language === 'am' ? (nextPost.titleAm || nextPost.titleEn) : (nextPost.titleEn || nextPost.titleAm)}</Link></h5>
                                        </div>
                                        <div className="postbox__navigation-img">
                                           <Link href={`/blog/${nextPost.slug}`}>

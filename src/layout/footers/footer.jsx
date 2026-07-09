@@ -8,64 +8,108 @@ import EmailIcon from '@/src/svg/email';
 import LocationIcon from '@/src/svg/location-icon';
 import PhoneIcon from '@/src/svg/phone-icon';
 import RightArrow from '@/src/svg/right-arrow';
+import { useLanguage } from '@/src/context/LanguageContext';
 
 import footer_logo from "../../../public/assets/img/logo/footer-logo.webp";
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
-
-// footer_content 
-const footer_content = {
-  title: <>የቅርብ ጊዜ ዜናዎችን እና አዳዲስ መረጃዎችን ያግኙ</>,
-  description: <>በእግር ኳስ ትንተና እና ስፖርታዊ መረጃዎች ላይ ያተኮረ የፖድካስት መድረክ።</>,
-  phone: "+251(000)8899",
-  contact_mail: "contact@info.com",
-  location: "አዲስ አበባ፣ ኢትዮጵያ",
-
-  copy_right: <>መብቱ በህግ የተጠበቀ ነው & በዲዛይን የተሰራው በ <Link href="#">EKD Tech .</Link> – {new Date().getFullYear()}</>,
-
-  footer_lisks: [
-    {
-      id: 1,
-      cls_1: "col-xl-3 col-lg-3 col-md-5",
-      cls_2: "footer-col-2",
-      title: "የምንሰራቸው ስራዎች",
-      delay: ".7s",
-      links: [
-        { name: "ፖድካስት", link: "#" },
-        { name: "ስልታዊ ትንተና", link: "#" },
-        { name: "የቀጥታ ስርጭት", link: "#" },
-        { name: "የስፖርት ማስታወቂያ", link: "#" },
-        { name: "የክለቦች ታሪክ", link: "#" },
-        { name: "የታዳጊዎች ስልጠና", link: "#" },
-      ]
-    },
-    {
-      id: 2,
-      cls_1: "col-xl-2 col-lg-2 col-md-6",
-      cls_2: "footer-col-3",
-      title: "ሌሎች ገጾች",
-      delay: ".9s",
-      links: [
-        { name: "ስለ እኛ", link: "/about" },
-        { name: "አገልግሎቶች", link: "/service" },
-        { name: "እንዴት ይሰራል", link: "#" },
-        { name: "የክፍያ እቅድ", link: "/price" },
-        { name: "ብሎግ", link: "/blog" },
-        { name: "ያግኙን", link: "/contact" },
-      ]
-    },
-
-  ],
-
-}
-const { title, description, phone, contact_mail, location, copy_right, footer_lisks } = footer_content
-
-
 const Footer = () => {
+  const { language, setLanguage } = useLanguage();
   const [isOppen, setIsOppen] = useState(false)
+
   const oppenLan = () => {
     setIsOppen(!isOppen)
   }
+
+  const getFooterContent = () => {
+    const year = new Date().getFullYear();
+    if (language === 'am') {
+      return {
+        title: <>የቅርብ ጊዜ ዜናዎችን እና አዳዲስ መረጃዎችን ያግኙ</>,
+        description: <>በእግር ኳስ ትንተና እና ስፖርታዊ መረጃዎች ላይ ያተኮረ የፖድካስት መድረክ።</>,
+        phone: "+251(000)8899",
+        contact_mail: "contact@info.com",
+        location: "አዲስ አበባ፣ ኢትዮጵያ",
+        copy_right: <>© {year} ከሜዳው ባሻገር። ሁሉም መብቶች የተጠበቁ ናቸው።</>,
+        footer_links: [
+          {
+            id: 1,
+            cls_1: "col-xl-3 col-lg-3 col-md-5",
+            cls_2: "footer-col-2",
+            title: "የምንሰራቸው ስራዎች",
+            delay: ".7s",
+            links: [
+              { name: "ፖድካስት", link: "#" },
+              { name: "ስልታዊ ትንተና", link: "#" },
+              { name: "የቀጥታ ስርጭት", link: "#" },
+              { name: "የስፖርት ማስታወቂያ", link: "#" },
+              { name: "የክለቦች ታሪክ", link: "#" },
+              { name: "የታዳጊዎች ስልጠና", link: "#" },
+            ]
+          },
+          {
+            id: 2,
+            cls_1: "col-xl-2 col-lg-2 col-md-6",
+            cls_2: "footer-col-3",
+            title: "ሌሎች ገጾች",
+            delay: ".9s",
+            links: [
+              { name: "ስለ እኛ", link: "/about" },
+              { name: "አገልግሎቶች", link: "/service" },
+              { name: "እንዴት ይሰራል", link: "#" },
+              { name: "የክፍያ እቅድ", link: "/price" },
+              { name: "ብሎግ", link: "/blog" },
+              { name: "ያግኙን", link: "/contact" },
+            ]
+          },
+        ],
+      };
+    } else {
+      return {
+        title: <>Get the Latest News and Information</>,
+        description: <>A podcast platform focused on football analysis and sports information.</>,
+        phone: "+251(000)8899",
+        contact_mail: "contact@info.com",
+        location: "Addis Ababa, Ethiopia",
+        copy_right: <>© {year} Beyond The Pitch. All rights reserved.</>,
+        footer_links: [
+          {
+            id: 1,
+            cls_1: "col-xl-3 col-lg-3 col-md-5",
+            cls_2: "footer-col-2",
+            title: "What We Do",
+            delay: ".7s",
+            links: [
+              { name: "Podcast", link: "#" },
+              { name: "Strategic Analysis", link: "#" },
+              { name: "Live Coverage", link: "#" },
+              { name: "Sports News", link: "#" },
+              { name: "Club History", link: "#" },
+              { name: "Training Guides", link: "#" },
+            ]
+          },
+          {
+            id: 2,
+            cls_1: "col-xl-2 col-lg-2 col-md-6",
+            cls_2: "footer-col-3",
+            title: "Other Pages",
+            delay: ".9s",
+            links: [
+              { name: "About Us", link: "/about" },
+              { name: "Services", link: "/service" },
+              { name: "How It Works", link: "#" },
+              { name: "Pricing Plan", link: "/price" },
+              { name: "Blog", link: "/blog" },
+              { name: "Contact Us", link: "/contact" },
+            ]
+          },
+        ],
+      };
+    }
+  };
+
+  const footerContent = getFooterContent();
+  const { title, description, phone, contact_mail, location, copy_right, footer_links } = footerContent;
 
   useIsomorphicLayoutEffect(() => {
     gsap.set(".tp-gsap-bg", { scaleX: 1 });
@@ -105,7 +149,7 @@ const Footer = () => {
                   <div className="col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">
                     <div className="tp-footer__input p-relative">
                       <form onSubmit={(e) => e.preventDefault()}>
-                        <input type="text" placeholder="የስራ ኢሜይል አድራሻ" />
+                        <input type="text" placeholder={language === 'am' ? 'የስራ ኢሜይል አድራሻ' : 'Enter your email'} />
                         <span>
                           <EmailIcon />
                         </span>
@@ -136,7 +180,7 @@ const Footer = () => {
                   </div>
 
 
-                  {footer_lisks.map((item, i) =>
+                  {footer_links.map((item, i) =>
                     <div key={i} className={`${item.cls_1} pb-30 wow tpfadeUp`} data-wow-duration=".9s" data-wow-delay={item.delay}>
                       <div className={`tp-footer__widget ${item.cls_2}`}>
                         <h4 className="tp-footer__widget-title">{item.title}</h4>
@@ -151,7 +195,7 @@ const Footer = () => {
 
                   <div className="col-xl-3 col-lg-3 col-md-6 pb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay="1s">
                     <div className="tp-footer__widget footer-col-4">
-                      <h4 className="tp-footer__widget-title">ያግኙን</h4>
+                      <h4 className="tp-footer__widget-title">{language === 'am' ? 'ያግኙን' : 'Contact Us'}</h4>
                       <div className="tp-footer__contact-info tp-footer__icon-space">
                         <ul>
                           <li>
@@ -195,13 +239,18 @@ const Footer = () => {
                       <ul>
                         <li>
                           <button id="tp-copyright__lang-toggle" onClick={() => oppenLan()} >
-                            <span>አማርኛ (ET)<i className="fal fa-angle-down"></i></span>
+                            <span>{language === 'am' ? 'አማርኛ (ET)' : 'English'}<i className="fal fa-angle-down"></i></span>
                           </button>
 
                           {isOppen &&
                             <ul className={`tp-copyright__lang-submenu ${isOppen && "open"}`}>
                               <li>
-                                <Link href="#">እንግሊዝኛ</Link>
+                                <button onClick={() => {
+                                  setLanguage(language === 'am' ? 'en' : 'am');
+                                  setIsOppen(false);
+                                }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', textDecoration: 'none' }}>
+                                  {language === 'am' ? 'English' : 'አማርኛ'}
+                                </button>
                               </li>
                             </ul>
                           }

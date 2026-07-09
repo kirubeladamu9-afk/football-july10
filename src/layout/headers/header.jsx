@@ -5,18 +5,15 @@ import Offcanvus from '@/src/common/offcanvus';
 import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
 import NavMenu from './nav-menu';
 import useSticky from '@/src/hooks/use-sticky';
-
-
+import { useLanguage } from '@/src/context/LanguageContext';
 
 import logo from "../../../public/assets/img/logo/football-logo.webp"
-
-
 
 const Header = () => {
 
       const {sticky}  =  useSticky()
+      const { language, setLanguage } = useLanguage()
       const [sidebarOpen, setSidebarOpen] = useState(false)
-      const [language, setLanguage] = useState('am')
       const [langDropdownOpen, setLangDropdownOpen] = useState(false)
 
       // gsa use

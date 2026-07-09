@@ -5,6 +5,8 @@ import React, { useEffect, useRef } from 'react';
 import useTitleAnimation from "@/src/hooks/useTitleAnimation";
 import Brwoser from '@/src/common/brwoser';
 import BounceLine from '@/src/svg/bounce-line';
+import { useLanguage } from '@/src/context/LanguageContext';
+import { getTranslation } from '@/src/data/translations';
 
 import left_shape from "../../../../public/assets/img/hero/hero-left-shape-3-1.webp" ;
 import gradient_bg from "../../../../public/images/hero-gradient-3.webp" ;
@@ -12,24 +14,27 @@ import img_1 from "../../../../public/images/hero-img-3-1.webp";
 import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
-const hero_content = { 
-   title_1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
-  title_2: " የህግ፣ የፖለቲካና ማህበረሰብ ትስስር",
-   info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
-   btn_1: "የመጀመሪያውን መጣጥፍ ያንብቡ",
-   btn_2: "ፖድካስት ያድምጡ",
-   
-}
-const { title_1, title_2, info, btn_1, btn_2 } = hero_content
-
 const HeroArea = () => {
 
+   const { language } = useLanguage();
    let info_anim = useRef(null)
 
    useIsomorphicLayoutEffect(() => {
       let tl = gsap.timeline({ default: { ease: "SlowMo.easeOut" } });
       tl.to(".hero-text-anim i.child-1", { y: "0px", duration: 1, opacity: 1, stagger: 0.3, delay: .5 });
    }, [])
+
+   const title_1 = language === 'am'
+      ? <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>
+      : <>Beyond The Pitch: <span>Football,</span></>;
+   const title_2 = language === 'am'
+      ? 'የህግ፣ የፖለቲካና ማህበረሰብ ትስስር'
+      : 'Law, Politics and Society';
+   const info = language === 'am'
+      ? <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>
+      : <>Politics, Law, Society — we explore all three. <br />Football is more than the game; it's politics, law, and society.</>;
+   const btn_1 = getTranslation('hero.btn_articles', language);
+   const btn_2 = getTranslation('hero.btn_podcast', language);
 
    return (
       <>
