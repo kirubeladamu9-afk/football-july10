@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '@/src/hooks/useLanguage';
 import { getTranslatedField } from '@/src/utils/i18n';
+import translations from '@/src/i18n/translations';
 import blog_avata_default from '../../../../public/assets/img/blog/blog-avata-1.png';
 
 const BlogArea = () => {
@@ -53,7 +54,7 @@ const BlogArea = () => {
             <div className="col-xl-5">
               <div className="tp-blog-section-box text-center mb-50">
                 <h3 className="tp-section-title-3">
-                  Our Latest <span>News and Articles</span>
+                  {translations[language]?.blog?.title || 'Our Latest News and Articles'}
                 </h3>
               </div>
             </div>
