@@ -192,6 +192,40 @@ export default function MultimediaPage() {
       )}
 
       <style jsx>{`
+        :global(.admin-table) {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        :global(.admin-table tbody tr) {
+          border-bottom: 1px solid #eeeef5;
+          height: 44px;
+        }
+
+        :global(.admin-table td) {
+          padding: 8px 12px;
+          font-size: 14px;
+          vertical-align: middle;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        :global(.admin-table th) {
+          padding: 10px 12px;
+          text-align: left;
+          font-weight: 600;
+          background-color: #fafaf9;
+          border-bottom: 1px solid #eeeef5;
+        }
+
+        :global(.admin-table strong) {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
         .pagination-controls {
           display: flex;
           gap: 12px;
