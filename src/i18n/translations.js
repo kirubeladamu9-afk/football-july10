@@ -74,6 +74,7 @@ const translations = {
 
     // Blog
     blog: {
+      title: 'የእኛ ቅርብ ጊዜ ዜናዎች እና መጣጥፍ',
       readMore: 'ተጨማሪ ያንብቡ',
       postedBy: 'ፁሁፍ:',
       category: 'ምድብ',
@@ -189,6 +190,7 @@ const translations = {
 
     // Blog
     blog: {
+      title: 'Our Latest News and Articles',
       readMore: 'Read More',
       postedBy: 'Posted by',
       category: 'Category',
