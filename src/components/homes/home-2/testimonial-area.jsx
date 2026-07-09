@@ -18,7 +18,7 @@ const slider_data  = [
         img: slider_img_1,
         name: "Lana Rey",
         job: "Founder & Leader",
-        info: <>"Is it possible to Love your credit card processor? with Softec, yes!"</>,
+        info: <>"Is it possible to Love your credit card processor? with Football Governance & Tactics, yes!"</>,
 
     },
     {
@@ -26,7 +26,7 @@ const slider_data  = [
         img: slider_img_2,
         name: "J. McGhee",
         job: "Founder & Leader",
-        info: <>"Is it possible to Love your credit card processor? with Softec, yes!"</>,
+        info: <>"Is it possible to Love your credit card processor? with Football Governance & Tactics, yes!"</>,
 
     },
     {
@@ -34,7 +34,7 @@ const slider_data  = [
         img: slider_img_3,
         name: "Michael H.",
         job: "Founder & Leader",
-        info: <>"Is it possible to Love your credit card processor? with Softec, yes!"</>,
+        info: <>"Is it possible to Love your credit card processor? with Football Governance & Tactics, yes!"</>,
 
     },
     {
@@ -42,9 +42,9 @@ const slider_data  = [
         img: slider_img_4,
         name: "Lana Rey",
         job: "Founder & Leader",
-        info: <>"Is it possible to Love your credit card processor? with Softec, yes!"</>,
+        info: <>"Is it possible to Love your credit card processor? with Football Governance & Tactics, yes!"</>,
 
-    }, 
+    },
 ]
 
 // slider setting 

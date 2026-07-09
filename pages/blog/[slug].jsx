@@ -84,7 +84,7 @@ const BlogDetail = () => {
 
   return (
     <Wrapper>
-      <SEO pageTitle={`${blog.titleEn} - Softec`} />
+      <SEO pageTitle={`${blog.titleEn} - Football Governance & Tactics`} />
       <Header />
       <div id="smooth-wrapper">
         <div id="smooth-content">
