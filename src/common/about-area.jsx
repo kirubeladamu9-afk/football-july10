@@ -66,7 +66,7 @@ const AboutArea = () => {
                               </ul>
                            </div>
                            <div className="tp-about__btn">
-                              <Link className="tp-btn tp-btn-hover alt-color-black" href="/about">
+                              <Link className="tp-btn tp-btn-hover alt-color-black" href="/">
                                  <span>{btn_text}</span>
                                  <b></b>
                               </Link>
