@@ -23,6 +23,12 @@ export default async function handler(req, res) {
         blog.id,
       ]);
 
+      const parseField = (field) => {
+        if (!field) return [];
+        if (typeof field === 'string') return JSON.parse(field);
+        return field;
+      };
+
       return res.status(200).json({
         id: blog.id,
         slug: blog.slug,
@@ -37,7 +43,7 @@ export default async function handler(req, res) {
         authorAvatar: blog.author_avatar,
         authorRoleEn: blog.author_role_en,
         authorRoleAm: blog.author_role_am,
-        gallery: blog.gallery ? JSON.parse(blog.gallery) : [],
+        gallery: parseField(blog.gallery),
         pullQuoteEn: blog.pull_quote_en,
         pullQuoteAm: blog.pull_quote_am,
         pullQuoteAttribution: blog.pull_quote_attribution,
@@ -47,7 +53,7 @@ export default async function handler(req, res) {
         category: blog.category,
         status: blog.status,
         publishDate: blog.publish_date,
-        tags: blog.tags ? JSON.parse(blog.tags) : tagsResult.rows.map((r) => r.tag),
+        tags: blog.tags ? parseField(blog.tags) : tagsResult.rows.map((r) => r.tag),
         imageCaption: blog.image_caption,
         createdAt: blog.created_at,
         updatedAt: blog.updated_at,

@@ -25,6 +25,16 @@ export default function EditBlogPage() {
     excerptAm: '',
     bodyEn: '',
     bodyAm: '',
+    coverImage: '',
+    authorName: '',
+    authorAvatar: '',
+    authorRoleEn: '',
+    authorRoleAm: '',
+    gallery: [],
+    galleryInput: { image: '', caption: '' },
+    pullQuoteEn: '',
+    pullQuoteAm: '',
+    pullQuoteAttribution: '',
     category: '',
     status: 'draft',
     tags: [],
@@ -49,6 +59,16 @@ export default function EditBlogPage() {
         excerptAm: data.excerptAm || '',
         bodyEn: data.bodyEn,
         bodyAm: data.bodyAm,
+        coverImage: data.coverImage || '',
+        authorName: data.authorName || '',
+        authorAvatar: data.authorAvatar || '',
+        authorRoleEn: data.authorRoleEn || '',
+        authorRoleAm: data.authorRoleAm || '',
+        gallery: data.gallery || [],
+        galleryInput: { image: '', caption: '' },
+        pullQuoteEn: data.pullQuoteEn || '',
+        pullQuoteAm: data.pullQuoteAm || '',
+        pullQuoteAttribution: data.pullQuoteAttribution || '',
         category: data.category,
         status: data.status,
         tags: data.tags || [],
@@ -65,8 +85,70 @@ export default function EditBlogPage() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const uploadImage = async (file) => {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onload = async (event) => {
+        try {
+          const response = await fetch('/api/blogs/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              image: event.target.result,
+              filename: file.name,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to upload image');
+          }
+
+          const data = await response.json();
+          resolve(data.url);
+        } catch (err) {
+          reject(err);
+        }
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageUpload = async (field, e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        setSaving(true);
+        const url = await uploadImage(file);
+        handleChange(field, url);
+      } catch (err) {
+        setError('Failed to upload image');
+        console.error('Image upload error:', err);
+      } finally {
+        setSaving(false);
+      }
+    }
+  };
+
+  const handleAddGalleryImage = () => {
+    if (formData.galleryInput.image) {
+      setFormData((prev) => ({
+        ...prev,
+        gallery: [...prev.gallery, { ...prev.galleryInput }],
+        galleryInput: { image: '', caption: '' },
+      }));
+    }
+  };
+
+  const handleRemoveGalleryImage = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      gallery: prev.gallery.filter((_, i) => i !== index),
+    }));
+  };
+
   const handleAddTag = () => {
-    if (formData.tagInput.trim()) {
+    if (formData.tagInput.trim() && formData.tagInput.length <= 20) {
       setFormData((prev) => ({
         ...prev,
         tags: [...prev.tags, prev.tagInput.trim()],
@@ -88,6 +170,16 @@ export default function EditBlogPage() {
     setSaving(true);
 
     try {
+      if (!formData.titleEn || !formData.titleAm) {
+        throw new Error('titleRequired');
+      }
+      if (!formData.bodyEn || !formData.bodyAm) {
+        throw new Error('bodyRequired');
+      }
+      if (!formData.category) {
+        throw new Error('categoryRequired');
+      }
+
       const response = await fetch(`/api/blogs/${slug}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -98,6 +190,15 @@ export default function EditBlogPage() {
           excerptAm: formData.excerptAm,
           bodyEn: formData.bodyEn,
           bodyAm: formData.bodyAm,
+          coverImage: formData.coverImage,
+          authorName: formData.authorName,
+          authorAvatar: formData.authorAvatar,
+          authorRoleEn: formData.authorRoleEn,
+          authorRoleAm: formData.authorRoleAm,
+          gallery: formData.gallery,
+          pullQuoteEn: formData.pullQuoteEn,
+          pullQuoteAm: formData.pullQuoteAm,
+          pullQuoteAttribution: formData.pullQuoteAttribution,
           category: formData.category,
           status: formData.status,
           tags: formData.tags,
@@ -148,6 +249,7 @@ export default function EditBlogPage() {
 
       <div className="admin-card">
         <form onSubmit={handleSubmit} className="admin-form">
+          {/* Title Section */}
           <div className="form-group form-row">
             <div className="form-field">
               <label className="form-label">
@@ -158,8 +260,12 @@ export default function EditBlogPage() {
                 value={formData.titleEn}
                 onChange={(e) => handleChange('titleEn', e.target.value)}
                 className="form-input"
+                maxLength="60"
                 required
               />
+              <div className={`char-counter ${formData.titleEn.length > 60 ? 'over-limit' : ''}`}>
+                {formData.titleEn.length}/60
+              </div>
             </div>
             <div className="form-field">
               <label className="form-label">
@@ -170,11 +276,94 @@ export default function EditBlogPage() {
                 value={formData.titleAm}
                 onChange={(e) => handleChange('titleAm', e.target.value)}
                 className="form-input"
+                maxLength="60"
                 required
+              />
+              <div className={`char-counter ${formData.titleAm.length > 60 ? 'over-limit' : ''}`}>
+                {formData.titleAm.length}/60
+              </div>
+            </div>
+          </div>
+
+          {/* Cover Image */}
+          <div className="form-group">
+            <label className="form-label">{language === 'en' ? 'Cover/Hero Image' : 'ሙላ/ዋና ምስል'}</label>
+            <div className="image-upload-group">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload('coverImage', e)}
+                className="image-input"
+              />
+              {formData.coverImage && (
+                <div className="image-preview">
+                  <img src={formData.coverImage} alt="Cover" />
+                  <button
+                    type="button"
+                    onClick={() => handleChange('coverImage', '')}
+                    className="remove-image-btn"
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Author Section */}
+          <div className="form-group">
+            <h3 className="section-title">{language === 'en' ? 'Author Information' : 'ደራሲ መረጃ'}</h3>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Name' : 'ደራሲ ስም'}</label>
+              <input
+                type="text"
+                value={formData.authorName}
+                onChange={(e) => handleChange('authorName', e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Avatar' : 'ደራሲ አምሳያ'}</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload('authorAvatar', e)}
+                className="form-input"
+              />
+              {formData.authorAvatar && (
+                <div className="avatar-preview">
+                  <img src={formData.authorAvatar} alt="Avatar" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Role/Title' : 'ደራሲ ሚና/ርዕስ'} (English)</label>
+              <input
+                type="text"
+                value={formData.authorRoleEn}
+                onChange={(e) => handleChange('authorRoleEn', e.target.value)}
+                className="form-input"
+                placeholder={language === 'en' ? 'e.g. CEO Dulalix' : 'ለምሳሌ CEO Dulalix'}
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Author Role/Title' : 'ደራሲ ሚና/ርዕስ'} (Amharic)</label>
+              <input
+                type="text"
+                value={formData.authorRoleAm}
+                onChange={(e) => handleChange('authorRoleAm', e.target.value)}
+                className="form-input"
               />
             </div>
           </div>
 
+          {/* Excerpt Section */}
           <div className="form-group form-row">
             <div className="form-field">
               <label className="form-label">{language === 'en' ? 'Excerpt' : 'ጽሑፍ አጭር መግለጫ'} (English)</label>
@@ -196,6 +385,7 @@ export default function EditBlogPage() {
             </div>
           </div>
 
+          {/* Content Section */}
           <div className="form-group form-row">
             <div className="form-field">
               <label className="form-label">
@@ -221,6 +411,123 @@ export default function EditBlogPage() {
             </div>
           </div>
 
+          {/* Gallery Section */}
+          <div className="form-group">
+            <label className="form-label">{language === 'en' ? 'Gallery (Multiple Images)' : 'ギャラ里(ብዙ ምስሎች)'}</label>
+            <div className="gallery-section">
+              <div className="form-row">
+                <div style={{ flex: 1 }}>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        try {
+                          setSaving(true);
+                          const url = await uploadImage(file);
+                          setFormData((prev) => ({
+                            ...prev,
+                            galleryInput: { ...prev.galleryInput, image: url },
+                          }));
+                        } catch (err) {
+                          setError('Failed to upload image');
+                          console.error('Image upload error:', err);
+                        } finally {
+                          setSaving(false);
+                        }
+                      }
+                    }}
+                    className="form-input"
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <input
+                    type="text"
+                    value={formData.galleryInput.caption}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        galleryInput: { ...prev.galleryInput, caption: e.target.value },
+                      }))
+                    }
+                    placeholder={language === 'en' ? 'Image caption' : 'ምስል ተገቢ ስም'}
+                    className="form-input"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddGalleryImage}
+                  className="btn btn-secondary"
+                >
+                  {language === 'en' ? 'Add Image' : 'ምስል ጨምር'}
+                </button>
+              </div>
+              {formData.gallery.length > 0 && (
+                <div className="gallery-grid">
+                  {formData.gallery.map((item, index) => (
+                    <div key={index} className="gallery-item">
+                      <img src={item.image} alt={`Gallery ${index}`} />
+                      <p className="gallery-caption">{item.caption}</p>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveGalleryImage(index)}
+                        className="remove-gallery-btn"
+                      >
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Pull Quote Section */}
+          <div className="form-group">
+            <h3 className="section-title">{language === 'en' ? 'Pull Quote' : 'ጥቅስ'}</h3>
+          </div>
+
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Quote Text' : 'ጥቅስ ጽሑፍ'} (English)</label>
+              <textarea
+                value={formData.pullQuoteEn}
+                onChange={(e) => handleChange('pullQuoteEn', e.target.value.slice(0, 150))}
+                className="form-textarea"
+                maxLength="150"
+                style={{ minHeight: '80px' }}
+              />
+              <div className={`char-counter ${formData.pullQuoteEn.length > 150 ? 'over-limit' : ''}`}>
+                {formData.pullQuoteEn.length}/150
+              </div>
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Quote Text' : 'ጥቅስ ጽሑፍ'} (Amharic)</label>
+              <textarea
+                value={formData.pullQuoteAm}
+                onChange={(e) => handleChange('pullQuoteAm', e.target.value.slice(0, 150))}
+                className="form-textarea"
+                maxLength="150"
+                style={{ minHeight: '80px' }}
+              />
+              <div className={`char-counter ${formData.pullQuoteAm.length > 150 ? 'over-limit' : ''}`}>
+                {formData.pullQuoteAm.length}/150
+              </div>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">{language === 'en' ? 'Quote Attribution' : 'ጥቅስ ባለቤት'}</label>
+            <input
+              type="text"
+              value={formData.pullQuoteAttribution}
+              onChange={(e) => handleChange('pullQuoteAttribution', e.target.value)}
+              className="form-input"
+            />
+          </div>
+
+          {/* Category & Status */}
           <div className="form-group form-row">
             <div className="form-field">
               <label className="form-label">
@@ -253,21 +560,23 @@ export default function EditBlogPage() {
             </div>
           </div>
 
+          {/* Tags */}
           <div className="form-group">
             <label className="form-label">{t('tags', language)}</label>
             <div className="tag-input">
               <input
                 type="text"
                 value={formData.tagInput}
-                onChange={(e) => handleChange('tagInput', e.target.value)}
+                onChange={(e) => handleChange('tagInput', e.target.value.slice(0, 20))}
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
                     handleAddTag();
                   }
                 }}
-                placeholder={language === 'en' ? 'Add tag and press Enter' : 'ተህዋስ ጨምር'}
+                placeholder={language === 'en' ? 'Add tag (max 20 chars) and press Enter' : 'ተህዋስ ጨምር (ከ20 ቁምፍ) እና ተነሳ'}
               />
+              <span className="tag-char-counter">{formData.tagInput.length}/20</span>
               {formData.tags.map((tag, index) => (
                 <span key={index} className="tag">
                   {tag}
@@ -291,6 +600,7 @@ export default function EditBlogPage() {
             </div>
           </div>
 
+          {/* Buttons */}
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '24px' }}>
             <button
               type="button"
@@ -334,6 +644,13 @@ export default function EditBlogPage() {
           color: #1a1a1a;
         }
 
+        :global(.section-title) {
+          font-size: 16px;
+          font-weight: 600;
+          color: #1a1a1a;
+          margin: 12px 0 0 0;
+        }
+
         :global(.form-input),
         :global(.form-textarea),
         :global(.form-select) {
@@ -355,6 +672,131 @@ export default function EditBlogPage() {
           color: #9a9da7;
         }
 
+        :global(.char-counter) {
+          font-size: 12px;
+          color: #9a9da7;
+          margin-top: 4px;
+        }
+
+        :global(.char-counter.over-limit) {
+          color: #dc3545;
+          font-weight: 500;
+        }
+
+        :global(.image-upload-group) {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        :global(.image-input) {
+          padding: 10px 12px;
+          border: 1px solid #eeeef5;
+          border-radius: 6px;
+          font-size: 14px;
+        }
+
+        :global(.image-preview),
+        :global(.avatar-preview) {
+          position: relative;
+          width: 100%;
+          max-width: 200px;
+          border-radius: 6px;
+          overflow: hidden;
+          background-color: #f5f5f5;
+        }
+
+        :global(.image-preview img),
+        :global(.avatar-preview img) {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        :global(.remove-image-btn) {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          background-color: rgba(0, 0, 0, 0.7);
+          border: none;
+          color: #fff;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background-color 0.2s ease;
+        }
+
+        :global(.remove-image-btn:hover) {
+          background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        :global(.gallery-section) {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        :global(.gallery-grid) {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 12px;
+          margin-top: 12px;
+        }
+
+        :global(.gallery-item) {
+          position: relative;
+          border-radius: 6px;
+          overflow: hidden;
+          background-color: #f5f5f5;
+          aspect-ratio: 1;
+        }
+
+        :global(.gallery-item img) {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        :global(.gallery-caption) {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.7);
+          color: #fff;
+          padding: 8px;
+          font-size: 12px;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        :global(.remove-gallery-btn) {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          background-color: rgba(220, 53, 69, 0.9);
+          border: none;
+          color: #fff;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background-color 0.2s ease;
+        }
+
+        :global(.remove-gallery-btn:hover) {
+          background-color: rgba(220, 53, 69, 1);
+        }
+
         :global(.tag-input) {
           display: flex;
           flex-wrap: wrap;
@@ -364,6 +806,7 @@ export default function EditBlogPage() {
           border-radius: 6px;
           min-height: 40px;
           align-items: center;
+          position: relative;
         }
 
         :global(.tag-input input) {
@@ -372,6 +815,14 @@ export default function EditBlogPage() {
           border: none;
           outline: none;
           font-size: 14px;
+        }
+
+        :global(.tag-char-counter) {
+          font-size: 12px;
+          color: #9a9da7;
+          position: absolute;
+          right: 8px;
+          top: 8px;
         }
 
         :global(.tag) {
@@ -389,6 +840,10 @@ export default function EditBlogPage() {
           :global(.form-group.form-row) {
             flex-direction: column;
             gap: 20px;
+          }
+
+          :global(.gallery-grid) {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
           }
         }
       `}</style>
