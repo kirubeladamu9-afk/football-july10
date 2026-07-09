@@ -2,7 +2,6 @@ import BreadcrumbTwo from "@/src/common/breadcrumbs/breadcrumb-2";
 import Footer from "@/src/layout/footers/footer";
 import Header from "@/src/layout/headers/header";
 import React from "react";
-import CtaArea from "../contact/cta-area";
 import BlogGrid from "./blog-grid";
 import Portfolio from "./portfolio";
 
@@ -16,7 +15,6 @@ const Blog = () => {
             <BreadcrumbTwo title={"Read our blogs"} innertitle={"Blog Grid Classic"} />
             <BlogGrid />
             <Portfolio />
-            <CtaArea />
           </main>
           <Footer />
         </div>
