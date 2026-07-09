@@ -1,9 +1,41 @@
-import blog_data from '@/src/data/blog-data';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const BlogArea = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/blogs/public?limit=3');
+      if (!response.ok) throw new Error('Failed to fetch blogs');
+      const data = await response.json();
+      setBlogs(data.blogs);
+    } catch (err) {
+      console.error('Error fetching blogs:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
   return (
     <>
       <div className="tp-blog-area pb-80 pt-100">
@@ -18,38 +50,71 @@ const BlogArea = () => {
             </div>
           </div>
           <div className="row">
-            {blog_data.slice(0, 3).map((item, i) =>
-              <div key={i} className="col-xl-4 col-lg-4 col-md-6 mb-60">
-                <div className="tp-blog-item">
-                  <div className="tp-blog-thumb fix">
-                    <Link href="/blog-details"><Image src={item.img} alt={item.title} /></Link>
-                  </div>
-                  <div className="tp-blog-meta d-flex align-items-center">
-                    <div className={`tp-blog-category category-color-${item.color}`}>
-                      <span>{item.category}</span>
+            {loading ? (
+              <div className="col-12 text-center" style={{ padding: '60px 20px' }}>
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="col-12 text-center" style={{ padding: '60px 20px' }}>
+                <p style={{ color: '#d32f2f', fontSize: '16px' }}>
+                  Unable to load articles. Please try again later.
+                </p>
+              </div>
+            ) : blogs.length > 0 ? (
+              blogs.map((item) => (
+                <div key={item.id} className="col-xl-4 col-lg-4 col-md-6 mb-60">
+                  <div className="tp-blog-item">
+                    <div className="tp-blog-thumb fix">
+                      <Link href={`/blog-details?slug=${item.slug}`}>
+                        {item.coverImage && (
+                          <Image
+                            src={item.coverImage}
+                            alt={item.titleEn}
+                            width={400}
+                            height={300}
+                          />
+                        )}
+                      </Link>
                     </div>
-                    <div className="tp-blog-date">
-                      <span>{item.date}</span>
+                    <div className="tp-blog-meta d-flex align-items-center">
+                      <div className="tp-blog-category category-color-1">
+                        <span>{item.category}</span>
+                      </div>
+                      <div className="tp-blog-date">
+                        <span>{formatDate(item.publishDate)}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="tp-blog-title-box">
-                    <Link className="tp-blog-title-sm" href="/blog-details">
-                      {item.title}
-                    </Link>
-                  </div>
-                  <div className="tp-blog-author-info-box d-flex align-items-center">
-                    <div className="tp-blog-avata">
-                      <Image src={item.author_img} alt={item.author_name} />
+                    <div className="tp-blog-title-box">
+                      <Link className="tp-blog-title-sm" href={`/blog-details?slug=${item.slug}`}>
+                        {item.titleEn}
+                      </Link>
                     </div>
-                    <div className="tp-blog-author-info">
-                      <h5>{item.author_name}</h5>
-                      <span>{item.job_title}</span>
+                    <div className="tp-blog-author-info-box d-flex align-items-center">
+                      <div className="tp-blog-avata">
+                        {item.authorAvatar && (
+                          <Image
+                            src={item.authorAvatar}
+                            alt={item.authorName}
+                            width={50}
+                            height={50}
+                          />
+                        )}
+                      </div>
+                      <div className="tp-blog-author-info">
+                        <h5>{item.authorName}</h5>
+                        <span>{item.authorRoleEn}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-12 text-center" style={{ padding: '60px 20px' }}>
+                <p style={{ fontSize: '16px' }}>No articles available yet.</p>
               </div>
-            )
-            }
+            )}
           </div>
         </div>
       </div>
