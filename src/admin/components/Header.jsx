@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useAuthContext } from '../hooks/useAuth';
 import { useLanguage, t } from '../hooks/useLanguage';
 
@@ -33,13 +34,15 @@ export default function Header() {
           </button>
         </div>
 
-        <div className="admin-user-profile" onClick={handleLogout}>
-          <div className="user-avatar">{user?.name?.[0]?.toUpperCase() || 'A'}</div>
-          <div className="user-info">
-            <div className="user-name">{user?.name}</div>
-            <div className="user-role">Admin</div>
-          </div>
-          <button className="btn btn-icon" title="Logout">
+        <div className="admin-user-menu-wrapper">
+          <Link href="/admin/profile" className="admin-user-profile">
+            <div className="user-avatar">{user?.name?.[0]?.toUpperCase() || 'A'}</div>
+            <div className="user-info">
+              <div className="user-name">{user?.name}</div>
+              <div className="user-role">Admin</div>
+            </div>
+          </Link>
+          <button className="btn btn-icon" title="Logout" onClick={handleLogout}>
             <i className="fas fa-sign-out-alt"></i>
           </button>
         </div>
