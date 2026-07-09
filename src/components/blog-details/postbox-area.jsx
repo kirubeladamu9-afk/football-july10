@@ -5,12 +5,12 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import RecentPost from '../blog-list/recent-post';
 import Search from '../blog-list/search';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
-
-import blog_details_img_1  from "../../../public/assets/img/blog/blog-details-1.jpg";
-import blog_details_img_2  from "../../../public/assets/img/blog/blog-details-2.jpg";
-import blog_details_img_3  from "../../../public/assets/img/blog/blog-details-3.jpg";
-import blog_avata_default  from "../../../public/assets/img/blog/blog-avata-1.png";
+import blog_details_img_1 from "../../../public/assets/img/blog/blog-details-1.jpg";
+import blog_details_img_2 from "../../../public/assets/img/blog/blog-details-2.jpg";
+import blog_details_img_3 from "../../../public/assets/img/blog/blog-details-3.jpg";
+import blog_avata_default from "../../../public/assets/img/blog/blog-avata-1.png";
 
 
 const post_box_content = {
@@ -26,15 +26,22 @@ const post_box_content = {
     title_2: "How to Update your Theme",
     des_3: <>Felis morbi ut tristique pretium libero. Eget purus, enim, orci, quis tempor sed. Sed nec eget nibh et Ut orci, sagittis tellus dui congue. Blandit laoreet nullam amet eget. Ut tincidunt diam tempor sed turpis odio vitae sem lobortis.</>,
     des_4: <>Felis morbi ut tristique pretium libero. Eget purus, enim, orci, quis tempor sed. Sed nec eget nibh et Ut orci, sagittis tellus dui congue. Blandit laoreet nullam amet eget. Ut tincidunt diam tempor sed turpis odio vitae sem lobortis. sed turpis odio vitae sem lobortis.</>,
-
     des_5: <>Ex erat referrentur vis. Vim ad consul molestie, eu malorum aliquando referrentur pro, erroribus gloriatur sed at. Eu illud saepe impetus ius. Cum graece libris abhorreant id, eu veri aeque ubique vel. Ut his malis similique. Ei vim blandit nominavi, quo elaboraret quaerendum et. At animal fabellas pericula est, ut cibo lobortis delicatissimi vel, cum ex putant probatus petentium. Elitr laboramus mel id. Admodum adolescens id eam, omnes reformidans comprehensam no vim, ex omnes alienum liberavisse usu. Mandamus tincidunt cu pro, vocent corrumpit no per. Vis ad malorum tacimates adipiscing. Elitr laboramus mel id.</>,
-
     des_6: <></>,
 }
-const {title_1, des_1, des_2, checkmark_list, title_2, des_3, des_4, des_5, des_6}  = post_box_content
+const { title_1, des_1, checkmark_list, title_2, des_3, des_4, des_5 } = post_box_content
 
+// Picks the field matching the active language, falling back to whichever isn't empty.
+function pickLang(blog, baseField, language) {
+    if (!blog) return '';
+    const en = blog[`${baseField}En`];
+    const am = blog[`${baseField}Am`];
+    if (language === 'am') return am || en || '';
+    return en || am || '';
+}
 
 const PostboxArea = ({ blog, style_details_2 }) => {
+    const { language } = useLanguage();
     const [nextPost, setNextPost] = useState(null);
     const [prevPost, setPrevPost] = useState(null);
     const [navLoading, setNavLoading] = useState(true);
@@ -82,6 +89,14 @@ const PostboxArea = ({ blog, style_details_2 }) => {
         fetchNavigationPosts();
     }, [blog]);
 
+    const title = blog ? pickLang(blog, 'title', language) : title_1;
+    const excerpt = blog ? pickLang(blog, 'excerpt', language) : des_1;
+    const body = blog ? pickLang(blog, 'body', language) : null;
+    const authorRole = blog ? pickLang(blog, 'authorRole', language) : null;
+    const pullQuote = blog ? pickLang(blog, 'pullQuote', language) : null;
+    const navPrevTitle = prevPost ? pickLang(prevPost, 'title', language) : '';
+    const navNextTitle = nextPost ? pickLang(nextPost, 'title', language) : '';
+
     return (
         <>
             <div className={`postbox__area ${style_details_2 && "pt-100"} pb-100`}>
@@ -93,14 +108,13 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                            {style_details_2 &&
                               <div className="postbox__thumb w-img">
                                  <Link href={`/blog/${blog?.slug}`}>
-                                    <Image src={blog?.coverImage || blog_details_img_1} alt={blog?.titleEn || ""} width={800} height={500} onError={(e) => { e.currentTarget.src = blog_details_img_1; }} />
+                                    <Image src={blog?.coverImage || blog_details_img_1} alt={title || ""} width={800} height={500} onError={(e) => { e.currentTarget.src = blog_details_img_1; }} />
                                  </Link>
                               </div>
                            }
                            <div className="postbox__details-title-box pb-30">
-                              <h4 className="postbox__details-title">{blog?.titleEn || title_1}</h4>
-                              <p>{blog ? blog.excerptEn || blog.bodyEn?.substring(0, 300) : des_1}</p>
-                              {blog && blog.excerptAm && <p>{blog.excerptAm}</p>}
+                              <h4 className="postbox__details-title">{title}</h4>
+                              <p>{excerpt}</p>
                            </div>
                            {!blog && (
                               <div className="postbox__details-checkmark">
@@ -109,11 +123,9 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                  </ul>
                               </div>
                            )}
-                           {blog && (
+                           {blog && body && (
                               <div className="postbox__details-title-box pb-30">
-                                 <h4 className="postbox__details-title">{blog.titleAm}</h4>
-                                 <p>{blog.bodyEn}</p>
-                                 {blog.bodyAm && <p>{blog.bodyAm}</p>}
+                                 <p>{body}</p>
                               </div>
                            )}
                            {!blog && (
@@ -162,14 +174,14 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                  </blockquote>
                               </div>
                            )}
-                           {blog?.pullQuoteEn && (
+                           {blog && pullQuote && (
                               <div className="postbox__details-qoute mb-30">
                                  <blockquote className="d-flex align-items-start">
                                     <div className="postbox__details-qoute-icon">
                                        <DoubleSemicolon /> 
                                     </div>
                                     <div className="postbox__details-qoute-text">
-                                       <p>"{blog.pullQuoteEn}"</p>
+                                       <p>"{pullQuote}"</p>
                                        {blog.pullQuoteAttribution && <span>{blog.pullQuoteAttribution}</span>}
                                     </div>
                                  </blockquote>
@@ -202,7 +214,7 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                           <Link href={`/blog/${prevPost.slug}`}>
                                              <Image
                                                 src={prevPost.coverImage || blog_details_img_1}
-                                                alt={prevPost.titleEn}
+                                                alt={navPrevTitle}
                                                 width={80}
                                                 height={80}
                                                 onError={(e) => { e.currentTarget.src = blog_details_img_1; }}
@@ -216,7 +228,7 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                                 Previous post
                                              </span>
                                           </Link>
-                                          <h5><Link href={`/blog/${prevPost.slug}`}>{prevPost.titleEn}</Link></h5>
+                                          <h5><Link href={`/blog/${prevPost.slug}`}>{navPrevTitle}</Link></h5>
                                        </div>
                                     </div>
                                  )}
@@ -229,13 +241,13 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                                 <i className="far fa-arrow-right"></i>
                                              </span>
                                           </Link>
-                                          <h5><Link href={`/blog/${nextPost.slug}`}>{nextPost.titleEn}</Link></h5>
+                                          <h5><Link href={`/blog/${nextPost.slug}`}>{navNextTitle}</Link></h5>
                                        </div>
                                        <div className="postbox__navigation-img">
                                           <Link href={`/blog/${nextPost.slug}`}>
                                              <Image
                                                 src={nextPost.coverImage || blog_details_img_1}
-                                                alt={nextPost.titleEn}
+                                                alt={navNextTitle}
                                                 width={80}
                                                 height={80}
                                                 onError={(e) => { e.currentTarget.src = blog_details_img_1; }}
@@ -253,7 +265,7 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                               </div>
                               <div className="postbox__details-author-content">
                                  <h5 className="postbox__details-author-title">{blog?.authorName || "Dianne Ameter"}</h5>
-                                 <p>{blog?.excerptEn || "Ex erat referrentur vis. Vim ad consul molestie, eu malorum aliquando referrentur pro, erroribus gloriatur sed at.!"}</p>
+                                 <p>{authorRole || "Ex erat referrentur vis. Vim ad consul molestie, eu malorum aliquando referrentur pro, erroribus gloriatur sed at.!"}</p>
                                  <div className="postbox__details-author-social">
                                     <SocialLinks />
                                  </div>
