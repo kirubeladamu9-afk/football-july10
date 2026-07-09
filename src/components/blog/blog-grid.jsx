@@ -125,7 +125,7 @@ const BlogGrid = () => {
                                                 </div>
                                                 <div className="tp-blog-author-info-box blog-grid-avata-box d-flex align-items-center">
                                                     <div className="tp-blog-avata">
-                                                        <Image src={item.author_img} alt="theme-pure" />
+                                                        <Image src={item.author_img} alt="theme-pure" width={50} height={50} />
                                                     </div>
                                                     <div className="tp-blog-author-info">
                                                         <h5>{item.author_name}</h5>
