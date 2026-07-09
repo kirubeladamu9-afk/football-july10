@@ -14,8 +14,9 @@ export const LanguageProvider = ({ children }) => {
       // Set lang attribute on html element for CSS/SEO
       document.documentElement.lang = savedLanguage;
       document.documentElement.setAttribute('lang', savedLanguage);
-      setIsLoaded(true);
     }
+    // Always mark as loaded after effect runs, even on server
+    setIsLoaded(true);
   }, []);
 
   const setLanguage = (lang) => {
