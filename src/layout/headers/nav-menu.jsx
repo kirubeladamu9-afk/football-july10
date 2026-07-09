@@ -1,13 +1,10 @@
 import Link from "next/link";
-import React, { useContext } from "react";
+import React from "react";
 import menu_data from "./menu-data";
-import { LanguageContext } from "@/src/context/LanguageContext";
-import translations from "@/src/i18n/translations";
+import { useLanguage } from "@/src/hooks/useLanguage";
 
 const NavMenu = () => {
-  const context = useContext(LanguageContext);
-  const language = context?.language || 'am';
-  const t = translations[language] || translations['am'];
+  const { t } = useLanguage();
 
   return (
     <>
@@ -17,8 +14,8 @@ const NavMenu = () => {
             <Link href={menu_item.link}>{menu_item.title(t)}</Link>
             {menu_item.has_dropdown && (
               <ul className="submenu">
-                {menu_item.sub_menus.map((sub_menu, i) => (
-                  <li key={i}>
+                {menu_item.sub_menus.map((sub_menu, j) => (
+                  <li key={j}>
                     <Link href={sub_menu.link}>{sub_menu.title(t)}</Link>
                   </li>
                 ))}
