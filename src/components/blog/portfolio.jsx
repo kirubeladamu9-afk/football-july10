@@ -2,9 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, {useState, useEffect} from 'react';
 import useMultipleAnime from '@/src/hooks/useMultipleAnime';
+import { useLanguage } from '@/src/hooks/useLanguage';
+import { getTranslatedField } from '@/src/utils/i18n';
 
 const Portfolio = () => {
    const {dataRef} = useMultipleAnime();
+   const { language } = useLanguage();
    const [activeCategory, setActiveCategory] = useState("All");
    const [items, setItems] = useState([]);
    const [allBlogs, setAllBlogs] = useState([]);
@@ -17,17 +20,20 @@ const Portfolio = () => {
             if (!response.ok) throw new Error('Failed to fetch blogs')
             const data = await response.json()
 
-            const formattedBlogs = data.blogs.map((blog, index) => ({
-               id: blog.id,
-               slug: blog.slug,
-               thumb_img: blog.coverImage && blog.coverImage.trim() ? blog.coverImage : `/assets/img/blog/blog-grid-${(index % 6) + 1}.jpg`,
-               category: blog.category || "Blog",
-               date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently",
-               title: blog.title_en || blog.titleEn,
-               avata_img: (blog.authorAvatar && blog.authorAvatar.trim()) ? blog.authorAvatar : "/assets/img/blog/blog-avata-1.png",
-               name: blog.authorName || "Author",
-               job_title: blog.author_role_en || blog.authorRoleEn || "Writer",
-            }))
+            const formattedBlogs = data.blogs.map((blog, index) => {
+               const locale = language === 'am' ? 'am-ET' : 'en-US';
+               return {
+                  id: blog.id,
+                  slug: blog.slug,
+                  thumb_img: blog.coverImage && blog.coverImage.trim() ? blog.coverImage : `/assets/img/blog/blog-grid-${(index % 6) + 1}.jpg`,
+                  category: getTranslatedField(blog, 'category', language) || "Blog",
+                  date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently",
+                  title: getTranslatedField(blog, 'title', language),
+                  avata_img: (blog.authorAvatar && blog.authorAvatar.trim()) ? blog.authorAvatar : "/assets/img/blog/blog-avata-1.png",
+                  name: blog.authorName || "Author",
+                  job_title: getTranslatedField(blog, 'authorRole', language) || "Writer",
+               }
+            })
 
             setAllBlogs(formattedBlogs)
             setItems(formattedBlogs)
@@ -39,7 +45,7 @@ const Portfolio = () => {
          }
       }
       fetchBlogs()
-   }, [])
+   }, [language])
 
     const filterItems = (cateItem) => {
       setActiveCategory(cateItem);
