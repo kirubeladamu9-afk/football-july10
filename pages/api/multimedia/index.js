@@ -11,20 +11,24 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       const { type, page = 1, limit = 10 } = req.query;
-      let sql = 'SELECT * FROM multimedia WHERE 1=1';
+      let sqlWhere = 'WHERE 1=1';
       const params = [];
 
       if (type) {
         params.push(type);
-        sql += ` AND type = ?`;
+        sqlWhere += ` AND type = ?`;
       }
 
-      sql += ' ORDER BY created_at DESC';
+      // Get total count
+      const countResult = await query(`SELECT COUNT(*) as total FROM multimedia ${sqlWhere}`, params);
+      const total = countResult.rows[0].total;
 
+      // Get paginated results
       const offset = (parseInt(page) - 1) * parseInt(limit);
-      sql += ` LIMIT ${limit} OFFSET ${offset}`;
-
-      const result = await query(sql, params);
+      const result = await query(
+        `SELECT * FROM multimedia ${sqlWhere} ORDER BY created_at DESC LIMIT ${parseInt(limit)} OFFSET ${offset}`,
+        params
+      );
 
       const multimedia = result.rows.map((row) => ({
         id: row.id,
@@ -39,7 +43,7 @@ export default async function handler(req, res) {
         updatedAt: row.updated_at,
       }));
 
-      return res.status(200).json({ multimedia });
+      return res.status(200).json({ multimedia, total });
     } catch (error) {
       console.error('Fetch multimedia error:', error);
       return res.status(500).json({ error: 'Internal server error' });

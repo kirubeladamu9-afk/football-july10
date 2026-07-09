@@ -17,10 +17,17 @@ export default function BlogsPage() {
   const [error, setError] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 10;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterStatus, filterCategory]);
 
   useEffect(() => {
     fetchBlogs();
-  }, [filterStatus, filterCategory]);
+  }, [filterStatus, filterCategory, currentPage]);
 
   async function fetchBlogs() {
     try {
@@ -28,11 +35,14 @@ export default function BlogsPage() {
       const params = new URLSearchParams();
       if (filterStatus) params.append('status', filterStatus);
       if (filterCategory) params.append('category', filterCategory);
+      params.append('page', currentPage);
+      params.append('limit', itemsPerPage);
 
       const response = await fetch(`/api/blogs?${params}`);
       if (!response.ok) throw new Error('Failed to fetch blogs');
       const data = await response.json();
       setBlogs(data.blogs);
+      setTotalPages(Math.ceil(data.total / itemsPerPage));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -173,6 +183,59 @@ export default function BlogsPage() {
           <h3>{language === 'en' ? 'No Blogs' : 'ምንም ብሎግ የለም'}</h3>
         </div>
       )}
+
+      {blogs.length > 0 && totalPages > 1 && (
+        <div className="pagination-controls">
+          <button
+            className="btn btn-secondary"
+            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+          >
+            <i className="fas fa-chevron-left"></i>
+            {language === 'en' ? 'Previous' : 'ቀድሞ'}
+          </button>
+
+          <div className="pagination-info">
+            {language === 'en'
+              ? `Page ${currentPage} of ${totalPages}`
+              : `ገጽ ${currentPage} of ${totalPages}`}
+          </div>
+
+          <button
+            className="btn btn-secondary"
+            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+            disabled={currentPage === totalPages}
+          >
+            {language === 'en' ? 'Next' : 'ቀጣይ'}
+            <i className="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      )}
+
+      <style jsx>{`
+        .pagination-controls {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          justify-content: center;
+          margin-top: 24px;
+          padding: 16px;
+          background-color: #fff;
+          border-radius: 6px;
+        }
+
+        .pagination-info {
+          font-size: 14px;
+          color: #1a1a1a;
+          min-width: 120px;
+          text-align: center;
+        }
+
+        :global(.btn:disabled) {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      `}</style>
     </AdminLayout>
   );
 }

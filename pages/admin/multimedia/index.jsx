@@ -10,21 +10,31 @@ export default function MultimediaPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [filterType, setFilterType] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 10;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterType]);
 
   useEffect(() => {
     fetchMultimedia();
-  }, [filterType]);
+  }, [filterType, currentPage]);
 
   async function fetchMultimedia() {
     try {
       setLoading(true);
       const params = new URLSearchParams();
       if (filterType) params.append('type', filterType);
+      params.append('page', currentPage);
+      params.append('limit', itemsPerPage);
 
       const response = await fetch(`/api/multimedia?${params}`);
       if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
       setMultimedia(data.multimedia);
+      setTotalPages(Math.ceil(data.total / itemsPerPage));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -151,6 +161,59 @@ export default function MultimediaPage() {
           <h3>{language === 'en' ? 'No Multimedia' : 'ምንም ሙልቲሚዲያ የለም'}</h3>
         </div>
       )}
+
+      {multimedia.length > 0 && totalPages > 1 && (
+        <div className="pagination-controls">
+          <button
+            className="btn btn-secondary"
+            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+          >
+            <i className="fas fa-chevron-left"></i>
+            {language === 'en' ? 'Previous' : 'ቀድሞ'}
+          </button>
+
+          <div className="pagination-info">
+            {language === 'en'
+              ? `Page ${currentPage} of ${totalPages}`
+              : `ገጽ ${currentPage} of ${totalPages}`}
+          </div>
+
+          <button
+            className="btn btn-secondary"
+            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+            disabled={currentPage === totalPages}
+          >
+            {language === 'en' ? 'Next' : 'ቀጣይ'}
+            <i className="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      )}
+
+      <style jsx>{`
+        .pagination-controls {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          justify-content: center;
+          margin-top: 24px;
+          padding: 16px;
+          background-color: #fff;
+          border-radius: 6px;
+        }
+
+        .pagination-info {
+          font-size: 14px;
+          color: #1a1a1a;
+          min-width: 120px;
+          text-align: center;
+        }
+
+        :global(.btn:disabled) {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      `}</style>
     </AdminLayout>
   );
 }
