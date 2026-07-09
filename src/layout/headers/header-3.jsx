@@ -21,7 +21,7 @@ const HeaderThree = () => {
                   <div className="row align-items-center">
                      <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                         <div className="header-bottom__logo">
-                           <Link href="/"><Image src={logo} alt="" /></Link>
+                           <Link href="/"><Image src={logo} alt="" width={280} height={80} /></Link>
                         </div>
                      </div>
                      <div className="col-xxl-6 col-xl-6 col-lg-6 d-none d-lg-block">

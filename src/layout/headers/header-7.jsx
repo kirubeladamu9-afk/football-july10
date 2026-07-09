@@ -18,7 +18,7 @@ const HeaderSeven = () => {
                         <div className="row align-items-center">
                         <div className="col-6">
                             <div className="header-signin-logo">
-                                <Link href="/"><Image src={logo_white} alt="" /></Link> 
+                                <Link href="/"><Image src={logo_white} alt="" width={280} height={80} /></Link> 
                             </div>
                         </div>
                         <div className="col-6">
@@ -40,7 +40,7 @@ const HeaderSeven = () => {
                         <div className="row g-0 align-items-center">
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                             <div className="header-bottom__logo">
-                            <Link href="/"><Image src={logo_white} alt="" /></Link>  
+                            <Link href="/"><Image src={logo_white} alt="" width={280} height={80} /></Link>  
                             </div>
                         </div>
                         <div className="col-xxl-7 col-xl-7 col-lg-7 d-none d-lg-block">
