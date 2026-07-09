@@ -22,7 +22,7 @@ const InsightsArea = () => {
       title: t.insights.box1Title,
       des: t.insights.box1Des,
       btn: t.insights.researchBtn,
-      link: "/politics",
+      link: "/",
       shapes: [
         { id: 1, cls: "5", img: shapes_2 },
       ]
@@ -35,7 +35,7 @@ const InsightsArea = () => {
       title: t.insights.box2Title,
       des: t.insights.box2Des,
       btn: t.insights.researchBtn,
-      link: "/law",
+      link: "/",
       shapes: [
         { id: 1, cls: "9", img: shapes_6 },
       ]
@@ -93,7 +93,7 @@ const InsightsArea = () => {
                     <div className="tp-payment__content tp-payment__content-space">
                       <h3 className="tp-payment__title">{t.insights.box3Title}</h3>
                       <p>{t.insights.box3Des}</p>
-                      <Link href="/research" className="tp-btn-link">{t.insights.researchBtn}<i className="far fa-arrow-right"></i></Link>
+                      <Link href="/" className="tp-btn-link">{t.insights.researchBtn}<i className="far fa-arrow-right"></i></Link>
                     </div>
                   </div>
                   <div className="col-md-6">
