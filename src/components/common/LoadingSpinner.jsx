@@ -3,20 +3,23 @@ import { useEffect, useState, useRef } from 'react';
 
 export default function LoadingSpinner() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [loading, setLoading] = useState(true); // true = spinner visible, content hidden
   const loadingTimeoutRef = useRef(null);
   const observerRef = useRef(null);
 
   const waitForPriorityImages = () => {
     return new Promise((resolve) => {
+      let resolved = false;
+      const safeResolve = () => {
+        if (!resolved) {
+          resolved = true;
+          resolve();
+        }
+      };
+
       const checkImages = () => {
         const priorityImages = document.querySelectorAll('img[data-priority="true"]');
-
-        if (priorityImages.length === 0) {
-          resolve();
-          return;
-        }
+        if (priorityImages.length === 0) return;
 
         const promises = Array.from(priorityImages).map((img) => {
           return new Promise((imgResolve) => {
@@ -35,85 +38,59 @@ export default function LoadingSpinner() {
         });
 
         Promise.all(promises).then(() => {
-          resolve();
+          if (observerRef.current) observerRef.current.disconnect();
+          safeResolve();
         });
       };
 
-      // Use MutationObserver to detect when images are added to DOM
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
+      observerRef.current = new MutationObserver(checkImages);
+      observerRef.current.observe(document.body, { childList: true, subtree: true });
 
-      observerRef.current = new MutationObserver(() => {
-        checkImages();
-      });
-
-      observerRef.current.observe(document.body, {
-        childList: true,
-        subtree: true,
-      });
-
-      // Initial check
       checkImages();
+
+      setTimeout(() => {
+        if (document.querySelectorAll('img[data-priority="true"]').length === 0) {
+          safeResolve();
+        }
+      }, 250);
     });
   };
 
-  const hideLoadingSpinner = () => {
-    if (loadingTimeoutRef.current) {
-      clearTimeout(loadingTimeoutRef.current);
-    }
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-    setIsLoading(false);
-    setIsInitialLoad(false);
+  const finishLoading = () => {
+    if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
+    if (observerRef.current) observerRef.current.disconnect();
+    setLoading(false);
+  };
+
+  const startLoadingSequence = () => {
+    waitForPriorityImages().then(finishLoading);
+
+    if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
+    loadingTimeoutRef.current = setTimeout(finishLoading, 3500);
   };
 
   useEffect(() => {
     const handleStart = () => {
-      setIsLoading(true);
+      setLoading(true);
     };
 
     const handleComplete = () => {
-      // Wait for images to load after route change
-      waitForPriorityImages().then(() => {
-        hideLoadingSpinner();
-      });
-
-      // Fallback: hide spinner after 3.5 seconds max
-      if (loadingTimeoutRef.current) {
-        clearTimeout(loadingTimeoutRef.current);
-      }
-      loadingTimeoutRef.current = setTimeout(() => {
-        hideLoadingSpinner();
-      }, 3500);
+      startLoadingSequence();
     };
 
     const handleError = () => {
-      hideLoadingSpinner();
+      finishLoading();
     };
 
-    // Handle initial page load
-    const initLoad = async () => {
-      if (document.readyState === 'complete') {
-        await waitForPriorityImages();
-        hideLoadingSpinner();
-      } else {
-        window.addEventListener('load', async () => {
-          await waitForPriorityImages();
-          hideLoadingSpinner();
-        });
-      }
+    if (document.readyState === 'complete') {
+      startLoadingSequence();
+    } else {
+      window.addEventListener('load', startLoadingSequence, { once: true });
+    }
 
-      // Fallback for initial load
-      loadingTimeoutRef.current = setTimeout(() => {
-        hideLoadingSpinner();
-      }, 3500);
-    };
-
-    initLoad();
-
-    // Listen for route changes
     router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
     router.events.on('routeChangeError', handleError);
@@ -122,24 +99,29 @@ export default function LoadingSpinner() {
       router.events.off('routeChangeStart', handleStart);
       router.events.off('routeChangeComplete', handleComplete);
       router.events.off('routeChangeError', handleError);
-      if (loadingTimeoutRef.current) {
-        clearTimeout(loadingTimeoutRef.current);
-      }
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      window.removeEventListener('load', startLoadingSequence);
+      if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
+      if (observerRef.current) observerRef.current.disconnect();
     };
   }, [router]);
 
+  useEffect(() => {
+    const el = document.getElementById('smooth-content');
+    if (!el) return;
+    if (loading) {
+      el.classList.remove('content-visible');
+    } else {
+      el.classList.add('content-visible');
+    }
+  }, [loading]);
+
   return (
     <>
-      {isLoading && (
-        <div className={`loading-spinner-overlay ${!isInitialLoad ? 'fade-out' : ''}`}>
-          <div className="loading-spinner-container">
-            <div className="spinner"></div>
-          </div>
+      <div className={`loading-spinner-overlay ${loading ? 'is-visible' : ''}`}>
+        <div className="loading-spinner-container">
+          <div className="spinner"></div>
         </div>
-      )}
+      </div>
 
       <style jsx global>{`
         .loading-spinner-overlay {
@@ -153,13 +135,14 @@ export default function LoadingSpinner() {
           align-items: center;
           justify-content: center;
           z-index: 9999;
-          opacity: 1;
+          opacity: 0;
+          pointer-events: none;
           transition: opacity 300ms ease-out;
         }
 
-        .loading-spinner-overlay.fade-out {
-          opacity: 0;
-          pointer-events: none;
+        .loading-spinner-overlay.is-visible {
+          opacity: 1;
+          pointer-events: auto;
         }
 
         .loading-spinner-container {
@@ -185,6 +168,15 @@ export default function LoadingSpinner() {
           100% {
             transform: rotate(360deg);
           }
+        }
+
+        #smooth-content {
+          opacity: 0;
+          transition: opacity 300ms ease-out;
+        }
+
+        #smooth-content.content-visible {
+          opacity: 1;
         }
       `}</style>
     </>
