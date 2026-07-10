@@ -27,11 +27,6 @@ export default function Sidebar() {
       label: t('multimedia', language),
     },
     {
-      path: '/admin/settings',
-      icon: 'fas fa-cog',
-      label: t('settings', language),
-    },
-    {
       path: '/admin/profile',
       icon: 'fas fa-user',
       label: language === 'en' ? 'My Profile' : 'የእኔ መገለጫ',
