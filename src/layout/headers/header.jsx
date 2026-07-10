@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Offcanvus from '@/src/common/offcanvus';
 import React, { useState, useRef, useEffect } from 'react';
 import NavMenu from './nav-menu';
@@ -11,11 +12,13 @@ import logo from "../../../public/assets/img/logo/football-logo.webp"
 import footerLogo from "../../../public/assets/img/logo/footer-logo.webp"
 
 const Header = () => {
+      const router = useRouter()
       const { sticky } = useSticky()
       const { language, setLanguage, t } = useLanguage()
       const [sidebarOpen, setSidebarOpen] = useState(false)
       const [langDropdownOpen, setLangDropdownOpen] = useState(false)
 
+      const isBlogPage = router.pathname.includes('/blog')
       let header_top_animation = useRef(null)
 
       useEffect(() => {
@@ -33,14 +36,14 @@ const Header = () => {
 
     return (
         <>
-         <header className="header-bottom__transparent z-index-6 tp-header-height">
-               <div id="header-sticky" className={`header-bottom__area header-mob-space header-bottom__area-2 header-bottom__transparent z-index-5 ${sticky && "header-sticky"}`}>
+         <header className={`header-bottom__transparent z-index-6 tp-header-height ${isBlogPage && !sticky ? 'blog-header-transparent' : ''}`}>
+               <div id="header-sticky" className={`header-bottom__area header-mob-space header-bottom__area-2 header-bottom__transparent z-index-5 ${sticky && "header-sticky"} ${isBlogPage ? 'blog-page-header' : ''}`}>
                   <div className="container">
                      <div className="row align-items-center">
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                            <div className="header-bottom__logo">
                               <Link href="/">
-                                 <Image src={sticky ? logo : footerLogo} alt="" width={280} height={80} className="logo-image" />
+                                 <Image src={sticky || !isBlogPage ? logo : footerLogo} alt="" width={280} height={80} className="logo-image" />
                               </Link>
                            </div>
                         </div>
