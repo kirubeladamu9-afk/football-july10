@@ -32,7 +32,7 @@ const translations = {
     // Hero
     hero: {
       title1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
-      title2: 'የህግ፣ የፖለቲካና ማህበረሰብ ትስስር',
+      title2: 'የህግ፣ የፖለቲкаና ማህበረሰብ ትስስር',
       info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
       readFirstArticle: 'የመጀመሪያውን መጣጥፍ ያንብቡ',
       listenPodcast: 'ፖድካስት ያድምጡ',
@@ -76,10 +76,10 @@ const translations = {
     blog: {
       title: 'የእኛ ቅርብ ጊዜ ዜናዎች እና መጣጥፍ',
       readMore: 'ተጨማሪ ያንብቡ',
-      postedBy: 'ፁሁፍ:',
+      postedBy: 'ጽሑፍ፦',
       category: 'ምድብ',
       date: 'ቀን',
-blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያዎችን ያንብቡ',
+      blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያዎችን ያንብቡ',
       blogGridClassic: 'የክፍሎች ማዝገቢያ',
       clientsTitle: 'ከ150 ሺህ በላይ ንቁ አድማጮች',
       accomplishMore: 'የስፖርቱን አለም በጋራ እናሳድግ',
@@ -127,10 +127,10 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
       contentPillars: 'Content Pillars',
       politics: 'Politics & Power',
       law: 'Law & Governance',
-      sociopolitical: 'Socio-Political',
+      sociopolitical: 'Society & Clubs', // Adjusted to match Amharic 'ማህበረሰብ እና ክለቦች'
       researchHub: 'Research Hub',
       caseStudies: 'Case Studies',
-      legalStudies: 'In-depth Legal Studies',
+      legalStudies: 'In-Depth Legal Studies',
       researchPapers: 'Research Papers',
       multimedia: 'Multimedia',
       podcasts: 'Podcasts',
@@ -154,27 +154,27 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
     hero: {
       title1: <>Beyond the Field: <span>Football,</span></>,
       title2: 'Law, Politics & Society',
-      info: <>Politics, Law, Society — we investigate all three.<br />Football is more than the game; it's politics, law, and society.</>,
-      readFirstArticle: 'Read First Article',
+      info: <>Politics, Law, Society — we investigate all three.<br />Football is more than a game; it's politics, law, and society.</>,
+      readFirstArticle: 'Read Our Latest Article', // Polished for better marketing flow
       listenPodcast: 'Listen to Podcast',
     },
 
     // About section
     about: {
       founderTitle: 'Thought Leader and Visionary',
-      founderSubtitle: 'Hayu Vision: Beyond the Field Reality',
-      founderDesc: <>This project is led and closely monitored by Hayu, serving as a unique platform designed to reveal the deep connection between football and the corridors of power and legal courts, beyond simple sports.</>,
+      founderSubtitle: "Hayu's Vision: Reality Beyond the Field", // Grammatically polished
+      founderDesc: <>This project is led and closely monitored by Hayu, serving as a unique platform designed to reveal the deep connection between football, the corridors of power, and legal courts, elevating it beyond a simple sport.</>,
       founderList: [
-        <>Connecting sports journalism, politics, and law.</>,
+        <>Bridging sports journalism, politics, and law.</>,
         <>Analyzing governments' soft power strategies.</>,
-        <>Examining grassroots clubs' social and psychological impact.</>,
+        <>Examining grassroots clubs' social and psychological impacts.</>,
       ],
       learnMore: 'Read About the Project Leader',
     },
 
     // Feature/Insights
     insights: {
-      title: <>Beyond the Field: Understanding the Reality <br /> in Depth.</>,
+      title: <>Beyond the Field: Delving Deep <br /> into the Reality.</>, // Polished
       subtitle: <>Comprehensive analyses centered around football, law, and politics</>,
       podcastTitle: 'Listen to Our Latest Podcast Episodes.',
       episodeLabel: 'Episode',
@@ -182,9 +182,9 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
       box1Title: 'Governments & Politics',
       box1Des: <>We investigate how governments and political leaders use football for soft power and diplomatic influence.</>,
       box2Title: 'Football Law & Governance',
-      box2Des: <>What is true football law? We examine the major legal issues and transfer rules that shape the future of the game.</>,
+      box2Des: <>What is true football law? We examine the major legal issues and transfer regulations that shape the future of the game.</>,
       box3Title: <>Community Clubs & <br /> Socio-Political Impact.</>,
-      box3Des: <>A study showing how grassroots clubs reflect local politics, discrimination, and mental health challenges in sports.</>,
+      box3Des: <>A study exploring how grassroots clubs reflect local politics, systemic discrimination, and mental health challenges in sports.</>,
       researchBtn: 'Visit Research Hub',
     },
 
@@ -216,8 +216,8 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
 
     // Footer
     footer: {
-      newsTitle: 'Get Latest News & Updates',
-      newsDescription: 'A podcast platform focused on football analysis and sports information.',
+      newsTitle: 'Get the Latest News & Updates',
+      newsDescription: 'A podcast platform focused on strategic football analysis and sports insights.',
       emailPlaceholder: 'Work Email Address',
       contact: 'Contact Us',
       ourServices: 'Our Services',
@@ -235,7 +235,7 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
       blog: 'Blog',
       phone: '+251(000)8899',
       location: 'Addis Ababa, Ethiopia',
-      copyright: <>Copyright @ {new Date().getFullYear()}, Powered by <a href="www.ekdtechsolutions.com.et">EKD Tech Solutions</a></>,
+      copyright: <>Copyright © {new Date().getFullYear()}. Powered by <a href="https://www.ekdtechsolutions.com.et" target="_blank" rel="noopener noreferrer">EKD Tech Solutions</a></>, // Appended https:// so it routes perfectly
       language: 'English (EN)',
       englishLang: 'English',
     },
