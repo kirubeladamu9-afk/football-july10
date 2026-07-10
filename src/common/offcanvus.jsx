@@ -72,8 +72,8 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     <div className="tpoffcanvas__info text-center">
                     <h4 className="offcanva-title">we are here</h4>
                     <Link href="https://www.google.com/maps/@23.506657,90.3443647,7z" target="_blank">
-                        27 Division St, New York, <br />
-                        NY 10002, USA
+                        Addis Ababa, <br />
+                        Ethiopia
                     </Link>
                     </div>
                     <div className="tpoffcanvas__social">
