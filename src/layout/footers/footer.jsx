@@ -52,12 +52,12 @@ const Footer = () => {
         title: t.footer.otherPages,
         delay: ".9s",
         links: [
-          { name: t.footer.about, link: "/about" },
-          { name: t.footer.services, link: "/service" },
+          { name: t.footer.about, link: "/" },
+          { name: t.footer.services, link: "/" },
           { name: t.footer.howItWorks, link: "#" },
-          { name: t.footer.pricingPlans, link: "/price" },
+          { name: t.footer.pricingPlans, link: "/" },
           { name: t.footer.blog, link: "/blog" },
-          { name: t.footer.contact, link: "/contact" },
+          { name: t.footer.contact, link: "/" },
         ]
       },
     ],
