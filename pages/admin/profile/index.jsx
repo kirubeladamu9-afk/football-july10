@@ -11,6 +11,7 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [activeTab, setActiveTab] = useState('account');
   const [showPasswords, setShowPasswords] = useState({
     currentPassword: false,
     newPassword: false,
@@ -162,133 +163,175 @@ export default function ProfilePage() {
         </div>
       )}
 
-      <div className="profile-wrapper">
-        <div className="admin-card">
-          <h2 className="profile-section-title">{language === 'en' ? 'Account Information' : 'የሂሳብ መረጃ'}</h2>
-          <form onSubmit={handleUpdateProfile} className="admin-form">
-            <div className="form-group">
-              <label className="form-label">{language === 'en' ? 'Full Name' : 'ሙሉ ስም'}</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="form-input"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">{language === 'en' ? 'Email' : 'ኢሜይል'}</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="form-input"
-                required
-              />
-            </div>
-
-            <div className="form-actions">
-              <button type="submit" className="btn btn-primary" disabled={saving}>
-                {saving ? `${t('loading', language)}...` : t('save', language)}
-              </button>
-            </div>
-          </form>
+      <div className="profile-container">
+        <div className="tabs-header">
+          <button
+            className={`tab-button ${activeTab === 'account' ? 'tab-button-active' : ''}`}
+            onClick={() => setActiveTab('account')}
+          >
+            {language === 'en' ? 'Account Information' : 'የሂሳብ መረጃ'}
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'password' ? 'tab-button-active' : ''}`}
+            onClick={() => setActiveTab('password')}
+          >
+            {language === 'en' ? 'Change Password' : 'ይለፋት ይቀያይሩ'}
+          </button>
         </div>
 
-        <div className="admin-card">
-          <h2 className="profile-section-title">{language === 'en' ? 'Change Password' : 'ይለፋት ይቀያይሩ'}</h2>
-          <form onSubmit={handleUpdatePassword} className="admin-form">
-            <div className="form-group">
-              <label className="form-label">{language === 'en' ? 'Current Password' : 'የአሁኑ ይለፋት'}</label>
-              <div className="password-input-wrapper">
-                <input
-                  type={showPasswords.currentPassword ? 'text' : 'password'}
-                  name="currentPassword"
-                  value={formData.currentPassword}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-                <button
-                  type="button"
-                  className="password-toggle-btn"
-                  onClick={() => togglePasswordVisibility('currentPassword')}
-                  title={showPasswords.currentPassword ? 'Hide password' : 'Show password'}
-                >
-                  <i className={`fas fa-${showPasswords.currentPassword ? 'eye-slash' : 'eye'}`}></i>
-                </button>
-              </div>
-            </div>
+        <div className="tab-content">
+          {activeTab === 'account' && (
+            <div className="admin-card">
+              <form onSubmit={handleUpdateProfile} className="admin-form">
+                <div className="form-group">
+                  <label className="form-label">{language === 'en' ? 'Full Name' : 'ሙሉ ስም'}</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="form-input"
+                    required
+                  />
+                </div>
 
-            <div className="form-group">
-              <label className="form-label">{language === 'en' ? 'New Password' : 'አዲስ ይለፋት'}</label>
-              <div className="password-input-wrapper">
-                <input
-                  type={showPasswords.newPassword ? 'text' : 'password'}
-                  name="newPassword"
-                  value={formData.newPassword}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-                <button
-                  type="button"
-                  className="password-toggle-btn"
-                  onClick={() => togglePasswordVisibility('newPassword')}
-                  title={showPasswords.newPassword ? 'Hide password' : 'Show password'}
-                >
-                  <i className={`fas fa-${showPasswords.newPassword ? 'eye-slash' : 'eye'}`}></i>
-                </button>
-              </div>
-            </div>
+                <div className="form-group">
+                  <label className="form-label">{language === 'en' ? 'Email' : 'ኢሜይል'}</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="form-input"
+                    required
+                  />
+                </div>
 
-            <div className="form-group">
-              <label className="form-label">{language === 'en' ? 'Confirm Password' : 'ይለፋት ያረጋግጡ'}</label>
-              <div className="password-input-wrapper">
-                <input
-                  type={showPasswords.confirmPassword ? 'text' : 'password'}
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-                <button
-                  type="button"
-                  className="password-toggle-btn"
-                  onClick={() => togglePasswordVisibility('confirmPassword')}
-                  title={showPasswords.confirmPassword ? 'Hide password' : 'Show password'}
-                >
-                  <i className={`fas fa-${showPasswords.confirmPassword ? 'eye-slash' : 'eye'}`}></i>
-                </button>
-              </div>
+                <div className="form-actions">
+                  <button type="submit" className="btn btn-primary" disabled={saving}>
+                    {saving ? `${t('loading', language)}...` : t('save', language)}
+                  </button>
+                </div>
+              </form>
             </div>
+          )}
 
-            <div className="form-actions">
-              <button type="submit" className="btn btn-primary" disabled={saving}>
-                {saving ? `${t('loading', language)}...` : t('save', language)}
-              </button>
+          {activeTab === 'password' && (
+            <div className="admin-card">
+              <form onSubmit={handleUpdatePassword} className="admin-form">
+                <div className="form-group">
+                  <label className="form-label">{language === 'en' ? 'Current Password' : 'የአሁኑ ይለፋት'}</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showPasswords.currentPassword ? 'text' : 'password'}
+                      name="currentPassword"
+                      value={formData.currentPassword}
+                      onChange={handleChange}
+                      className="form-input"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="password-toggle-btn"
+                      onClick={() => togglePasswordVisibility('currentPassword')}
+                      title={showPasswords.currentPassword ? 'Hide password' : 'Show password'}
+                    >
+                      <i className={`fas fa-${showPasswords.currentPassword ? 'eye-slash' : 'eye'}`}></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">{language === 'en' ? 'New Password' : 'አዲስ ይለፋት'}</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showPasswords.newPassword ? 'text' : 'password'}
+                      name="newPassword"
+                      value={formData.newPassword}
+                      onChange={handleChange}
+                      className="form-input"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="password-toggle-btn"
+                      onClick={() => togglePasswordVisibility('newPassword')}
+                      title={showPasswords.newPassword ? 'Hide password' : 'Show password'}
+                    >
+                      <i className={`fas fa-${showPasswords.newPassword ? 'eye-slash' : 'eye'}`}></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">{language === 'en' ? 'Confirm Password' : 'ይለፋት ያረጋግጡ'}</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showPasswords.confirmPassword ? 'text' : 'password'}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      className="form-input"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="password-toggle-btn"
+                      onClick={() => togglePasswordVisibility('confirmPassword')}
+                      title={showPasswords.confirmPassword ? 'Hide password' : 'Show password'}
+                    >
+                      <i className={`fas fa-${showPasswords.confirmPassword ? 'eye-slash' : 'eye'}`}></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="form-actions">
+                  <button type="submit" className="btn btn-primary" disabled={saving}>
+                    {saving ? `${t('loading', language)}...` : t('save', language)}
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          )}
         </div>
       </div>
 
       <style jsx>{`
-        :global(.profile-wrapper) {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 24px;
+        :global(.profile-container) {
           margin-top: 24px;
         }
 
-        :global(.profile-section-title) {
-          font-size: 18px;
-          font-weight: 600;
-          margin: 0 0 20px 0;
+        :global(.tabs-header) {
+          display: flex;
+          gap: 0;
+          border-bottom: 1px solid #eeeef5;
+          margin-bottom: 0;
+        }
+
+        :global(.tab-button) {
+          padding: 14px 24px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          color: #666;
+          border-bottom: 3px solid transparent;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+
+        :global(.tab-button:hover) {
           color: #1a1a1a;
+        }
+
+        :global(.tab-button-active) {
+          color: #0066cc;
+          border-bottom-color: #0066cc;
+        }
+
+        :global(.tab-content) {
+          padding: 24px 0;
         }
 
         :global(.admin-form) {
@@ -358,12 +401,6 @@ export default function ProfilePage() {
           display: flex;
           justify-content: flex-start;
           margin-top: 8px;
-        }
-
-        @media (max-width: 768px) {
-          :global(.profile-wrapper) {
-            grid-template-columns: 1fr;
-          }
         }
       `}</style>
     </AdminLayout>
