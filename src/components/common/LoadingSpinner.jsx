@@ -137,7 +137,7 @@ export default function LoadingSpinner() {
           left: 0;
           width: 100%;
           height: 100%;
-          background: #1a1a1a;
+          background: #fafaf9;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -162,7 +162,7 @@ export default function LoadingSpinner() {
         .spinner {
           width: 48px;
           height: 48px;
-          border: 3px solid rgba(46, 90, 172, 0.2);
+          border: 3px solid rgba(46, 90, 172, 0.15);
           border-top: 3px solid #2e5aac;
           border-radius: 50%;
           animation: spin 1s linear infinite;
