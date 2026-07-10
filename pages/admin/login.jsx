@@ -234,17 +234,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p
-            style={{
-              marginTop: '20px',
-              fontSize: '13px',
-              color: '#9a9da7',
-              textAlign: 'center',
-              margin: '20px 0 0 0',
-            }}
-          >
-            {language === 'en' ? 'Demo credentials: admin@football.com / admin123' : 'ለዲሞ መግቢያ: admin@football.com / admin123'}
-          </p>
         </div>
 
         <style jsx>{`
