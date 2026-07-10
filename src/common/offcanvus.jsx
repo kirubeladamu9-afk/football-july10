@@ -29,31 +29,31 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     <div className="mobile-menu mean-container">
                         <MobileMenus />
                     </div>
-                    <div className="tpoffcanvas__language-selector" style={{ padding: '20px 0', textAlign: 'center', borderTop: '1px solid #f0f0f0', borderBottom: '1px solid #f0f0f0', margin: '20px 0' }}>
+                    <div className="tpoffcanvas__language-selector">
                         <button
-                            style={{ background: 'none', border: 'none', fontSize: '16px', fontWeight: '500', cursor: 'pointer', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '10px' }}
+                            className="offcanvas-lang-toggle"
                             onClick={() => setLangDropdownOpen(!langDropdownOpen)}
                         >
                             <i className="fal fa-globe"></i>
                             <span>{t?.header?.language}</span>
                         </button>
                         {langDropdownOpen && (
-                            <div style={{ padding: '10px 0', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                            <div className="offcanvas-lang-dropdown">
                                 <button
+                                    className={`offcanvas-lang-option ${language === 'am' ? 'active' : ''}`}
                                     onClick={() => {
                                         setLanguage('am');
                                         setLangDropdownOpen(false);
                                     }}
-                                    style={{ background: language === 'am' ? '#e8f0ff' : 'transparent', border: 'none', padding: '8px 10px', cursor: 'pointer', borderRadius: '4px', color: language === 'am' ? '#0066cc' : '#000', fontSize: '14px' }}
                                 >
                                     {t?.header?.amharic}
                                 </button>
                                 <button
+                                    className={`offcanvas-lang-option ${language === 'en' ? 'active' : ''}`}
                                     onClick={() => {
                                         setLanguage('en');
                                         setLangDropdownOpen(false);
                                     }}
-                                    style={{ background: language === 'en' ? '#e8f0ff' : 'transparent', border: 'none', padding: '8px 10px', cursor: 'pointer', borderRadius: '4px', color: language === 'en' ? '#0066cc' : '#000', fontSize: '14px' }}
                                 >
                                     {t?.header?.english}
                                 </button>
