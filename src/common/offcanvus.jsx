@@ -62,7 +62,7 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     </div>
                     <div className="tpoffcanvas__instagram text-center">
                     <div className="tpoffcanvas__instagram-title">
-                        <h4>instagram</h4>
+                        <h4>All in one</h4>
                     </div>  
                     <Link href="#"><Image src={canvus_img_1}  alt="theme-pure" /></Link>
                     <Link href="#"><Image src={canvus_img_2}  alt="theme-pure" /></Link>
