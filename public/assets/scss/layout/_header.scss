@@ -272,6 +272,81 @@
         position: absolute;
         left: 0;
         right: 0;
+
+        & .header-bottom__main-menu{
+            & nav{
+                & ul{
+                    & li{
+                        & a{
+                            color: var(--tp-common-white);
+                        }
+                        & .submenu{
+                            & li{
+                                & a{
+                                    color: var(--tp-common-black);
+                                }
+                            }
+                        }
+                        &:hover{
+                            & a{
+                                color: var(--tp-theme-1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .header-bottom__action{
+            & .language-selector-btn{
+                color: var(--tp-common-white);
+                & i{
+                    color: var(--tp-common-white);
+                }
+            }
+        }
+
+        & .header-bottom__bar{
+            color: var(--tp-common-white);
+            & i{
+                color: var(--tp-common-white);
+            }
+        }
+    }
+
+    &__transparent.header-sticky{
+        & .header-bottom__main-menu{
+            & nav{
+                & ul{
+                    & li{
+                        & a{
+                            color: var(--tp-common-black);
+                        }
+                        &:hover{
+                            & a{
+                                color: var(--tp-theme-1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .header-bottom__action{
+            & .language-selector-btn{
+                color: var(--tp-common-black);
+                & i{
+                    color: var(--tp-common-black);
+                }
+            }
+        }
+
+        & .header-bottom__bar{
+            color: var(--tp-common-black);
+            & i{
+                color: var(--tp-common-black);
+            }
+        }
     }
     &__plr-4{
         padding: 0px 315px;

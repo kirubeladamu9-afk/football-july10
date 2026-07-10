@@ -8,6 +8,7 @@ import useSticky from '@/src/hooks/use-sticky';
 import { useLanguage } from '@/src/hooks/useLanguage';
 
 import logo from "../../../public/assets/img/logo/football-logo.webp"
+import footerLogo from "../../../public/assets/img/logo/footer-logo.webp"
 
 const Header = () => {
       const { sticky } = useSticky()
@@ -38,7 +39,9 @@ const Header = () => {
                      <div className="row align-items-center">
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                            <div className="header-bottom__logo">
-                              <Link href="/"><Image src={logo} alt="" width={280} height={80} /></Link>
+                              <Link href="/">
+                                 <Image src={sticky ? logo : footerLogo} alt="" width={280} height={80} className="logo-image" />
+                              </Link>
                            </div>
                         </div>
                         <div className="col-xxl-8 col-xl-8 col-lg-8 d-none d-lg-flex justify-content-center">
