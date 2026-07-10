@@ -144,7 +144,7 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
 
     // Header
     header: {
-      register: 'Register',
+      register: 'Subscribe',
       language: 'English',
       english: 'English',
       amharic: 'አማርኛ (Amharic)',
@@ -235,7 +235,7 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
       blog: 'Blog',
       phone: '+251(000)8899',
       location: 'Addis Ababa, Ethiopia',
-      copyright: <>Copyright & Design by <a href="#">EKD Tech.</a> – {new Date().getFullYear()}</>,
+      copyright: <>Copyright @ {new Date().getFullYear()}, Powered by <a href="www.ekdtechsolutions.com.et">EKD Tech Solutions</a></>,
       language: 'English (EN)',
       englishLang: 'English',
     },
