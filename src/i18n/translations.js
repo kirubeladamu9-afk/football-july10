@@ -32,7 +32,7 @@ const translations = {
     // Hero
     hero: {
       title1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
-      title2: 'የህግ፣ የፖለቲкаና ማህበረሰብ ትስስር',
+      title2: 'የህግ፣ የፖለቲካና ማህበረሰብ ትስስር',
       info: <>ፖለቲካ፣ ሕግ፣ ማህበረሰብ — እኛ በሦስቱም እንመረምራለን። <br />Football is more than the game; it's politics, law, and society.</>,
       readFirstArticle: 'የመጀመሪያውን መጣጥፍ ያንብቡ',
       listenPodcast: 'ፖድካስት ያድምጡ',
