@@ -114,7 +114,7 @@ blogGridTitle: 'ጽሑፎቻችንን እና የፖድካስት ማጠቃለያ�
       blog: 'ብሎግ',
       phone: '+251(000)8899',
       location: 'አዲስ አበባ፣ ኢትዮጵያ',
-      copyright: <>መብቱ በህግ የተጠበቀ ነው & በዲዛይን የተሰራው በ <a href="#">EKD Tech .</a> – {new Date().getFullYear()}</>,
+      copyright: <>የቅጂ መብት © {new Date().getFullYear()}፣ በ<a href="#">ኢ.ኬ.ዲ ቴክ ሶሉሽንስ</a> የበለጸገ</>,
       language: 'አማርኛ (ET)',
       englishLang: 'እንግሊዝኛ',
     },
