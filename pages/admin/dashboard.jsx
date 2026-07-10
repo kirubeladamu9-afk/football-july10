@@ -102,76 +102,149 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-card">
-                <h2 style={{ fontSize: '18px', fontWeight: '600', marginTop: 0 }}>
-                  {language === 'en' ? 'Content Overview' : 'የይዘት ጠቅላላ እይታ'}
-                </h2>
-                <div className="chart-container">
-                  <Bar
-                    data={{
-                      labels: [
-                        language === 'en' ? 'Published' : 'የታተመ',
-                        language === 'en' ? 'Drafts' : 'ረቂቅ',
-                      ],
-                      datasets: [
-                        {
-                          label: language === 'en' ? 'Articles' : 'መጣጥፎች',
-                          data: [stats.publishedArticles, stats.draftArticles],
-                          backgroundColor: ['#0066cc', '#ffa500'],
-                          borderColor: ['#0052a3', '#ff8c00'],
-                          borderWidth: 1,
-                          borderRadius: 4,
-                        },
-                      ],
-                    }}
-                    options={{
-                      responsive: true,
-                      maintainAspectRatio: true,
-                      plugins: {
-                        legend: {
-                          position: 'top',
-                          labels: {
-                            font: {
-                              size: 14,
-                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+              <div className="admin-charts-grid">
+                <div className="admin-card">
+                  <h2 style={{ fontSize: '18px', fontWeight: '600', marginTop: 0 }}>
+                    {language === 'en' ? 'Content Overview' : 'የይዘት ጠቅላላ እይታ'}
+                  </h2>
+                  <div className="chart-container">
+                    <Bar
+                      data={{
+                        labels: [
+                          language === 'en' ? 'Published' : 'የታተመ',
+                          language === 'en' ? 'Drafts' : 'ረቂቅ',
+                        ],
+                        datasets: [
+                          {
+                            label: language === 'en' ? 'Articles' : 'መጣጥፎች',
+                            data: [stats.publishedArticles, stats.draftArticles],
+                            backgroundColor: ['#0066cc', '#ffa500'],
+                            borderColor: ['#0052a3', '#ff8c00'],
+                            borderWidth: 1,
+                            borderRadius: 4,
+                          },
+                        ],
+                      }}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                          legend: {
+                            position: 'top',
+                            labels: {
+                              font: {
+                                size: 14,
+                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                              },
+                              color: '#666',
+                              padding: 12,
                             },
-                            color: '#666',
-                            padding: 12,
                           },
-                        },
-                        title: {
-                          display: false,
-                        },
-                      },
-                      scales: {
-                        y: {
-                          beginAtZero: true,
-                          ticks: {
-                            font: {
-                              size: 12,
-                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
-                            },
-                            color: '#666',
-                          },
-                          grid: {
-                            color: '#f0f0f0',
-                          },
-                        },
-                        x: {
-                          ticks: {
-                            font: {
-                              size: 12,
-                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
-                            },
-                            color: '#666',
-                          },
-                          grid: {
+                          title: {
                             display: false,
                           },
                         },
-                      },
-                    }}
-                  />
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                            ticks: {
+                              font: {
+                                size: 12,
+                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                              },
+                              color: '#666',
+                            },
+                            grid: {
+                              color: '#f0f0f0',
+                            },
+                          },
+                          x: {
+                            ticks: {
+                              font: {
+                                size: 12,
+                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                              },
+                              color: '#666',
+                            },
+                            grid: {
+                              display: false,
+                            },
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="admin-card">
+                  <h2 style={{ fontSize: '18px', fontWeight: '600', marginTop: 0 }}>
+                    {language === 'en' ? 'Articles by Category' : 'መጣጥፎች በምድብ'}
+                  </h2>
+                  <div className="chart-container">
+                    <Bar
+                      data={{
+                        labels: stats.categories.map((cat) => cat.name),
+                        datasets: [
+                          {
+                            label: language === 'en' ? 'Count' : 'ብዛት',
+                            data: stats.categories.map((cat) => cat.count),
+                            backgroundColor: '#00a366',
+                            borderColor: '#008052',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                          },
+                        ],
+                      }}
+                      options={{
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                          legend: {
+                            position: 'top',
+                            labels: {
+                              font: {
+                                size: 14,
+                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                              },
+                              color: '#666',
+                              padding: 12,
+                            },
+                          },
+                          title: {
+                            display: false,
+                          },
+                        },
+                        scales: {
+                          x: {
+                            beginAtZero: true,
+                            ticks: {
+                              font: {
+                                size: 12,
+                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                              },
+                              color: '#666',
+                            },
+                            grid: {
+                              color: '#f0f0f0',
+                            },
+                          },
+                          y: {
+                            ticks: {
+                              font: {
+                                size: 12,
+                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                              },
+                              color: '#666',
+                            },
+                            grid: {
+                              display: false,
+                            },
+                          },
+                        },
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -239,15 +312,32 @@ export default function DashboardPage() {
           overflow-y: auto;
         }
 
+        :global(.admin-charts-grid) {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px;
+          margin: 24px 0;
+        }
+
         :global(.chart-container) {
           position: relative;
           height: 350px;
           margin: 20px 0;
         }
 
+        @media (max-width: 1024px) {
+          :global(.admin-charts-grid) {
+            grid-template-columns: 1fr;
+          }
+        }
+
         @media (max-width: 768px) {
           :global(.admin-content) {
             margin-left: 0;
+          }
+
+          :global(.admin-charts-grid) {
+            grid-template-columns: 1fr;
           }
 
           :global(.chart-container) {

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const [articleCount, publishedCount, draftCount, multimediaCount, recentBlogs] =
+    const [articleCount, publishedCount, draftCount, multimediaCount, recentBlogs, categoryStats] =
       await Promise.all([
         query('SELECT COUNT(*) as count FROM blogs'),
         query('SELECT COUNT(*) as count FROM blogs WHERE status = ?', ['published']),
@@ -23,6 +23,7 @@ export default async function handler(req, res) {
         query(
           'SELECT id, slug, title_en, title_am, status, updated_at FROM blogs ORDER BY updated_at DESC LIMIT 5'
         ),
+        query('SELECT category, COUNT(*) as count FROM blogs GROUP BY category ORDER BY count DESC'),
       ]);
 
     const totalArticles = parseInt(articleCount.rows[0]?.count || 0);
@@ -42,6 +43,10 @@ export default async function handler(req, res) {
         titleAm: row.title_am,
         status: row.status,
         updatedAt: row.updated_at,
+      })),
+      categories: categoryStats.rows.map((row) => ({
+        name: row.category,
+        count: parseInt(row.count || 0),
       })),
     });
   } catch (error) {
