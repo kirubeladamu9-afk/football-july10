@@ -66,7 +66,14 @@ export default function LoadingSpinner() {
   };
 
   const startLoadingSequence = () => {
-    waitForPriorityImages().then(finishLoading);
+    const startTime = Date.now();
+    const MIN_VISIBLE_MS = 500;
+
+    waitForPriorityImages().then(() => {
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
+      setTimeout(finishLoading, remaining);
+    });
 
     if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
     loadingTimeoutRef.current = setTimeout(finishLoading, 3500);
