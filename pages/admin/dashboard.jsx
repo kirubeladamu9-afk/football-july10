@@ -2,6 +2,18 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import AdminLayout from '@/src/admin/components/AdminLayout';
 import { useLanguage, t } from '@/src/admin/hooks/useLanguage';
+import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function DashboardPage() {
   const { language } = useLanguage();
@@ -92,6 +104,79 @@ export default function DashboardPage() {
 
               <div className="admin-card">
                 <h2 style={{ fontSize: '18px', fontWeight: '600', marginTop: 0 }}>
+                  {language === 'en' ? 'Content Overview' : 'የይዘት ጠቅላላ እይታ'}
+                </h2>
+                <div className="chart-container">
+                  <Bar
+                    data={{
+                      labels: [
+                        language === 'en' ? 'Published' : 'የታተመ',
+                        language === 'en' ? 'Drafts' : 'ረቂቅ',
+                      ],
+                      datasets: [
+                        {
+                          label: language === 'en' ? 'Articles' : 'መጣጥፎች',
+                          data: [stats.publishedArticles, stats.draftArticles],
+                          backgroundColor: ['#0066cc', '#ffa500'],
+                          borderColor: ['#0052a3', '#ff8c00'],
+                          borderWidth: 1,
+                          borderRadius: 4,
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: true,
+                      plugins: {
+                        legend: {
+                          position: 'top',
+                          labels: {
+                            font: {
+                              size: 14,
+                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                            },
+                            color: '#666',
+                            padding: 12,
+                          },
+                        },
+                        title: {
+                          display: false,
+                        },
+                      },
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                          ticks: {
+                            font: {
+                              size: 12,
+                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                            },
+                            color: '#666',
+                          },
+                          grid: {
+                            color: '#f0f0f0',
+                          },
+                        },
+                        x: {
+                          ticks: {
+                            font: {
+                              size: 12,
+                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                            },
+                            color: '#666',
+                          },
+                          grid: {
+                            display: false,
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-card">
+                <h2 style={{ fontSize: '18px', fontWeight: '600', marginTop: 0 }}>
                   {t('recentActivity', language)}
                 </h2>
 
@@ -154,9 +239,19 @@ export default function DashboardPage() {
           overflow-y: auto;
         }
 
+        :global(.chart-container) {
+          position: relative;
+          height: 350px;
+          margin: 20px 0;
+        }
+
         @media (max-width: 768px) {
           :global(.admin-content) {
             margin-left: 0;
+          }
+
+          :global(.chart-container) {
+            height: 300px;
           }
         }
       `}</style>
