@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import ImageWithLoader from '@/src/components/common/ImageWithLoader';
 import { useLanguage } from '@/src/hooks/useLanguage';
 import MobileMenus from '../layout/headers/mobile-menus';
 
@@ -23,7 +24,7 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     </div>
                     <div className="tpoffcanvas__logo text-center">
                     <Link href="/" onClick={() => setSidebarOpen(false)}>
-                        <Image src={logo} alt="theme-pure" width={180} height={50} />
+                        <ImageWithLoader src={logo} alt="offcanvas logo" width={180} height={50} />
                     </Link>
                     </div>
                     <div className="mobile-menu mean-container">
@@ -63,11 +64,11 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     <div className="tpoffcanvas__instagram text-center">
                     <div className="tpoffcanvas__instagram-title">
                         <h4>All in one</h4>
-                    </div>  
-                    <Link href="#"><Image src={canvus_img_1}  alt="theme-pure" /></Link>
-                    <Link href="#"><Image src={canvus_img_2}  alt="theme-pure" /></Link>
-                    <Link href="#"><Image src={canvus_img_3}  alt="theme-pure" /></Link>
-                    <Link href="#"><Image src={canvus_img_4}  alt="theme-pure" /></Link>
+                    </div>
+                    <Link href="#"><ImageWithLoader src={canvus_img_1} alt="community icon" /></Link>
+                    <Link href="#"><ImageWithLoader src={canvus_img_2} alt="government icon" /></Link>
+                    <Link href="#"><ImageWithLoader src={canvus_img_3} alt="football icon" /></Link>
+                    <Link href="#"><ImageWithLoader src={canvus_img_4} alt="legal icon" /></Link>
                     </div>
                     <div className="tpoffcanvas__info text-center">
                     <h4 className="offcanva-title">we are here</h4>

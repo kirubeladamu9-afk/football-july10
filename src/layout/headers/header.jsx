@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Offcanvus from '@/src/common/offcanvus';
+import ImageWithLoader from '@/src/components/common/ImageWithLoader';
 import React, { useState, useRef, useEffect } from 'react';
 import NavMenu from './nav-menu';
 import useSticky from '@/src/hooks/use-sticky';
@@ -43,7 +44,7 @@ const Header = () => {
                         <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                            <div className="header-bottom__logo">
                               <Link href="/">
-                                 <Image src={sticky || !isBlogPage ? logo : footerLogo} alt="" width={280} height={80} className="logo-image" />
+                                 <ImageWithLoader src={sticky || !isBlogPage ? logo : footerLogo} alt="football logo" width={280} height={80} priority={true} className="logo-image" />
                               </Link>
                            </div>
                         </div>

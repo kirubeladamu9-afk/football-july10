@@ -1,11 +1,11 @@
 import gsap from 'gsap';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef } from 'react';
 import useTitleAnimation from "@/src/hooks/useTitleAnimation";
 import Brwoser from '@/src/common/brwoser';
 import BounceLine from '@/src/svg/bounce-line';
 import { useLanguage } from '@/src/hooks/useLanguage';
+import ImageWithLoader from '@/src/components/common/ImageWithLoader';
 
 import left_shape from "../../../../public/assets/img/hero/hero-left-shape-3-1.webp" ;
 import gradient_bg from "../../../../public/images/hero-gradient-3.webp" ;
@@ -35,10 +35,10 @@ const HeroArea = () => {
       <>
          <div className="tp-hero-area tp-hero-pt pt-170 pb-70 p-relative">
             <div className="tp-hero-left-shape">
-               <Image src={left_shape} alt="them-pure" />
+               <ImageWithLoader src={left_shape} alt="hero left shape" priority={true} />
             </div>
             <div className="tp-hero-gradient-bg">
-               <Image src={gradient_bg} alt="them-pure" />
+               <ImageWithLoader src={gradient_bg} alt="hero gradient background" priority={true} />
             </div>
             <div className="container">
                <div className="row justify-content-center z-index-3 hero-row-spacing">
@@ -69,7 +69,7 @@ const HeroArea = () => {
                            <span className="redius-shape-3"></span>
                         </div>
                         <div className="tp-hero-3-main-thumb z-index-5">
-                           <Image src={img_1} alt="them-pure" />
+                           <ImageWithLoader src={img_1} alt="hero main image" priority={true} />
                         </div>
                         <div className="tp-hero-3-shape-5 d-none d-lg-block wow frist-img animated">
                         </div>
