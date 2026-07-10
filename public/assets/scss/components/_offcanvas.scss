@@ -235,11 +235,11 @@
     padding: 8px 10px;
     cursor: pointer;
     border-radius: 4px;
-    color: var(--tp-common-black) !important;
+    color: var(--tp-common-white) !important;
     font-size: 14px;
 
     &.active {
-        background: #e8f0ff;
-        color: #0066cc !important;
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--tp-common-white) !important;
     }
 }
