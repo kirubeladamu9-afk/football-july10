@@ -56,7 +56,7 @@ const menu_data = [
     sub_menus: [
       { link: "/", title: (t) => t.nav.aboutProject },
       { link: "/", title: (t) => t.nav.researchTeam },
-      { link: "/contact", title: (t) => t.nav.contact },
+      { link: "/", title: (t) => t.nav.contact },
     ],
   },
 ];
