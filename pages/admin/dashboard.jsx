@@ -145,32 +145,33 @@ export default function DashboardPage() {
                           },
                         },
                         scales: {
-                          y: {
-                            beginAtZero: true,
-                            ticks: {
-                              font: {
-                                size: 12,
-                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
-                              },
-                              color: '#666',
+                        y: {
+                          beginAtZero: true,
+                          ticks: {
+                            stepSize: 1,
+                            font: {
+                              size: 12,
+                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
                             },
-                            grid: {
-                              color: '#f0f0f0',
-                            },
+                            color: '#666',
                           },
-                          x: {
-                            ticks: {
-                              font: {
-                                size: 12,
-                                family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
-                              },
-                              color: '#666',
-                            },
-                            grid: {
-                              display: false,
-                            },
+                          grid: {
+                            color: '#f0f0f0',
                           },
                         },
+                        x: {
+                          ticks: {
+                            font: {
+                              size: 12,
+                              family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
+                            },
+                            color: '#666',
+                          },
+                          grid: {
+                            display: false,
+                          },
+                        },
+                      },
                       }}
                     />
                   </div>
@@ -219,6 +220,7 @@ export default function DashboardPage() {
                           x: {
                             beginAtZero: true,
                             ticks: {
+                              stepSize: 1,
                               font: {
                                 size: 12,
                                 family: "'Inter', 'Noto Sans Ethiopic', sans-serif",
