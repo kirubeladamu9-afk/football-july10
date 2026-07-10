@@ -3,6 +3,7 @@ import "@/public/assets/scss/admin-panel.scss";
 import { useRouter } from "next/router";
 import { AuthProvider } from "@/src/admin/hooks/useAuth";
 import { LanguageProvider } from "@/src/context/LanguageContext";
+import LoadingSpinner from "@/src/components/common/LoadingSpinner";
 
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
@@ -15,6 +16,7 @@ function AppWrapper({ Component, pageProps }) {
   if (isAdminPage) {
     return (
       <AuthProvider>
+        <LoadingSpinner />
         <Component {...pageProps} />
       </AuthProvider>
     );
@@ -22,6 +24,7 @@ function AppWrapper({ Component, pageProps }) {
 
   return (
     <LanguageProvider>
+      <LoadingSpinner />
       <Component {...pageProps} />
     </LanguageProvider>
   );
