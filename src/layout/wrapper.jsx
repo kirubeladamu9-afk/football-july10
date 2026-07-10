@@ -9,6 +9,12 @@ import { animationCreate } from "../utils/utils";
 
 const Wrapper = ({ children }) => {
   useEffect(() => {
+    // Fade in main content once spinner is hidden
+    const smoothContent = document.getElementById('smooth-content');
+    if (smoothContent) {
+      smoothContent.classList.add('content-visible');
+    }
+
     // animation
     setTimeout(() => {
       animationCreate();
@@ -19,6 +25,17 @@ const Wrapper = ({ children }) => {
     <>
       {children}
       <ScrollToTop/>
+
+      <style jsx global>{`
+        #smooth-content {
+          opacity: 0;
+          transition: opacity 300ms ease-out 100ms;
+        }
+
+        #smooth-content.content-visible {
+          opacity: 1;
+        }
+      `}</style>
     </>
   );
 };

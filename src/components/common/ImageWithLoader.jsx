@@ -20,6 +20,7 @@ export default function ImageWithLoader({ src, alt, width, height, priority = fa
         priority={priority}
         onLoadingComplete={handleLoadingComplete}
         className={isLoading ? 'image-loading' : 'image-loaded'}
+        data-priority={priority ? 'true' : 'false'}
         {...props}
       />
 
