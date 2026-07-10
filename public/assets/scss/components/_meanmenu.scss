@@ -5,6 +5,7 @@
 /*----------------------------------------*/
 .mobile-menu.mean-container {
 	overflow: hidden;
+	background-color: #305AA7;
 	@media #{$xs} {
 		margin-bottom: 30px;
 	}
@@ -132,4 +133,3 @@
     -o-transform: rotate(45deg);
     color: var(--tp-common-white);
 }
-
