@@ -93,7 +93,7 @@ const BlogArea = () => {
                         <span>{getCategory(item)}</span>
                       </div>
                       <div className="tp-blog-date">
-                        <span>{formatDate(item.createdAt)}</span>
+                        <span>{formatDate(item.createdAt)} • {item.readingTime || 5} min read</span>
                       </div>
                     </div>
                     <div className="tp-blog-title-box">
