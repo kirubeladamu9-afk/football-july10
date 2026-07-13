@@ -32,22 +32,10 @@ async function runMigration() {
 
   const connection = await pool.getConnection();
   try {
-    console.log('Starting migration: Adding missing blog table columns...');
+    console.log('Starting migration: Adding reading_time column...');
 
-    // Add missing columns to blogs table
     const alterStatements = [
-      `ALTER TABLE blogs ADD COLUMN cover_image LONGTEXT`,
-      `ALTER TABLE blogs ADD COLUMN author_name VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN author_avatar LONGTEXT`,
-      `ALTER TABLE blogs ADD COLUMN author_role_en VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN author_role_am VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN gallery JSON`,
-      `ALTER TABLE blogs ADD COLUMN pull_quote_en TEXT`,
-      `ALTER TABLE blogs ADD COLUMN pull_quote_am TEXT`,
-      `ALTER TABLE blogs ADD COLUMN pull_quote_attribution VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN previous_post_slug VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN next_post_slug VARCHAR(255)`,
-      `ALTER TABLE blogs ADD COLUMN created_by INT`,
+      `ALTER TABLE blogs ADD COLUMN reading_time INT DEFAULT NULL COMMENT 'Reading time in minutes'`,
     ];
 
     for (const statement of alterStatements) {
@@ -55,9 +43,8 @@ async function runMigration() {
         await connection.execute(statement);
         console.log(`✅ ${statement.substring(0, 60)}...`);
       } catch (error) {
-        // If column already exists or constraint already exists, continue
-        if (error.code === 'ER_DUP_FIELDNAME' || error.code === 'ER_DUP_KEYNAME') {
-          console.log(`⚠️  Column/Constraint already exists: ${statement.substring(0, 60)}...`);
+        if (error.code === 'ER_DUP_FIELDNAME') {
+          console.log(`⚠️  Column already exists`);
         } else {
           throw error;
         }

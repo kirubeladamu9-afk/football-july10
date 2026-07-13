@@ -113,6 +113,20 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                               </div>
                            }
                            <div className="postbox__details-title-box pb-30">
+                              {blog && (
+                                 <div className="postbox__meta" style={{ marginBottom: '16px', fontSize: '14px', color: '#666' }}>
+                                    {blog.category && (
+                                       <span style={{ marginRight: '16px' }}>
+                                          <Link href="#">{blog.category}</Link>
+                                       </span>
+                                    )}
+                                    {blog.publishDate && (
+                                       <span>
+                                          {new Date(blog.publishDate).toLocaleDateString(language === 'am' ? 'am-ET' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })} • {blog.readingTime || 5} min
+                                       </span>
+                                    )}
+                                 </div>
+                              )}
                               <h4 className="postbox__details-title">{title}</h4>
                               <p>{excerpt}</p>
                            </div>

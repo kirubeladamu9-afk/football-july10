@@ -70,6 +70,7 @@ async function initDb() {
         category VARCHAR(100) NOT NULL,
         status VARCHAR(20) DEFAULT 'draft',
         publish_date TIMESTAMP NULL,
+        reading_time INT DEFAULT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         created_by INT,

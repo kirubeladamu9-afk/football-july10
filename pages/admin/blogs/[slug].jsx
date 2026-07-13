@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import AdminLayout from '@/src/admin/components/AdminLayout';
 import { useLanguage, t } from '@/src/admin/hooks/useLanguage';
 import { errorMessages } from '@/lib/validation';
+import { calculateReadingTime } from '@/lib/readingTime';
 
 const CATEGORIES = [
   { value: 'Politics & Power', label: 'Politics & Power', labelAm: 'ፖለቲካ እና ስልጣን' },
@@ -403,6 +404,9 @@ export default function EditBlogPage() {
                 className="form-textarea"
                 required
               />
+              <div style={{ marginTop: '8px', fontSize: '13px', color: '#666' }}>
+                {language === 'en' ? 'Reading time: ' : 'ንባብ ሰዓት: '}{calculateReadingTime(formData.bodyEn)} min
+              </div>
             </div>
             <div className="form-field">
               <label className="form-label">
@@ -414,6 +418,9 @@ export default function EditBlogPage() {
                 className="form-textarea"
                 required
               />
+              <div style={{ marginTop: '8px', fontSize: '13px', color: '#666' }}>
+                {language === 'en' ? 'Reading time: ' : 'ንባብ ሰዓት: '}{calculateReadingTime(formData.bodyAm)} min
+              </div>
             </div>
           </div>
 

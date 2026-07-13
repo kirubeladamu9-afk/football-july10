@@ -1,4 +1,5 @@
 import { query } from '@/lib/db';
+import { calculateReadingTime } from '@/lib/readingTime';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -48,6 +49,7 @@ export default async function handler(req, res) {
         category,
         status,
         publish_date as publishDate,
+        reading_time as readingTime,
         created_at as createdAt,
         updated_at as updatedAt
       FROM blogs
@@ -102,6 +104,7 @@ export default async function handler(req, res) {
       category: blog.category,
       status: blog.status,
       publishDate: blog.publishDate,
+      readingTime: blog.readingTime || calculateReadingTime(blog.bodyEn),
       tags: tagsResult.rows.map((r) => r.tag),
       createdAt: blog.createdAt,
       updatedAt: blog.updatedAt,

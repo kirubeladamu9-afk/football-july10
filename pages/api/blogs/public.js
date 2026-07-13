@@ -1,4 +1,5 @@
 import { query } from '@/lib/db';
+import { calculateReadingTime } from '@/lib/readingTime';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -16,13 +17,14 @@ export default async function handler(req, res) {
     }
 
     const result = await query(
-      `SELECT 
+      `SELECT
         id,
         slug,
         title_en,
         title_am,
         excerpt_en,
         excerpt_am,
+        body_en,
         cover_image,
         author_name,
         author_avatar,
@@ -30,6 +32,7 @@ export default async function handler(req, res) {
         author_role_am,
         category,
         publish_date,
+        reading_time,
         created_at,
         updated_at
       FROM blogs ${sqlWhere}
@@ -54,6 +57,7 @@ export default async function handler(req, res) {
       author_role_am: blog.author_role_am,
       category: blog.category,
       publishDate: blog.publish_date,
+      readingTime: blog.reading_time || calculateReadingTime(blog.body_en),
       createdAt: blog.created_at,
       updatedAt: blog.updated_at,
     }));

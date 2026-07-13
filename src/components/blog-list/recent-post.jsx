@@ -71,7 +71,7 @@ const RecentPost = () => {
                       <Link href={`/blog/${item.slug}`}>{title}</Link>
                     </h3>
                     <div className="rc__meta">
-                      <span>{date}</span>
+                      <span>{date} • {item.readingTime || 5} min</span>
                     </div>
                   </div>
                 </div>

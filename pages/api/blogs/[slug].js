@@ -1,5 +1,6 @@
 import { requireAuth, setCorsHeaders } from '@/lib/middleware';
 import { query, transaction } from '@/lib/db';
+import { calculateReadingTime } from '@/lib/readingTime';
 
 export default async function handler(req, res) {
   setCorsHeaders(req, res);
@@ -29,6 +30,8 @@ export default async function handler(req, res) {
         return field;
       };
 
+      const readingTime = blog.reading_time || calculateReadingTime(blog.body_en);
+
       return res.status(200).json({
         id: blog.id,
         slug: blog.slug,
@@ -53,6 +56,7 @@ export default async function handler(req, res) {
         category: blog.category,
         status: blog.status,
         publishDate: blog.publish_date,
+        readingTime,
         tags: blog.tags ? parseField(blog.tags) : tagsResult.rows.map((r) => r.tag),
         imageCaption: blog.image_caption,
         createdAt: blog.created_at,
@@ -103,6 +107,7 @@ export default async function handler(req, res) {
         }
 
         const blogId = blogResult[0].id;
+        const readingTime = calculateReadingTime(bodyEn);
 
         await client.execute(
           `UPDATE blogs SET
@@ -112,7 +117,7 @@ export default async function handler(req, res) {
           gallery = ?, pull_quote_en = ?, pull_quote_am = ?,
           pull_quote_attribution = ?, previous_post_slug = ?,
           next_post_slug = ?, featured_image_url = ?, category = ?, status = ?,
-          publish_date = ?, tags = ?, image_caption = ?, updated_at = NOW()
+          publish_date = ?, reading_time = ?, tags = ?, image_caption = ?, updated_at = NOW()
           WHERE id = ?`,
           [
             titleEn,
@@ -136,6 +141,7 @@ export default async function handler(req, res) {
             category,
             status,
             publishDate || null,
+            readingTime,
             tags.length > 0 ? JSON.stringify(tags) : null,
             imageCaption || null,
             blogId,

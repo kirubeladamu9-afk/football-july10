@@ -1,6 +1,7 @@
 import { requireAuth, setCorsHeaders } from '@/lib/middleware';
 import { query, transaction } from '@/lib/db';
 import { generateSlug } from '@/lib/validation';
+import { calculateReadingTime } from '@/lib/readingTime';
 
 export default async function handler(req, res) {
   setCorsHeaders(req, res);
@@ -46,6 +47,7 @@ export default async function handler(req, res) {
         category: row.category,
         status: row.status,
         publishDate: row.publish_date,
+        readingTime: row.reading_time || calculateReadingTime(row.body_en),
         updatedAt: row.updated_at,
       }));
 
@@ -91,6 +93,7 @@ export default async function handler(req, res) {
       }
 
       const finalSlug = slug || generateSlug(titleEn);
+      const readingTime = calculateReadingTime(bodyEn);
 
       await transaction(async (client) => {
         const [blogResult] = await client.execute(
@@ -98,7 +101,7 @@ export default async function handler(req, res) {
           (slug, title_en, title_am, excerpt_en, excerpt_am, body_en, body_am,
            cover_image, author_name, author_avatar, author_role_en, author_role_am,
            gallery, pull_quote_en, pull_quote_am, pull_quote_attribution,
-           previous_post_slug, next_post_slug, featured_image_url, category, status, publish_date, tags, image_caption, created_by)
+           previous_post_slug, next_post_slug, featured_image_url, category, status, publish_date, reading_time, tags, image_caption, created_by)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             finalSlug,
@@ -123,6 +126,7 @@ export default async function handler(req, res) {
             category,
             status || 'draft',
             publishDate || null,
+            readingTime,
             tags.length > 0 ? JSON.stringify(tags) : null,
             imageCaption || null,
             user.id,

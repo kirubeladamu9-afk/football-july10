@@ -64,6 +64,7 @@ const BlogGrid = () => {
                         bg_img: (blog.coverImage && blog.coverImage.trim()) ? blog.coverImage : "/assets/img/blog/inner-blog-1.png",
                         child_1: getTranslatedField(blog, 'category', language) || "Resources",
                         date: blog.createdAt ? new Date(blog.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently",
+                        readingTime: blog.readingTime || 5,
                         title: getTranslatedField(blog, 'title', language),
                         des: getTranslatedField(blog, 'excerpt', language) || getTranslatedField(blog, 'title', language),
                         author_img: (blog.authorAvatar && blog.authorAvatar.trim()) ? blog.authorAvatar : authorImgs[index % authorImgs.length],
@@ -117,7 +118,7 @@ const BlogGrid = () => {
                                             <div className="blog-grid-slider-wrapper">
                                                 <div className="blog-grid-slider-meta">
                                                     <span className="child-one">{item.child_1}</span>
-                                                    <span className="child-two">{item.date}</span>
+                                                    <span className="child-two">{item.date} • {item.readingTime} min</span>
                                                 </div>
                                                 <div className="blog-grid-slider-title-box">
                                                     <h4 className="blog-grid-slider-title"><Link href={`/blog/${item.slug}`}>{item.title}</Link></h4>
