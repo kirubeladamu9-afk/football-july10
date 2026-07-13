@@ -273,6 +273,7 @@
     }
     &-slider-meta{
         padding-bottom: 13px;
+        width: 100%;
         & span{
             &.child-one{
                 font-weight: 600;
@@ -290,6 +291,7 @@
                 font-size: 14px;
                 line-height: 1.5;
                 color: rgba(255, 255, 255, 0.8);
+                display: inline-block;
             }
         }
     }
