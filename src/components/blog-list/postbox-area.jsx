@@ -91,7 +91,7 @@ const PostboxArea = () => {
                                 <div className="postbox__content">
                                     <div className="postbox__meta">
                                         <span><Link href="#">{item.category}</Link></span>
-                                        <span><Link href="#">{item.date} • {item.readingTime} min</Link></span>
+                                        <span><Link href="#">{item.date} • {item.readingTime} min read</Link></span>
                                     </div>
                                     <h3 className="postbox__title">
                                         <Link href={`/blog-details?id=${item.id}`}>{item.title}</Link>

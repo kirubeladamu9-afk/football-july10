@@ -118,7 +118,7 @@ const BlogGrid = () => {
                                             <div className="blog-grid-slider-wrapper">
                                                 <div className="blog-grid-slider-meta">
                                                     <span className="child-one">{item.child_1}</span>
-                                                    <span className="child-two">{item.date} • {item.readingTime} min</span>
+                                                    <span className="child-two">{item.date} • {item.readingTime} min read</span>
                                                 </div>
                                                 <div className="blog-grid-slider-title-box">
                                                     <h4 className="blog-grid-slider-title"><Link href={`/blog/${item.slug}`}>{item.title}</Link></h4>

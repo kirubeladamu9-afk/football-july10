@@ -122,7 +122,7 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                     )}
                                     {blog.publishDate && (
                                        <span>
-                                          {new Date(blog.publishDate).toLocaleDateString(language === 'am' ? 'am-ET' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })} • {blog.readingTime || 5} min
+                                          {new Date(blog.publishDate).toLocaleDateString(language === 'am' ? 'am-ET' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })} • {blog.readingTime || 5} min read
                                        </span>
                                     )}
                                  </div>
