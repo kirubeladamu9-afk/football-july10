@@ -1,5 +1,4 @@
 import { query } from '@/lib/db';
-import { calculateReadingTime } from '@/lib/readingTime';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -47,9 +46,9 @@ export default async function handler(req, res) {
         previous_post_slug as previousPostSlug,
         next_post_slug as nextPostSlug,
         category,
+        reading_time as readingTime,
         status,
         publish_date as publishDate,
-        reading_time as readingTime,
         created_at as createdAt,
         updated_at as updatedAt
       FROM blogs
@@ -63,7 +62,6 @@ export default async function handler(req, res) {
 
     const blog = result.rows[0];
 
-    // Fetch tags
     const tagsResult = await query('SELECT tag FROM blog_tags WHERE blog_id = ?', [
       blog.id,
     ]);
@@ -102,9 +100,9 @@ export default async function handler(req, res) {
       previousPostSlug: blog.previousPostSlug,
       nextPostSlug: blog.nextPostSlug,
       category: blog.category,
+      readingTime: blog.readingTime,
       status: blog.status,
       publishDate: blog.publishDate,
-      readingTime: blog.readingTime || calculateReadingTime(blog.bodyEn),
       tags: tagsResult.rows.map((r) => r.tag),
       createdAt: blog.createdAt,
       updatedAt: blog.updatedAt,
