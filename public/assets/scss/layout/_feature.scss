@@ -184,6 +184,10 @@
         }
     }
     &-item-1{
+        border-radius: 7px;
+        @media #{$lg,$md}{
+            border-radius: 7px;
+        }
         &:hover{
             position: relative;
             z-index: 5;
@@ -197,6 +201,10 @@
         }
     }
     &-item-2{
+        border-radius: 7px;
+        @media #{$lg,$md}{
+            border-radius: 7px;
+        }
         &:hover{
             position: relative;
             z-index: 5;
@@ -210,6 +218,10 @@
         }
     }
     &-item-3{
+        border-radius: 7px;
+        @media #{$lg,$md}{
+            border-radius: 7px;
+        }
         &:hover{
             position: relative;
             z-index: 5;
@@ -223,6 +235,10 @@
         }
     }
     &-item-4{
+        border-radius: 7px;
+        @media #{$lg,$md}{
+            border-radius: 7px;
+        }
         &:hover{
             position: relative;
             z-index: 5;
