@@ -7,7 +7,7 @@
 .tp-project{
     &__item {
         background-color: var(--tp-common-white);
-        border-radius: 30px;
+        border-radius: 7px;
         overflow: hidden;
         transition: .3s;
         @media #{$xs}{
@@ -15,7 +15,6 @@
         } 
         &:hover{
             box-shadow: 0px 16px 20px rgba(1, 16, 61, 0.1);
-            border-radius: 30px;
         }
     }
     &__thumb{

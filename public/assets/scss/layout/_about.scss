@@ -20,7 +20,7 @@
         }
         & img{
             box-shadow: 0px 16px 20px 10px rgba(1, 16, 61, 0.1);
-            border-radius: 20px;
+            border-radius: 7px;
         }
     }
     &__img-wrapper{
@@ -41,7 +41,7 @@
         animation: tptranslateY2 4s forwards infinite alternate;
         & img{
             box-shadow: 10px 40px 40px rgba(1, 16, 61, 0.06), -20px -20px 120px rgba(1, 16, 61, 0.12);
-            border-radius: 20px;
+            border-radius: 7px;
         } 
     }
     &__sub-img-2{
@@ -51,10 +51,10 @@
         animation: tptranslateX2 4s forwards infinite alternate;
         @media #{$xs}{
             padding-top: 80px;
-        } 
+        }
         & img{
             box-shadow: 10px 40px 40px rgba(1, 16, 61, 0.06), -20px -20px 120px rgba(1, 16, 61, 0.12);
-            border-radius: 20px;
+            border-radius: 7px;
         } 
         @media #{$lg}{
             top: -35%;
