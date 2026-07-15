@@ -7,7 +7,6 @@ import BounceLine from '@/src/svg/bounce-line';
 import { useLanguage } from '@/src/hooks/useLanguage';
 import ImageWithLoader from '@/src/components/common/ImageWithLoader';
 
-import left_shape from "../../../../public/assets/img/hero/hero-left-shape-3-1.webp" ;
 import gradient_bg from "../../../../public/images/hero-gradient-3.webp" ;
 import img_1 from "../../../../public/images/hero-img-3-1.webp";
 import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
@@ -34,9 +33,6 @@ const HeroArea = () => {
    return (
       <>
          <div className="tp-hero-area tp-hero-pt pt-170 pb-70 p-relative">
-            <div className="tp-hero-left-shape">
-               <ImageWithLoader src={left_shape} alt="hero left shape" priority={true} />
-            </div>
             <div className="tp-hero-gradient-bg">
                <ImageWithLoader src={gradient_bg} alt="hero gradient background" priority={true} />
             </div>
