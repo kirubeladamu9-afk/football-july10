@@ -7,7 +7,7 @@ const translations = {
       politics: 'ፖለቲካ እና ስልጣን',
       law: 'ህግ እና አስተዳደር',
       sociopolitical: 'ማህበረሰብ እና ክለቦች',
-      researchHub: 'የምርምር ማዕከል',
+      researchHub: 'ተጨማሪ ያንብቡ',
       caseStudies: 'ጥናታዊ ምሳሌዎች',
       legalStudies: 'ጥልቅ የህግ ጥናቶች',
       researchPapers: 'የምርምር ወረቀቶች',
@@ -185,7 +185,7 @@ const translations = {
       box2Des: <>What is true football law? We examine the major legal issues and transfer regulations that shape the future of the game.</>,
       box3Title: <>Community Clubs & <br /> Socio-Political Impact.</>,
       box3Des: <>A study exploring how grassroots clubs reflect local politics, systemic discrimination, and mental health challenges in sports.</>,
-      researchBtn: 'Visit Research Hub',
+      researchBtn: 'Learn More',
     },
 
     // Podcast section
