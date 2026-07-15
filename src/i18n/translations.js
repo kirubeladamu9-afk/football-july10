@@ -7,7 +7,7 @@ const translations = {
       politics: 'ፖለቲካ እና ስልጣን',
       law: 'ህግ እና አስተዳደር',
       sociopolitical: 'ማህበረሰብ እና ክለቦች',
-      researchHub: 'ተጨማሪ ያንብቡ',
+      researchHub: 'የምርምር ማዕከል',
       caseStudies: 'ጥናታዊ ምሳሌዎች',
       legalStudies: 'ጥልቅ የህግ ጥናቶች',
       researchPapers: 'የምርምር ወረቀቶች',
@@ -64,7 +64,7 @@ const translations = {
       box2Des: <>ትክክለኛው የእግር ኳስ ህግ ምንድነው? የጨዋታውን የወደፊት ዕጣ ፈንታ የሚቀርጹ ቀጣዮቹን ትላልቅ የህግ ጉዳዮች እና የዝውውር ደንቦች እንፈትሻለን።</>,
       box3Title: <>የማህበረሰብ ክለቦች እና <br /> ማህበራዊ-ፖለቲካዊ ተፅእኖ።</>,
       box3Des: <>በታችኛው ደረጃ ያሉ ክለቦች የአካባቢውን ፖለቲካ፣ ዘረኝነትን፣ እና በአጠቃላይ በስፖርቱ ውስጥ ያለውን የአእምሮ ጤና ተግዳሮት እንዴት እንደሚያንፀባርቁ የሚያሳይ ጥናት።</>,
-      researchBtn: 'የምርምር ማዕከሉን ይጎብኙ',
+      researchBtn: 'ተጨማሪ ያንብቡ',
     },
 
     // Podcast section
