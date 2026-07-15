@@ -8,7 +8,7 @@ import { useLanguage } from '@/src/hooks/useLanguage';
 import ImageWithLoader from '@/src/components/common/ImageWithLoader';
 
 import gradient_bg from "../../../../public/images/hero-gradient-3.webp" ;
-import img_1 from "../../../../public/assets/img/hero/hero-img-3-1.png";
+import img_1 from "../../../../public/assets/img/hero/hero-img-3-1.webp";
 import img_2 from "../../../../public/assets/img/hero/hero-img-3-1-3.png" ;
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicEffect';
 
