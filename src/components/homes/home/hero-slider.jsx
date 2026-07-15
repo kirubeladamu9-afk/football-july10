@@ -65,7 +65,7 @@ const HeroArea = () => {
                            <span className="redius-shape-3"></span>
                         </div>
                         <div className="tp-hero-3-main-thumb z-index-5">
-                           <ImageWithLoader src={img_1} alt="hero main image" priority={true} />
+                           <ImageWithLoader src={img_1} alt="hero main image" width={1051} height={690} priority={true} />
                         </div>
                         <div className="tp-hero-3-shape-5 d-none d-lg-block wow frist-img animated">
                         </div>
