@@ -201,47 +201,49 @@ export default function NewMultimediaPage() {
             </div>
           </div>
 
-          <div className="form-group multimedia-thumbnail-field">
-            <label className="form-label">{language === 'en' ? 'Thumbnail Image' : 'የድንክዬ ምስል'}</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleThumbnailChange}
-              className="form-input multimedia-thumbnail-input"
-              disabled={loading}
-            />
-            <div className="form-hint">
-              {language === 'en' ? 'Choose an image to use as the multimedia thumbnail.' : 'ለሙልቲሚዲያው ድንክዬ ምስል ይምረጡ።'}
-            </div>
-            {formData.thumbnailUrl && (
-              <div className="multimedia-thumbnail-preview">
-                <img src={formData.thumbnailUrl} alt="Thumbnail preview" className="multimedia-thumbnail-image" />
-                <button
-                  type="button"
-                  onClick={() => handleChange('thumbnailUrl', '')}
-                  className="multimedia-thumbnail-remove"
-                >
-                  <i className="fas fa-times"></i>
-                  {language === 'en' ? 'Remove' : 'አስወግድ'}
-                </button>
+          <div className="form-group form-row multimedia-media-row">
+            <div className="form-group multimedia-thumbnail-field">
+              <label className="form-label">{language === 'en' ? 'Thumbnail Image' : 'የድንክዬ ምስል'}</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleThumbnailChange}
+                className="form-input multimedia-thumbnail-input"
+                disabled={loading}
+              />
+              <div className="form-hint">
+                {language === 'en' ? 'Choose an image to use as the multimedia thumbnail.' : 'ለሙልቲሚዲያው ድንክዬ ምስል ይምረጡ።'}
               </div>
-            )}
-          </div>
+              {formData.thumbnailUrl && (
+                <div className="multimedia-thumbnail-preview">
+                  <img src={formData.thumbnailUrl} alt="Thumbnail preview" className="multimedia-thumbnail-image" />
+                  <button
+                    type="button"
+                    onClick={() => handleChange('thumbnailUrl', '')}
+                    className="multimedia-thumbnail-remove"
+                  >
+                    <i className="fas fa-times"></i>
+                    {language === 'en' ? 'Remove' : 'አስወግድ'}
+                  </button>
+                </div>
+              )}
+            </div>
 
-          <div className="form-group">
-            <label className="form-label">
-              {t('fileUrl', language)} <span className="required">*</span>
-            </label>
-            <input
-              type="url"
-              value={formData.fileUrl}
-              onChange={(e) => handleChange('fileUrl', e.target.value)}
-              className="form-input"
-              placeholder="https://example.com/media.mp3"
-              required
-            />
-            <div className="form-hint">
-              {language === 'en' ? 'URL to the media file (MP3, MP4, etc.)' : 'ወደ ሚዲያ ፋይል URL (MP3, MP4, ወዘተ)'}
+            <div className="form-group">
+              <label className="form-label">
+                {t('fileUrl', language)} <span className="required">*</span>
+              </label>
+              <input
+                type="url"
+                value={formData.fileUrl}
+                onChange={(e) => handleChange('fileUrl', e.target.value)}
+                className="form-input"
+                placeholder="https://example.com/media.mp3"
+                required
+              />
+              <div className="form-hint">
+                {language === 'en' ? 'URL to the media file (MP3, MP4, etc.)' : 'ወደ ሚዲያ ፋይል URL (MP3, MP4, ወዘተ)'}
+              </div>
             </div>
           </div>
 
@@ -292,7 +294,8 @@ export default function NewMultimediaPage() {
           gap: 20px;
         }
 
-        :global(.form-group.form-row .form-field) {
+        :global(.form-group.form-row .form-field),
+        :global(.multimedia-media-row > .form-group) {
           flex: 1;
         }
 
