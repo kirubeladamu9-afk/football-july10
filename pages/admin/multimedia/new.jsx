@@ -139,9 +139,7 @@ export default function NewMultimediaPage() {
 
           <div className="form-group form-row">
             <div className="form-field">
-              <label className="form-label">
-                {t('type', language)} <span className="required">*</span>
-              </label>
+              <label className="form-label">{t('type', language)}</label>
               <select
                 value={formData.type}
                 onChange={(e) => handleChange('type', e.target.value)}
