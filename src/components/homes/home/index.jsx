@@ -7,6 +7,7 @@ import FeatureArea from "./feature-area";
 import HeroSlider from "./hero-slider";
 import ProjectArea from "./project-area";
 import BlogArea from "./blog-area";
+
 const HomeOne = () => {
   return (
     <>
