@@ -29,6 +29,7 @@ export default async function handler(req, res) {
         fileUrl: row.file_url,
         thumbnailUrl: row.thumbnail_url,
         duration: row.duration,
+        chapter: row.chapter,
         status: row.status || 'draft',
         publishDate: row.publish_date,
         createdAt: row.created_at,
@@ -52,6 +53,7 @@ export default async function handler(req, res) {
         fileUrl,
         thumbnailUrl,
         duration,
+        chapter,
         status = 'draft',
         publishDate,
       } = req.body;
@@ -63,8 +65,8 @@ export default async function handler(req, res) {
       const result = await query(
         `INSERT INTO multimedia
         (title_en, title_am, description_en, description_am,
-         file_url, thumbnail_url, duration, status, publish_date, created_by)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         file_url, thumbnail_url, duration, chapter, status, publish_date, created_by)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           titleEn,
           titleAm,
@@ -73,6 +75,7 @@ export default async function handler(req, res) {
           fileUrl,
           thumbnailUrl,
           duration,
+          chapter || null,
           status,
           publishDate || null,
           user.id,

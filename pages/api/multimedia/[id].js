@@ -28,6 +28,7 @@ export default async function handler(req, res) {
         fileUrl: item.file_url,
         thumbnailUrl: item.thumbnail_url,
         duration: item.duration,
+        chapter: item.chapter,
         status: item.status || 'draft',
         publishDate: item.publish_date,
         createdAt: item.created_at,
@@ -49,6 +50,7 @@ export default async function handler(req, res) {
         fileUrl,
         thumbnailUrl,
         duration,
+        chapter,
         status = 'draft',
         publishDate,
       } = req.body;
@@ -56,7 +58,7 @@ export default async function handler(req, res) {
       const result = await query(
         `UPDATE multimedia SET
         title_en = ?, title_am = ?, description_en = ?, description_am = ?,
-        file_url = ?, thumbnail_url = ?, duration = ?,
+        file_url = ?, thumbnail_url = ?, duration = ?, chapter = ?,
         status = ?, publish_date = ?, updated_at = NOW()
         WHERE id = ?`,
         [
@@ -67,6 +69,7 @@ export default async function handler(req, res) {
           fileUrl,
           thumbnailUrl,
           duration,
+          chapter || null,
           status,
           publishDate || null,
           id,

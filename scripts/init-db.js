@@ -100,6 +100,7 @@ async function initDb() {
         file_url VARCHAR(500) NOT NULL,
         thumbnail_url VARCHAR(500),
         duration INT,
+        chapter VARCHAR(100),
         status VARCHAR(20) DEFAULT 'draft',
         publish_date TIMESTAMP NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -111,6 +112,12 @@ async function initDb() {
 
     try {
       await connection.execute(`ALTER TABLE multimedia ADD COLUMN status VARCHAR(20) DEFAULT 'draft' AFTER duration`);
+    } catch (error) {
+      if (error.code !== 'ER_DUP_FIELDNAME') throw error;
+    }
+
+    try {
+      await connection.execute(`ALTER TABLE multimedia ADD COLUMN chapter VARCHAR(100) AFTER duration`);
     } catch (error) {
       if (error.code !== 'ER_DUP_FIELDNAME') throw error;
     }

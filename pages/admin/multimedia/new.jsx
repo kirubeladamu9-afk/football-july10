@@ -18,6 +18,7 @@ export default function NewMultimediaPage() {
     fileUrl: '',
     thumbnailUrl: '',
     duration: '',
+    chapter: '',
     status: 'draft',
   });
 
@@ -90,6 +91,7 @@ export default function NewMultimediaPage() {
           fileUrl: formData.fileUrl,
           thumbnailUrl: formData.thumbnailUrl || null,
           duration: formData.duration ? parseInt(formData.duration) : null,
+          chapter: formData.chapter || null,
           status: formData.status,
         }),
       });
@@ -184,6 +186,16 @@ export default function NewMultimediaPage() {
                 onChange={(e) => handleChange('duration', e.target.value)}
                 className="form-input"
                 min="0"
+              />
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Chapter' : 'ምዕራፍ'}</label>
+              <input
+                type="text"
+                value={formData.chapter}
+                onChange={(e) => handleChange('chapter', e.target.value)}
+                className="form-input"
+                placeholder={language === 'en' ? 'Season 01 Episode 02' : 'ምዕራፍ 01 ክፍል 02'}
               />
             </div>
           </div>
