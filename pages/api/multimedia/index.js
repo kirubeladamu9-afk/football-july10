@@ -10,31 +10,22 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const { type, page = 1, limit = 10 } = req.query;
-      let sqlWhere = 'WHERE 1=1';
-      const params = [];
-
-      if (type) {
-        params.push(type);
-        sqlWhere += ` AND type = ?`;
-      }
+      const { page = 1, limit = 10 } = req.query;
 
       // Get total count
-      const countResult = await query(`SELECT COUNT(*) as total FROM multimedia ${sqlWhere}`, params);
+      const countResult = await query('SELECT COUNT(*) as total FROM multimedia');
       const total = countResult.rows[0].total;
 
       // Get paginated results
       const offset = (parseInt(page) - 1) * parseInt(limit);
       const result = await query(
-        `SELECT * FROM multimedia ${sqlWhere} ORDER BY created_at DESC LIMIT ${parseInt(limit)} OFFSET ${offset}`,
-        params
+        `SELECT * FROM multimedia ORDER BY created_at DESC LIMIT ${parseInt(limit)} OFFSET ${offset}`
       );
 
       const multimedia = result.rows.map((row) => ({
         id: row.id,
         titleEn: row.title_en,
         titleAm: row.title_am,
-        type: row.type,
         fileUrl: row.file_url,
         thumbnailUrl: row.thumbnail_url,
         duration: row.duration,
@@ -58,7 +49,6 @@ export default async function handler(req, res) {
         titleAm,
         descriptionEn,
         descriptionAm,
-        type,
         fileUrl,
         thumbnailUrl,
         duration,
@@ -66,21 +56,20 @@ export default async function handler(req, res) {
         publishDate,
       } = req.body;
 
-      if (!titleEn || !titleAm || !type || !fileUrl) {
+      if (!titleEn || !titleAm || !fileUrl) {
         return res.status(400).json({ error: 'missingFields' });
       }
 
       const result = await query(
         `INSERT INTO multimedia
-        (title_en, title_am, description_en, description_am, type,
+        (title_en, title_am, description_en, description_am,
          file_url, thumbnail_url, duration, status, publish_date, created_by)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           titleEn,
           titleAm,
           descriptionEn,
           descriptionAm,
-          type,
           fileUrl,
           thumbnailUrl,
           duration,

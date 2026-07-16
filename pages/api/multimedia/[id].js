@@ -25,7 +25,6 @@ export default async function handler(req, res) {
         titleAm: item.title_am,
         descriptionEn: item.description_en,
         descriptionAm: item.description_am,
-        type: item.type,
         fileUrl: item.file_url,
         thumbnailUrl: item.thumbnail_url,
         duration: item.duration,
@@ -47,7 +46,6 @@ export default async function handler(req, res) {
         titleAm,
         descriptionEn,
         descriptionAm,
-        type,
         fileUrl,
         thumbnailUrl,
         duration,
@@ -58,7 +56,7 @@ export default async function handler(req, res) {
       const result = await query(
         `UPDATE multimedia SET
         title_en = ?, title_am = ?, description_en = ?, description_am = ?,
-        type = ?, file_url = ?, thumbnail_url = ?, duration = ?,
+        file_url = ?, thumbnail_url = ?, duration = ?,
         status = ?, publish_date = ?, updated_at = NOW()
         WHERE id = ?`,
         [
@@ -66,7 +64,6 @@ export default async function handler(req, res) {
           titleAm,
           descriptionEn,
           descriptionAm,
-          type,
           fileUrl,
           thumbnailUrl,
           duration,

@@ -15,7 +15,6 @@ export default function NewMultimediaPage() {
     titleAm: '',
     descriptionEn: '',
     descriptionAm: '',
-    type: 'audio',
     fileUrl: '',
     duration: '',
     publishDate: '',
@@ -34,9 +33,6 @@ export default function NewMultimediaPage() {
       if (!formData.titleEn || !formData.titleAm) {
         throw new Error('titleRequired');
       }
-      if (!formData.type) {
-        throw new Error('typeRequired');
-      }
       if (!formData.fileUrl) {
         throw new Error('fileUrlRequired');
       }
@@ -50,7 +46,6 @@ export default function NewMultimediaPage() {
           titleAm: formData.titleAm,
           descriptionEn: formData.descriptionEn,
           descriptionAm: formData.descriptionAm,
-          type: formData.type,
           fileUrl: formData.fileUrl,
           duration: formData.duration ? parseInt(formData.duration) : null,
           publishDate: formData.publishDate || null,
@@ -139,20 +134,6 @@ export default function NewMultimediaPage() {
           </div>
 
           <div className="form-group form-row">
-            <div className="form-field">
-              <label className="form-label">
-                {t('type', language)} <span className="required">*</span>
-              </label>
-              <select
-                value={formData.type}
-                onChange={(e) => handleChange('type', e.target.value)}
-                className="form-select"
-                required
-              >
-                <option value="audio">{t('audio', language)}</option>
-                <option value="video">{t('video', language)}</option>
-              </select>
-            </div>
             <div className="form-field">
               <label className="form-label">
                 {t('duration', language)} ({language === 'en' ? 'seconds' : 'ሴኮንዶች'})

@@ -9,17 +9,15 @@ export default function MultimediaPage() {
   const [multimedia, setMultimedia] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [filterType, setFilterType] = useState('');
 
   useEffect(() => {
     fetchMultimedia();
-  }, [filterType]);
+  }, []);
 
   async function fetchMultimedia() {
     try {
       setLoading(true);
       const params = new URLSearchParams();
-      if (filterType) params.append('type', filterType);
 
       const response = await fetch(`/api/multimedia?${params}`, {
         credentials: 'include',
@@ -65,16 +63,6 @@ export default function MultimediaPage() {
           {language === 'en' ? 'New Item' : 'አዲስ ንጥል'}
         </Link>
 
-        <select
-          value={filterType}
-          onChange={(e) => setFilterType(e.target.value)}
-          className="form-select"
-          style={{ padding: '10px 12px', borderRadius: '6px', border: '1px solid #eeeef5' }}
-        >
-          <option value="">{language === 'en' ? 'All Types' : 'ሁሉም ዓይነቶች'}</option>
-          <option value="audio">{t('audio', language)}</option>
-          <option value="video">{t('video', language)}</option>
-        </select>
       </div>
 
       {error && (
@@ -95,7 +83,6 @@ export default function MultimediaPage() {
             <thead>
               <tr>
                 <th>{t('title', language)}</th>
-                <th>{t('type', language)}</th>
                 <th>{language === 'en' ? 'Duration' : 'ጊዜ ርዝመት'}</th>
                 <th>{language === 'en' ? 'Actions' : 'ድርጊቶች'}</th>
               </tr>
@@ -107,26 +94,6 @@ export default function MultimediaPage() {
                     <strong>
                       {language === 'en' ? item.titleEn : item.titleAm}
                     </strong>
-                  </td>
-                  <td>
-                    <span
-                      style={{
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        backgroundColor:
-                          item.type === 'audio'
-                            ? 'rgba(46, 90, 172, 0.1)'
-                            : 'rgba(95, 195, 59, 0.1)',
-                        color:
-                          item.type === 'audio'
-                            ? '#2e5aac'
-                            : '#5fc33b',
-                        fontSize: '12px',
-                        fontWeight: '500',
-                      }}
-                    >
-                      {item.type === 'audio' ? t('audio', language) : t('video', language)}
-                    </span>
                   </td>
                   <td>
                     {item.duration ? `${Math.floor(item.duration / 60)}m ${item.duration % 60}s` : '-'}

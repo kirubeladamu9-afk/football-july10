@@ -97,7 +97,6 @@ async function initDb() {
         title_am VARCHAR(255) NOT NULL,
         description_en TEXT,
         description_am TEXT,
-        type VARCHAR(50) NOT NULL,
         file_url VARCHAR(500) NOT NULL,
         thumbnail_url VARCHAR(500),
         duration INT,
@@ -131,7 +130,6 @@ async function initDb() {
     await connection.execute(`CREATE INDEX idx_blogs_status ON blogs(status)`);
     await connection.execute(`CREATE INDEX idx_blogs_category ON blogs(category)`);
     await connection.execute(`CREATE INDEX idx_blogs_created_at ON blogs(created_at DESC)`);
-    await connection.execute(`CREATE INDEX idx_multimedia_type ON multimedia(type)`);
     await connection.execute(`CREATE INDEX idx_multimedia_created_at ON multimedia(created_at DESC)`);
     await connection.execute(`CREATE INDEX idx_blog_tags_blog_id ON blog_tags(blog_id)`);
 

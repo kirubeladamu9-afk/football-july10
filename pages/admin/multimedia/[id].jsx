@@ -17,7 +17,6 @@ export default function EditMultimediaPage() {
     titleAm: '',
     descriptionEn: '',
     descriptionAm: '',
-    type: 'audio',
     fileUrl: '',
     duration: '',
     status: 'draft',
@@ -40,7 +39,6 @@ export default function EditMultimediaPage() {
         titleAm: data.titleAm,
         descriptionEn: data.descriptionEn || '',
         descriptionAm: data.descriptionAm || '',
-        type: data.type,
         fileUrl: data.fileUrl,
         duration: data.duration || '',
         status: data.status || 'draft',
@@ -71,7 +69,6 @@ export default function EditMultimediaPage() {
           titleAm: formData.titleAm,
           descriptionEn: formData.descriptionEn,
           descriptionAm: formData.descriptionAm,
-          type: formData.type,
           fileUrl: formData.fileUrl,
           duration: formData.duration ? parseInt(formData.duration) : null,
           status: formData.status,
@@ -172,20 +169,6 @@ export default function EditMultimediaPage() {
           </div>
 
           <div className="form-group form-row">
-            <div className="form-field">
-              <label className="form-label">
-                {t('type', language)} <span className="required">*</span>
-              </label>
-              <select
-                value={formData.type}
-                onChange={(e) => handleChange('type', e.target.value)}
-                className="form-select"
-                required
-              >
-                <option value="audio">{t('audio', language)}</option>
-                <option value="video">{t('video', language)}</option>
-              </select>
-            </div>
             <div className="form-field">
               <label className="form-label">
                 {t('duration', language)} ({language === 'en' ? 'seconds' : 'ሴኮንዶች'})
