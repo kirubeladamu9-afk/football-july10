@@ -103,6 +103,7 @@ export default function MultimediaPage() {
                 <th>{t('title', language)}</th>
                 <th>{t('type', language)}</th>
                 <th>{language === 'en' ? 'Duration' : 'ጊዜ ርዝመት'}</th>
+                <th>{t('status', language)}</th>
                 <th>{language === 'en' ? 'Actions' : 'ድርጊቶች'}</th>
               </tr>
             </thead>
@@ -136,6 +137,11 @@ export default function MultimediaPage() {
                   </td>
                   <td>
                     {item.duration ? `${Math.floor(item.duration / 60)}m ${item.duration % 60}s` : '-'}
+                  </td>
+                  <td>
+                    <span className={`status-badge ${item.status === 'published' ? 'status-published' : 'status-draft'}`}>
+                      {item.status === 'published' ? t('published', language) : t('drafts', language)}
+                    </span>
                   </td>
                   <td style={{ display: 'flex', gap: '8px' }}>
                     <Link href={`/admin/multimedia/${item.id}`} className="btn btn-secondary btn-icon" title="Edit">
@@ -209,6 +215,24 @@ export default function MultimediaPage() {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+
+        .status-badge {
+          display: inline-block;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 12px;
+          font-weight: 500;
+        }
+
+        .status-published {
+          background: rgba(95, 195, 59, 0.1);
+          color: #5fc33b;
+        }
+
+        .status-draft {
+          background: rgba(154, 157, 167, 0.1);
+          color: #646873;
         }
 
         :global(.admin-table th) {

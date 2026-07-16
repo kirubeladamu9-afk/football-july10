@@ -20,6 +20,7 @@ export default function EditMultimediaPage() {
     type: 'audio',
     fileUrl: '',
     duration: '',
+    status: 'draft',
     publishDate: '',
   });
 
@@ -42,6 +43,7 @@ export default function EditMultimediaPage() {
         type: data.type,
         fileUrl: data.fileUrl,
         duration: data.duration || '',
+        status: data.status || 'draft',
         publishDate: data.publishDate ? data.publishDate.slice(0, 16) : '',
       });
     } catch (err) {
@@ -72,6 +74,7 @@ export default function EditMultimediaPage() {
           type: formData.type,
           fileUrl: formData.fileUrl,
           duration: formData.duration ? parseInt(formData.duration) : null,
+          status: formData.status,
           publishDate: formData.publishDate || null,
         }),
       });
@@ -210,14 +213,27 @@ export default function EditMultimediaPage() {
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">{language === 'en' ? 'Publish Date' : 'ታተም ዓይነት'}</label>
+          <div className="form-group form-row">
+            <div className="form-field">
+              <label className="form-label">{t('status', language)}</label>
+              <select
+                value={formData.status}
+                onChange={(e) => handleChange('status', e.target.value)}
+                className="form-select"
+              >
+                <option value="draft">{t('drafts', language)}</option>
+                <option value="published">{t('published', language)}</option>
+              </select>
+            </div>
+            <div className="form-field">
+              <label className="form-label">{language === 'en' ? 'Publish Date' : 'ታተም ዓይነት'}</label>
             <input
               type="datetime-local"
               value={formData.publishDate}
               onChange={(e) => handleChange('publishDate', e.target.value)}
-              className="form-input"
-            />
+                className="form-input"
+              />
+            </div>
           </div>
 
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '24px' }}>
