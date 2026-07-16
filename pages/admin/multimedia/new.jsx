@@ -90,7 +90,7 @@ export default function NewMultimediaPage() {
           descriptionAm: formData.descriptionAm,
           fileUrl: formData.fileUrl,
           thumbnailUrl: formData.thumbnailUrl || null,
-          duration: formData.duration ? parseInt(formData.duration) : null,
+          duration: formData.duration ? Math.round(parseFloat(formData.duration) * 60) : null,
           chapter: formData.chapter || null,
           status: formData.status,
         }),
@@ -178,14 +178,15 @@ export default function NewMultimediaPage() {
           <div className="form-group form-row">
             <div className="form-field">
               <label className="form-label">
-                {t('duration', language)} ({language === 'en' ? 'seconds' : 'ሴኮንዶች'})
+                {t('duration', language)} ({language === 'en' ? 'minutes' : 'ደቂቃዎች'})
               </label>
               <input
                 type="number"
+                min="0"
+                step="0.01"
                 value={formData.duration}
                 onChange={(e) => handleChange('duration', e.target.value)}
                 className="form-input"
-                min="0"
               />
             </div>
             <div className="form-field">
