@@ -18,9 +18,9 @@ export default function EditMultimediaPage() {
     descriptionEn: '',
     descriptionAm: '',
     fileUrl: '',
+    thumbnailUrl: '',
     duration: '',
     status: 'draft',
-    publishDate: '',
   });
 
   useEffect(() => {
@@ -40,9 +40,9 @@ export default function EditMultimediaPage() {
         descriptionEn: data.descriptionEn || '',
         descriptionAm: data.descriptionAm || '',
         fileUrl: data.fileUrl,
+        thumbnailUrl: data.thumbnailUrl || '',
         duration: data.duration || '',
         status: data.status || 'draft',
-        publishDate: data.publishDate ? data.publishDate.slice(0, 16) : '',
       });
     } catch (err) {
       setError(err.message);
@@ -53,6 +53,47 @@ export default function EditMultimediaPage() {
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const uploadThumbnail = async (file) => {
+    const reader = new FileReader();
+
+    return new Promise((resolve, reject) => {
+      reader.onload = async (event) => {
+        try {
+          const response = await fetch('/api/blogs/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: event.target.result, filename: file.name }),
+          });
+
+          if (!response.ok) throw new Error('Failed to upload thumbnail');
+
+          const data = await response.json();
+          resolve(data.url);
+        } catch (err) {
+          reject(err);
+        }
+      };
+      reader.onerror = () => reject(new Error('Failed to read thumbnail'));
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleThumbnailChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setError('');
+    setSaving(true);
+
+    try {
+      handleChange('thumbnailUrl', await uploadThumbnail(file));
+    } catch (err) {
+      setError(language === 'en' ? 'Failed to upload thumbnail' : 'የድንክዬ ምስል መስቀል አልተሳካም');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -70,9 +111,9 @@ export default function EditMultimediaPage() {
           descriptionEn: formData.descriptionEn,
           descriptionAm: formData.descriptionAm,
           fileUrl: formData.fileUrl,
+          thumbnailUrl: formData.thumbnailUrl || null,
           duration: formData.duration ? parseInt(formData.duration) : null,
           status: formData.status,
-          publishDate: formData.publishDate || null,
         }),
       });
 
@@ -153,8 +194,7 @@ export default function EditMultimediaPage() {
               <textarea
                 value={formData.descriptionEn}
                 onChange={(e) => handleChange('descriptionEn', e.target.value)}
-                className="form-textarea"
-                style={{ minHeight: '100px' }}
+                className="form-textarea multimedia-description-input"
               />
             </div>
             <div className="form-field">
@@ -162,8 +202,7 @@ export default function EditMultimediaPage() {
               <textarea
                 value={formData.descriptionAm}
                 onChange={(e) => handleChange('descriptionAm', e.target.value)}
-                className="form-textarea"
-                style={{ minHeight: '100px' }}
+                className="form-textarea multimedia-description-input"
               />
             </div>
           </div>
@@ -181,6 +220,33 @@ export default function EditMultimediaPage() {
                 min="0"
               />
             </div>
+          </div>
+
+          <div className="form-group multimedia-thumbnail-field">
+            <label className="form-label">{language === 'en' ? 'Thumbnail Image' : 'የድንክዬ ምስል'}</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleThumbnailChange}
+              className="form-input multimedia-thumbnail-input"
+              disabled={saving}
+            />
+            <div className="form-hint">
+              {language === 'en' ? 'Choose an image to use as the multimedia thumbnail.' : 'ለሙልቲሚዲያው ድንክዬ ምስል ይምረጡ።'}
+            </div>
+            {formData.thumbnailUrl && (
+              <div className="multimedia-thumbnail-preview">
+                <img src={formData.thumbnailUrl} alt="Thumbnail preview" className="multimedia-thumbnail-image" />
+                <button
+                  type="button"
+                  onClick={() => handleChange('thumbnailUrl', '')}
+                  className="multimedia-thumbnail-remove"
+                >
+                  <i className="fas fa-times"></i>
+                  {language === 'en' ? 'Remove' : 'አስወግድ'}
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="form-group">
@@ -208,18 +274,9 @@ export default function EditMultimediaPage() {
                 <option value="published">{t('published', language)}</option>
               </select>
             </div>
-            <div className="form-field">
-              <label className="form-label">{language === 'en' ? 'Publish Date' : 'ታተም ዓይነት'}</label>
-            <input
-              type="datetime-local"
-              value={formData.publishDate}
-              onChange={(e) => handleChange('publishDate', e.target.value)}
-                className="form-input"
-              />
-            </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '24px' }}>
+          <div className="multimedia-form-actions">
             <button
               type="button"
               onClick={() => router.back()}
@@ -281,6 +338,53 @@ export default function EditMultimediaPage() {
         :global(.form-hint) {
           font-size: 12px;
           color: #9a9da7;
+        }
+
+        :global(.multimedia-description-input) {
+          min-height: 100px;
+        }
+
+        :global(.multimedia-thumbnail-field) {
+          align-items: flex-start;
+        }
+
+        :global(.multimedia-thumbnail-input) {
+          width: 100%;
+        }
+
+        :global(.multimedia-thumbnail-preview) {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-top: 4px;
+        }
+
+        :global(.multimedia-thumbnail-image) {
+          width: 140px;
+          height: 80px;
+          object-fit: cover;
+          border: 1px solid #eeeef5;
+          border-radius: 6px;
+        }
+
+        :global(.multimedia-thumbnail-remove) {
+          padding: 8px 10px;
+          border: 1px solid #eeeef5;
+          border-radius: 6px;
+          background: #fff;
+          color: #1a1a1a;
+          cursor: pointer;
+        }
+
+        :global(.multimedia-thumbnail-remove i) {
+          margin-right: 6px;
+        }
+
+        :global(.multimedia-form-actions) {
+          display: flex;
+          justify-content: flex-end;
+          gap: 12px;
+          margin-top: 24px;
         }
 
         @media (max-width: 640px) {
