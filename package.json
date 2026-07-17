@@ -9,7 +9,7 @@
     "lint": "next lint",
     "db:init": "node scripts/init-db.js",
     "db:seed": "node scripts/seed-db.js",
-    "db:migrate": "node scripts/migrations/001-add-blog-fields.js && node scripts/migrations/002-add-tags-and-captions.js && node scripts/migrations/003-add-reading-time.js && node scripts/migrations/004-add-multimedia-status.js && node scripts/migrations/005-remove-multimedia-type.js && node scripts/migrations/006-add-multimedia-chapter.js"
+    "db:migrate": "node scripts/migrations/001-add-blog-fields.js && node scripts/migrations/002-add-tags-and-captions.js && node scripts/migrations/003-add-reading-time.js && node scripts/migrations/004-add-multimedia-status.js && node scripts/migrations/005-remove-multimedia-type.js && node scripts/migrations/006-add-multimedia-chapter.js && node scripts/migrations/007-add-uploaded-images.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.0.1",

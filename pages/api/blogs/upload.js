@@ -1,7 +1,8 @@
 import { requireAuth, setCorsHeaders } from '@/lib/middleware';
 import fs from 'fs';
-import path from 'path';
+import { randomUUID } from 'crypto';
 import formidable from 'formidable';
+import { query } from '@/lib/db';
 
 export const config = {
   api: {
@@ -29,24 +30,29 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Missing file' });
     }
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
+    if (!file.mimetype?.startsWith('image/')) {
+      fs.unlinkSync(file.filepath);
+      return res.status(400).json({ error: 'Only image files are allowed' });
     }
 
-    // Generate unique filename
-    const timestamp = Date.now();
-    const ext = path.extname(file.originalFilename || 'jpg');
-    const uniqueFilename = `${timestamp}-${Math.random().toString(36).substr(2, 9)}${ext}`;
-    const newPath = path.join(uploadsDir, uniqueFilename);
-
-    fs.copyFileSync(file.filepath, newPath);
+    const imageData = fs.readFileSync(file.filepath);
     fs.unlinkSync(file.filepath);
+    const imageId = randomUUID();
 
-    const fileUrl = `/uploads/${uniqueFilename}`;
+    await query(`
+      CREATE TABLE IF NOT EXISTS uploaded_images (
+        id CHAR(36) PRIMARY KEY,
+        content_type VARCHAR(100) NOT NULL,
+        image_data LONGBLOB NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+    `);
+    await query(
+      'INSERT INTO uploaded_images (id, content_type, image_data) VALUES (?, ?, ?)',
+      [imageId, file.mimetype, imageData]
+    );
 
-    return res.status(200).json({ success: true, url: fileUrl });
+    return res.status(200).json({ success: true, url: `/api/uploads/${imageId}` });
   } catch (error) {
     console.error('Image upload error:', error);
     return res.status(500).json({ error: 'Failed to upload image' });

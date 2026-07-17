@@ -122,6 +122,15 @@ async function initDb() {
       if (error.code !== 'ER_DUP_FIELDNAME') throw error;
     }
 
+    await connection.execute(`
+      CREATE TABLE IF NOT EXISTS uploaded_images (
+        id CHAR(36) PRIMARY KEY,
+        content_type VARCHAR(100) NOT NULL,
+        image_data LONGBLOB NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    `);
+
     // Create site_settings table
     await connection.execute(`
       CREATE TABLE IF NOT EXISTS site_settings (
