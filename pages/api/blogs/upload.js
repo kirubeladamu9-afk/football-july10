@@ -1,6 +1,13 @@
 import { requireAuth, setCorsHeaders } from '@/lib/middleware';
 import fs from 'fs';
 import path from 'path';
+import formidable from 'formidable';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default async function handler(req, res) {
   setCorsHeaders(req, res);
@@ -14,15 +21,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { image, filename } = req.body;
+    const form = formidable({ multiples: false });
+    const [fields, files] = await form.parse(req);
 
-    if (!image || !filename) {
-      return res.status(400).json({ error: 'Missing image or filename' });
+    const file = files.file?.[0];
+    if (!file) {
+      return res.status(400).json({ error: 'Missing file' });
     }
-
-    // Extract base64 data
-    const base64Data = image.replace(/^data:image\/[a-z]+;base64,/, '');
-    const buffer = Buffer.from(base64Data, 'base64');
 
     // Create uploads directory if it doesn't exist
     const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
@@ -32,12 +37,12 @@ export default async function handler(req, res) {
 
     // Generate unique filename
     const timestamp = Date.now();
-    const ext = filename.split('.').pop();
-    const uniqueFilename = `${timestamp}-${Math.random().toString(36).substr(2, 9)}.${ext}`;
-    const filepath = path.join(uploadsDir, uniqueFilename);
+    const ext = path.extname(file.originalFilename || 'jpg');
+    const uniqueFilename = `${timestamp}-${Math.random().toString(36).substr(2, 9)}${ext}`;
+    const newPath = path.join(uploadsDir, uniqueFilename);
 
-    // Write file
-    fs.writeFileSync(filepath, buffer);
+    // Move file to uploads directory
+    fs.renameSync(file.filepath, newPath);
 
     const fileUrl = `/uploads/${uniqueFilename}`;
 

@@ -17,6 +17,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.5.1",
+    "formidable": "^3.5.4",
     "gsap": "^3.11.5",
     "mysql2": "^3.22.6",
     "next": "13.2.4",

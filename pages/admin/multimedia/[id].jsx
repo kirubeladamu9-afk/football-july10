@@ -64,20 +64,63 @@ export default function EditMultimediaPage() {
 
       reader.onload = async (event) => {
         try {
-          const response = await fetch('/api/blogs/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: event.target.result, filename: file.name }),
-          });
+          // Create canvas to compress image
+          const img = new Image();
+          img.onload = async () => {
+            try {
+              const canvas = document.createElement('canvas');
+              const maxWidth = 1200;
+              const maxHeight = 800;
+              let width = img.width;
+              let height = img.height;
 
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Failed to upload thumbnail');
-          }
+              if (width > height) {
+                if (width > maxWidth) {
+                  height = Math.round((height * maxWidth) / width);
+                  width = maxWidth;
+                }
+              } else {
+                if (height > maxHeight) {
+                  width = Math.round((width * maxHeight) / height);
+                  height = maxHeight;
+                }
+              }
 
-          const data = await response.json();
-          if (!data.url) throw new Error('No URL returned from upload');
-          resolve(data.url);
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+
+              // Convert canvas to blob instead of base64
+              canvas.toBlob(async (blob) => {
+                try {
+                  const formData = new FormData();
+                  formData.append('file', blob, file.name);
+
+                  const response = await fetch('/api/blogs/upload', {
+                    method: 'POST',
+                    body: formData,
+                  });
+
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to upload thumbnail');
+                  }
+
+                  const data = await response.json();
+                  if (!data.url) throw new Error('No URL returned from upload');
+                  resolve(data.url);
+                } catch (err) {
+                  reject(err);
+                }
+              }, 'image/jpeg', 0.8);
+            } catch (err) {
+              reject(err);
+            }
+          };
+
+          img.onerror = () => reject(new Error('Failed to load image'));
+          img.src = event.target.result;
         } catch (err) {
           reject(err);
         }
