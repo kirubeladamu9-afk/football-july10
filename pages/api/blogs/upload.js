@@ -41,8 +41,8 @@ export default async function handler(req, res) {
     const uniqueFilename = `${timestamp}-${Math.random().toString(36).substr(2, 9)}${ext}`;
     const newPath = path.join(uploadsDir, uniqueFilename);
 
-    // Move file to uploads directory
-    fs.renameSync(file.filepath, newPath);
+    fs.copyFileSync(file.filepath, newPath);
+    fs.unlinkSync(file.filepath);
 
     const fileUrl = `/uploads/${uniqueFilename}`;
 
