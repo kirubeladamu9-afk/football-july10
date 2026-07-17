@@ -36,14 +36,27 @@ export default function MultimediaPage() {
     if (!minutes) return '-';
 
     const totalMinutes = Number(minutes);
-    if (totalMinutes < 1) return `${Math.round(totalMinutes * 60)} seconds`;
-    if (totalMinutes <= 60) return `${totalMinutes} minutes`;
+
+    if (totalMinutes < 1) {
+      const seconds = Math.round(totalMinutes * 60);
+      return `${seconds} Sec`;
+    }
+
+    if (totalMinutes < 60) {
+      const displayMinutes = Math.round(totalMinutes * 100) / 100;
+      return `${displayMinutes} Min`;
+    }
 
     const hours = Math.floor(totalMinutes / 60);
-    const remainingMinutes = totalMinutes % 60;
-    return remainingMinutes
-      ? `${hours} hours ${remainingMinutes} minutes`
-      : `${hours} hours`;
+    const remainingMinutes = Math.round((totalMinutes % 60) * 100) / 100;
+
+    const hourLabel = hours === 1 ? 'Hour' : 'Hours';
+
+    if (remainingMinutes === 0) {
+      return `${hours} ${hourLabel}`;
+    }
+
+    return `${hours} ${hourLabel} ${remainingMinutes} Min`;
   };
 
   const handleDelete = async (id) => {
