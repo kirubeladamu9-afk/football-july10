@@ -58,9 +58,9 @@ export default function EditMultimediaPage() {
   };
 
   const uploadThumbnail = async (file) => {
-    const reader = new FileReader();
-
     return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
       reader.onload = async (event) => {
         try {
           const response = await fetch('/api/blogs/upload', {
@@ -69,14 +69,19 @@ export default function EditMultimediaPage() {
             body: JSON.stringify({ image: event.target.result, filename: file.name }),
           });
 
-          if (!response.ok) throw new Error('Failed to upload thumbnail');
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to upload thumbnail');
+          }
 
           const data = await response.json();
+          if (!data.url) throw new Error('No URL returned from upload');
           resolve(data.url);
         } catch (err) {
           reject(err);
         }
       };
+
       reader.onerror = () => reject(new Error('Failed to read thumbnail'));
       reader.readAsDataURL(file);
     });
@@ -90,7 +95,8 @@ export default function EditMultimediaPage() {
     setSaving(true);
 
     try {
-      handleChange('thumbnailUrl', await uploadThumbnail(file));
+      const url = await uploadThumbnail(file);
+      setFormData((prev) => ({ ...prev, thumbnailUrl: url }));
     } catch (err) {
       setError(language === 'en' ? 'Failed to upload thumbnail' : 'የድንክዬ ምስል መስቀል አልተሳካም');
     } finally {
