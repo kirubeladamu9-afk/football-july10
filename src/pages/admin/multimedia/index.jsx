@@ -43,12 +43,11 @@ export default function MultimediaPage() {
     }
 
     if (totalMinutes < 60) {
-      const displayMinutes = Math.round(totalMinutes * 100) / 100;
-      return `${displayMinutes} Min`;
+      return `${totalMinutes} Min`;
     }
 
     const hours = Math.floor(totalMinutes / 60);
-    const remainingMinutes = Math.round((totalMinutes % 60) * 100) / 100;
+    const remainingMinutes = Math.round(totalMinutes % 60);
 
     const hourLabel = hours === 1 ? 'Hour' : 'Hours';
 
