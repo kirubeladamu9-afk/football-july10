@@ -2,7 +2,7 @@ import project_data from '@/src/data/project-data';
 import RightArrow from '@/src/svg/right-arrow';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -36,7 +36,36 @@ const setting = {
 }
 
 const ProjectArea = () => {
+  const [projects, setProjects] = useState(project_data);
   const [isDragged, setIsDragged] = useState(false);
+
+  useEffect(() => {
+    const fetchFeaturedMultimedia = async () => {
+      try {
+        const response = await fetch('/api/multimedia/public');
+        if (!response.ok) return;
+
+        const { multimedia } = await response.json();
+        const featuredItem = multimedia?.[0];
+        if (!featuredItem) return;
+
+        setProjects((currentProjects) => currentProjects.map((project, index) => (
+          index === 0
+            ? {
+              ...project,
+              img_1: featuredItem.thumbnailUrl || featuredItem.fileUrl || project.img_1,
+              title: featuredItem.titleEn || project.title,
+              description: featuredItem.descriptionEn || project.description,
+            }
+            : project
+        )));
+      } catch (error) {
+        console.error('Error fetching featured multimedia:', error);
+      }
+    };
+
+    fetchFeaturedMultimedia();
+  }, []);
 
   const handleSlideChange = () => {
     setIsDragged(true);
@@ -68,7 +97,7 @@ const ProjectArea = () => {
                   modules={[Navigation, Scrollbar]}
                   className={`swiper-container tp-project__slider-active ${isDragged ? "dragged" : ""
                     }`}>
-                  {project_data.map((item, i) =>
+                  {projects.map((item, i) =>
                     <SwiperSlide
                       key={i}
                       className="swiper-slide wow tpfadeUp"
@@ -78,7 +107,11 @@ const ProjectArea = () => {
                       <div className="tp-project__slider-wrapper">
                         <div className="tp-project__item d-flex align-items-center">
                           <div className="tp-project__thumb">
-                            <Image src={item.img_1} alt="theme-pure" />
+                            {typeof item.img_1 === 'string' ? (
+                              <img src={item.img_1} alt={item.title} width="298" height="444" />
+                            ) : (
+                              <Image src={item.img_1} alt={item.title} />
+                            )}
                           </div>
                           <div className="tp-project__content">
                             <div className="tp-project__brand-icon">
