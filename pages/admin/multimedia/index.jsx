@@ -36,6 +36,16 @@ export default function MultimediaPage() {
     }
   }
 
+  const formatDuration = (minutes) => {
+    if (!minutes) return '-';
+    if (minutes > 60) {
+      const hours = Math.floor(minutes / 60);
+      const mins = minutes % 60;
+      return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+    }
+    return `${minutes}m`;
+  };
+
   const handleDelete = async (id) => {
     if (!confirm(language === 'en' ? 'Are you sure?' : 'እርግጠኛ ነው?')) return;
 
@@ -98,7 +108,7 @@ export default function MultimediaPage() {
                     </strong>
                   </td>
                   <td>
-                    {item.duration ? `${Math.floor(item.duration / 60)}m ${item.duration % 60}s` : '-'}
+                    {formatDuration(item.duration)}
                   </td>
                   <td>
                     <span className={`status-badge ${item.status === 'published' ? 'status-published' : 'status-draft'}`}>
