@@ -27,6 +27,11 @@
             }
         } 
     }
+    &__featured-image{
+        width: 298px;
+        height: 444px;
+        object-fit: cover;
+    }
     &__meta{
         @media #{$xs}{
           flex-wrap: wrap;

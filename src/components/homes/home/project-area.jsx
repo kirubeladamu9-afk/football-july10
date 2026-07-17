@@ -1,7 +1,3 @@
-import project_data from '@/src/data/project-data';
-import RightArrow from '@/src/svg/right-arrow';
-import Image from 'next/image';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -36,35 +32,23 @@ const setting = {
 }
 
 const ProjectArea = () => {
-  const [projects, setProjects] = useState(project_data);
+  const [projects, setProjects] = useState([]);
   const [isDragged, setIsDragged] = useState(false);
 
   useEffect(() => {
-    const fetchFeaturedMultimedia = async () => {
+    const fetchMultimedia = async () => {
       try {
         const response = await fetch('/api/multimedia/public');
         if (!response.ok) return;
 
         const { multimedia } = await response.json();
-        const featuredItem = multimedia?.[0];
-        if (!featuredItem) return;
-
-        setProjects((currentProjects) => currentProjects.map((project, index) => (
-          index === 0
-            ? {
-              ...project,
-              img_1: featuredItem.thumbnailUrl || featuredItem.fileUrl || project.img_1,
-              title: featuredItem.titleEn || project.title,
-              description: featuredItem.descriptionEn || project.description,
-            }
-            : project
-        )));
+        setProjects(multimedia || []);
       } catch (error) {
-        console.error('Error fetching featured multimedia:', error);
+        console.error('Error fetching multimedia:', error);
       }
     };
 
-    fetchFeaturedMultimedia();
+    fetchMultimedia();
   }, []);
 
   const handleSlideChange = () => {
@@ -77,15 +61,7 @@ const ProjectArea = () => {
   return (
     <>
       <div className="tp-project__area grey-bg pt-50 pb-110 fix">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-6">
-              <div className="tp-project__section-box wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".3s">
-                <h3 className="tp-section-title">Check Some Of Our Recent Work.</h3>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <div className="container-fluid gx-0">
           <div className="row gx-0">
             <div className="col-xl-12">
@@ -97,46 +73,29 @@ const ProjectArea = () => {
                   modules={[Navigation, Scrollbar]}
                   className={`swiper-container tp-project__slider-active ${isDragged ? "dragged" : ""
                     }`}>
-                  {projects.map((item, i) =>
+                  {projects.map((item) =>
                     <SwiperSlide
-                      key={i}
+                      key={item.id}
                       className="swiper-slide wow tpfadeUp"
                       data-wow-duration=".9s"
-                      data-wow-delay={item.delay}
                     >
                       <div className="tp-project__slider-wrapper">
                         <div className="tp-project__item d-flex align-items-center">
                           <div className="tp-project__thumb">
-                            {typeof item.img_1 === 'string' ? (
-                              <img src={item.img_1} alt={item.title} width="298" height="444" />
-                            ) : (
-                              <Image src={item.img_1} alt={item.title} />
+                            {item.thumbnailUrl && (
+                              <img
+                                className="tp-project__featured-image"
+                                src={item.thumbnailUrl}
+                                alt={item.titleEn}
+                                width="298"
+                                height="444"
+                              />
                             )}
                           </div>
                           <div className="tp-project__content">
-                            <div className="tp-project__brand-icon">
-                              <Image src={item.img_2} alt="theme-pure" />
-                            </div>
                             <div className="tp-project__title-box">
-                              <h4 className="tp-project__title-sm">
-                                <Link href="/project-details">{item.title}</Link>
-                              </h4>
-                              <p>{item.description}</p>
-                            </div>
-                            <div className="tp-project__meta d-flex align-items-center">
-                              <div className="tp-project__author-info">
-                                <span>Client Name</span>
-                                <h4>{item.client_name}</h4>
-                              </div>
-                              <div className="tp-project__budget">
-                                <span>Budget</span>
-                                <h4>${item.budget}{item.budget_simble}</h4>
-                              </div>
-                              <div className="tp-project__link">
-                                <Link href="/project-details">
-                                  <RightArrow />
-                                </Link>
-                              </div>
+                              <h4 className="tp-project__title-sm">{item.titleEn}</h4>
+                              <p>{item.descriptionEn}</p>
                             </div>
                           </div>
                         </div>

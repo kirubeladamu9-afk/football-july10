@@ -11,7 +11,7 @@ export default async function handler(req, res) {
        FROM multimedia
        WHERE status = ?
        ORDER BY created_at DESC
-       LIMIT 1`,
+       LIMIT 8`,
       ['published']
     );
 
