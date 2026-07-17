@@ -38,23 +38,17 @@ const formatDuration = (minutes) => {
   if (!minutes) return '';
 
   const totalMinutes = Number(minutes);
-  if (isNaN(totalMinutes) || totalMinutes <= 0) return '';
 
-  // Less than 1 minute -> seconds
   if (totalMinutes < 1) {
-    const seconds = Math.round(totalMinutes * 60);
-    return `${seconds} Sec`;
+    return `${Math.round(totalMinutes * 60)} Sec`;
   }
 
-  // 1 to 59.99 minutes -> minutes
   if (totalMinutes < 60) {
-    const mins = Math.round(totalMinutes);
-    return `${mins} Min`;
+    return `${totalMinutes} Min`;
   }
 
-  // 60+ minutes -> hours (+ remaining minutes)
   const hours = Math.floor(totalMinutes / 60);
-  const remainingMinutes = Math.round(totalMinutes % 60);
+  const remainingMinutes = totalMinutes % 60;
 
   const hourLabel = hours === 1 ? 'Hour' : 'Hours';
 
