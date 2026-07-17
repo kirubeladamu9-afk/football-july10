@@ -7,7 +7,8 @@ export default async function handler(req, res) {
 
   try {
     const result = await query(
-      `SELECT id, title_en, description_en, file_url, thumbnail_url
+      `SELECT id, title_en, title_am, description_en, description_am,
+               file_url, thumbnail_url, duration, chapter
        FROM multimedia
        WHERE status = ?
        ORDER BY created_at DESC
@@ -18,9 +19,13 @@ export default async function handler(req, res) {
     const multimedia = result.rows.map((item) => ({
       id: item.id,
       titleEn: item.title_en,
+      titleAm: item.title_am,
       descriptionEn: item.description_en,
+      descriptionAm: item.description_am,
       fileUrl: item.file_url,
       thumbnailUrl: item.thumbnail_url,
+      duration: item.duration,
+      chapter: item.chapter,
     }));
 
     return res.status(200).json({ multimedia });

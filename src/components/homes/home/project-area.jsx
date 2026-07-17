@@ -1,3 +1,6 @@
+import RightArrow from '@/src/svg/right-arrow';
+import { useLanguage } from '@/src/hooks/useLanguage';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -31,7 +34,16 @@ const setting = {
   },
 }
 
+const formatDuration = (seconds) => {
+  if (!seconds) return '';
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+};
+
 const ProjectArea = () => {
+  const { language } = useLanguage();
   const [projects, setProjects] = useState([]);
   const [isDragged, setIsDragged] = useState(false);
 
@@ -86,16 +98,42 @@ const ProjectArea = () => {
                               <img
                                 className="tp-project__featured-image"
                                 src={item.thumbnailUrl}
-                                alt={item.titleEn}
+                                alt={language === 'am' ? item.titleAm : item.titleEn}
                                 width="298"
                                 height="444"
                               />
                             )}
                           </div>
                           <div className="tp-project__content">
+                            <div className="tp-project__brand-icon">
+                              <img src="/assets/img/project/project-brand-multimedia.webp" alt="" />
+                            </div>
                             <div className="tp-project__title-box">
-                              <h4 className="tp-project__title-sm">{item.titleEn}</h4>
-                              <p>{item.descriptionEn}</p>
+                              <h4 className="tp-project__title-sm">
+                                {language === 'am' ? item.titleAm || item.titleEn : item.titleEn || item.titleAm}
+                              </h4>
+                              <p>{language === 'am' ? item.descriptionAm || item.descriptionEn : item.descriptionEn || item.descriptionAm}</p>
+                            </div>
+                            <div className="tp-project__meta d-flex align-items-center">
+                              {item.chapter && (
+                                <div className="tp-project__author-info">
+                                  <span>{language === 'am' ? 'ምዕራፍ' : 'Chapter'}</span>
+                                  <h4>{item.chapter}</h4>
+                                </div>
+                              )}
+                              {item.duration && (
+                                <div className="tp-project__budget">
+                                  <span>{language === 'am' ? 'ጊዜ' : 'Duration'}</span>
+                                  <h4>{formatDuration(item.duration)}</h4>
+                                </div>
+                              )}
+                              {item.fileUrl && (
+                                <div className="tp-project__link">
+                                  <Link href={item.fileUrl} target="_blank" rel="noreferrer" aria-label={language === 'am' ? 'ሚዲያ ክፈት' : 'Open media'}>
+                                    <RightArrow />
+                                  </Link>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
