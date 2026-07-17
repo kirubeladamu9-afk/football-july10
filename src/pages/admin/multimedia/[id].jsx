@@ -171,7 +171,7 @@ export default function EditMultimediaPage() {
           <div className="form-group form-row">
             <div className="form-field">
               <label className="form-label">
-                {t('duration', language)} ({language === 'en' ? 'seconds' : 'ሴኮንዶች'})
+                {t('duration', language)} ({language === 'en' ? 'minutes' : 'ደቂቃዎች'})
               </label>
               <input
                 type="number"

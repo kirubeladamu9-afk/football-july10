@@ -34,12 +34,16 @@ export default function MultimediaPage() {
 
   const formatDuration = (minutes) => {
     if (!minutes) return '-';
-    if (minutes > 60) {
-      const hours = Math.floor(minutes / 60);
-      const mins = minutes % 60;
-      return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
-    }
-    return `${minutes}m`;
+
+    const totalMinutes = Number(minutes);
+    if (totalMinutes < 1) return `${Math.round(totalMinutes * 60)} seconds`;
+    if (totalMinutes <= 60) return `${totalMinutes} minutes`;
+
+    const hours = Math.floor(totalMinutes / 60);
+    const remainingMinutes = totalMinutes % 60;
+    return remainingMinutes
+      ? `${hours} hours ${remainingMinutes} minutes`
+      : `${hours} hours`;
   };
 
   const handleDelete = async (id) => {
