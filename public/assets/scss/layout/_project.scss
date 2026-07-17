@@ -140,11 +140,12 @@
                 color: var(--tp-theme-1);
             }
             &:hover{
-                box-shadow: inset 0 0 0 30px #6865FF;
-                & svg{
-                    color: var(--tp-common-white);
-                }
+            box-shadow: inset 0 0 0 30px #6865FF;
+            color: #305AA7;
+            & svg{
+                color: var(--tp-common-white);
             }
+        }
         }
     }
     &__slider-active{
