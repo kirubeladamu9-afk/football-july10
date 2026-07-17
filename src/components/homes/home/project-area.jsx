@@ -44,11 +44,11 @@ const formatDuration = (minutes) => {
   }
 
   if (totalMinutes < 60) {
-    return `${totalMinutes} Min`;
+    return `${Math.round(totalMinutes)} Min`;
   }
 
   const hours = Math.floor(totalMinutes / 60);
-  const remainingMinutes = totalMinutes % 60;
+  const remainingMinutes = Math.round(totalMinutes % 60);
 
   const hourLabel = hours === 1 ? 'Hour' : 'Hours';
 
