@@ -33,9 +33,8 @@ export default function MultimediaPage() {
   }
 
   const formatDuration = (minutes) => {
-    if (!minutes) return '-';
-
     const totalMinutes = Number(minutes);
+    if (!Number.isFinite(totalMinutes)) return '-';
 
     if (totalMinutes < 1) {
       return `${Math.round(totalMinutes * 60)} Sec`;
@@ -47,7 +46,6 @@ export default function MultimediaPage() {
 
     const hours = Math.floor(totalMinutes / 60);
     const remainingMinutes = totalMinutes % 60;
-
     const hourLabel = hours === 1 ? 'Hour' : 'Hours';
 
     if (remainingMinutes === 0) {
