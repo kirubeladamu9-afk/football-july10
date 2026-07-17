@@ -34,12 +34,16 @@ const setting = {
   },
 }
 
-const formatDuration = (seconds) => {
-  if (!seconds) return '';
+const formatDuration = (minutes) => {
+  if (!minutes) return '';
 
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+  const totalMinutes = Number(minutes);
+  if (totalMinutes < 1) return `${Math.round(totalMinutes * 60)}s`;
+  if (totalMinutes <= 60) return `${totalMinutes}m`;
+
+  const hours = Math.floor(totalMinutes / 60);
+  const remainingMinutes = totalMinutes % 60;
+  return remainingMinutes ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
 };
 
 const ProjectArea = () => {
