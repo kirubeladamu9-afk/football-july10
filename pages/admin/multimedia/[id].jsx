@@ -12,6 +12,7 @@ export default function EditMultimediaPage() {
   const [loading, setLoading] = useState(!id);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [thumbnailError, setThumbnailError] = useState(false);
   const [formData, setFormData] = useState({
     titleEn: '',
     titleAm: '',
@@ -256,15 +257,46 @@ export default function EditMultimediaPage() {
             </div>
             {formData.thumbnailUrl && (
               <div className="multimedia-thumbnail-preview">
-                <img src={formData.thumbnailUrl} alt="Thumbnail preview" className="multimedia-thumbnail-image" />
-                <button
-                  type="button"
-                  onClick={() => handleChange('thumbnailUrl', '')}
-                  className="multimedia-thumbnail-remove"
-                >
-                  <i className="fas fa-times"></i>
-                  {language === 'en' ? 'Remove' : 'አስወግድ'}
-                </button>
+                {!thumbnailError ? (
+                  <>
+                    <img
+                      src={formData.thumbnailUrl}
+                      alt="Thumbnail preview"
+                      className="multimedia-thumbnail-image"
+                      onError={() => setThumbnailError(true)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleChange('thumbnailUrl', '');
+                        setThumbnailError(false);
+                      }}
+                      className="multimedia-thumbnail-remove"
+                    >
+                      <i className="fas fa-times"></i>
+                      {language === 'en' ? 'Remove' : 'አስወግድ'}
+                    </button>
+                  </>
+                ) : (
+                  <div className="multimedia-thumbnail-broken">
+                    <i className="fas fa-exclamation-triangle"></i>
+                    <div>
+                      <p>{language === 'en' ? 'Image not found' : 'ምስል አልተገኘም'}</p>
+                      <small>{formData.thumbnailUrl}</small>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleChange('thumbnailUrl', '');
+                        setThumbnailError(false);
+                      }}
+                      className="multimedia-thumbnail-remove"
+                    >
+                      <i className="fas fa-times"></i>
+                      {language === 'en' ? 'Clear' : 'ሰርዝ'}
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -387,6 +419,38 @@ export default function EditMultimediaPage() {
           border-radius: 6px;
         }
 
+        :global(.multimedia-thumbnail-broken) {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px;
+          background: #fff5f5;
+          border: 1px solid #f5a6a6;
+          border-radius: 6px;
+          min-width: 140px;
+        }
+
+        :global(.multimedia-thumbnail-broken i) {
+          color: #d32f2f;
+          font-size: 20px;
+          flex-shrink: 0;
+        }
+
+        :global(.multimedia-thumbnail-broken p) {
+          margin: 0;
+          font-size: 14px;
+          color: #d32f2f;
+          font-weight: 500;
+        }
+
+        :global(.multimedia-thumbnail-broken small) {
+          margin: 4px 0 0 0;
+          display: block;
+          font-size: 11px;
+          color: #9a9da7;
+          word-break: break-all;
+        }
+
         :global(.multimedia-thumbnail-remove) {
           padding: 8px 10px;
           border: 1px solid #eeeef5;
@@ -394,6 +458,7 @@ export default function EditMultimediaPage() {
           background: #fff;
           color: #1a1a1a;
           cursor: pointer;
+          flex-shrink: 0;
         }
 
         :global(.multimedia-thumbnail-remove i) {
