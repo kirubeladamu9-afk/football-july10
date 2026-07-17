@@ -38,12 +38,14 @@ const formatDuration = (minutes) => {
   if (!minutes) return '';
 
   const totalMinutes = Number(minutes);
-  if (totalMinutes < 1) return `${Math.round(totalMinutes * 60)}s`;
-  if (totalMinutes <= 60) return `${totalMinutes}m`;
+  if (totalMinutes < 1) return `${Math.round(totalMinutes * 60)} seconds`;
+  if (totalMinutes <= 60) return `${totalMinutes} minutes`;
 
   const hours = Math.floor(totalMinutes / 60);
   const remainingMinutes = totalMinutes % 60;
-  return remainingMinutes ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
+  return remainingMinutes
+    ? `${hours} hours ${remainingMinutes} minutes`
+    : `${hours} hours`;
 };
 
 const ProjectArea = () => {
