@@ -154,7 +154,7 @@ const translations = {
     hero: {
       title1: <>Beyond the Field: <span>Football,</span></>,
       title2: 'Law, Politics & Society',
-      info: <>Politics, Law, Society — we investigate all three.<br />Football is more than a game; it's politics, law, and society.</>,
+      info: <>PFootball goes beyond the match; it encompasses politics, law, and society.</>,
       readFirstArticle: 'Read Our Latest Article', // Polished for better marketing flow
       listenPodcast: 'Listen to Podcast',
     },
