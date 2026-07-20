@@ -164,8 +164,9 @@
     }
     &__shape-9{
         position: absolute;
-        bottom: 6%;
-        right: 0%;
+        bottom: -7%;
+        right: -3%;
+        width: 61%;
         @media (max-width: 768px){
             display: none;
         }
