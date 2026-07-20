@@ -136,26 +136,28 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                                     )}
                                  </div>
                               )}
-                              <h4 className="postbox__details-title">{title}</h4>
+                              <div className="postbox-title-share-row">
+                                 <h4 className="postbox__details-title">{title}</h4>
+                                 <div className="blog-share-actions" aria-label="Share this blog post">
+                                    <span className="blog-share-label">Share</span>
+                                    <button type="button" aria-label="Share on Telegram" onClick={() => openShareWindow(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareTitle)}`)}>
+                                       <i className="fab fa-telegram-plane"></i>
+                                    </button>
+                                    <button type="button" aria-label="Share on X" onClick={() => openShareWindow(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareTitle)}`)}>
+                                       <span className="social-x-mark">X</span>
+                                    </button>
+                                    <button type="button" aria-label="Share on LinkedIn" onClick={() => openShareWindow(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`)}>
+                                       <i className="fab fa-linkedin-in"></i>
+                                    </button>
+                                    <button type="button" aria-label="Share on Facebook" onClick={() => openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`)}>
+                                       <i className="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button type="button" aria-label="Copy blog link" onClick={handleCopyLink}>
+                                       <i className="fal fa-link"></i>
+                                    </button>
+                                 </div>
+                              </div>
                               <p>{excerpt}</p>
-                           </div>
-                           <div className="blog-share-actions" aria-label="Share this blog post">
-                              <span className="blog-share-label">Share</span>
-                              <button type="button" aria-label="Share on Telegram" onClick={() => openShareWindow(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareTitle)}`)}>
-                                 <i className="fab fa-telegram-plane"></i>
-                              </button>
-                              <button type="button" aria-label="Share on X" onClick={() => openShareWindow(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareTitle)}`)}>
-                                 <span className="social-x-mark">X</span>
-                              </button>
-                              <button type="button" aria-label="Share on LinkedIn" onClick={() => openShareWindow(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`)}>
-                                 <i className="fab fa-linkedin-in"></i>
-                              </button>
-                              <button type="button" aria-label="Share on Facebook" onClick={() => openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`)}>
-                                 <i className="fab fa-facebook-f"></i>
-                              </button>
-                              <button type="button" aria-label="Copy blog link" onClick={handleCopyLink}>
-                                 <i className="fal fa-link"></i>
-                              </button>
                            </div>
                            {!blog && (
                               <div className="postbox__details-checkmark">
