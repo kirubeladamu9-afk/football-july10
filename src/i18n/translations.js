@@ -152,8 +152,8 @@ const translations = {
 
     // Hero
     hero: {
-      title1: <>Beyond the Field: <span>Football,</span></>,
-      title2: 'Law, Politics & Society',
+      title1: <>Beyond the Pitch: <span>The Nexus of Football,</span></>, 
+      title2: 'Law, Politics and Society',
       info: <>Football goes beyond the match; it encompasses politics, law, and society.</>,
       readFirstArticle: 'Read Our Latest Article', // Polished for better marketing flow
       listenPodcast: 'Listen to Podcast',
