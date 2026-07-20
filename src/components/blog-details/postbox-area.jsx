@@ -96,6 +96,15 @@ const PostboxArea = ({ blog, style_details_2 }) => {
     const pullQuote = blog ? pickLang(blog, 'pullQuote', language) : null;
     const navPrevTitle = prevPost ? pickLang(prevPost, 'title', language) : '';
     const navNextTitle = nextPost ? pickLang(nextPost, 'title', language) : '';
+    const shareTitle = typeof title === 'string' ? title : 'Football article';
+
+    const openShareWindow = (shareUrl) => {
+        window.open(shareUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    const handleCopyLink = async () => {
+        await navigator.clipboard.writeText(window.location.href);
+    };
 
     return (
         <>
@@ -129,6 +138,24 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                               )}
                               <h4 className="postbox__details-title">{title}</h4>
                               <p>{excerpt}</p>
+                           </div>
+                           <div className="blog-share-actions" aria-label="Share this blog post">
+                              <span className="blog-share-label">Share</span>
+                              <button type="button" aria-label="Share on Telegram" onClick={() => openShareWindow(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareTitle)}`)}>
+                                 <i className="fab fa-telegram-plane"></i>
+                              </button>
+                              <button type="button" aria-label="Share on X" onClick={() => openShareWindow(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareTitle)}`)}>
+                                 <span className="social-x-mark">X</span>
+                              </button>
+                              <button type="button" aria-label="Share on LinkedIn" onClick={() => openShareWindow(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`)}>
+                                 <i className="fab fa-linkedin-in"></i>
+                              </button>
+                              <button type="button" aria-label="Share on Facebook" onClick={() => openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`)}>
+                                 <i className="fab fa-facebook-f"></i>
+                              </button>
+                              <button type="button" aria-label="Copy blog link" onClick={handleCopyLink}>
+                                 <i className="fal fa-link"></i>
+                              </button>
                            </div>
                            {!blog && (
                               <div className="postbox__details-checkmark">
