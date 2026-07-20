@@ -60,14 +60,14 @@ const footer_content = {
           icon: "fab fa-facebook-f", 
         },
         {
-          link: "http://twitter.com",
+          link: "https://x.com",
           target: "_blank",
-          icon: "fab fa-twitter", 
+          icon: "fab fa-x-twitter", 
         },
         {
-          link: "http://www.vimeo.com",
+          link: "https://t.me",
           target: "_blank",
-          icon: "fab fa-vimeo-v", 
+          icon: "fab fa-telegram-plane", 
         }, 
         {
           link: "http://www.instagram.com",

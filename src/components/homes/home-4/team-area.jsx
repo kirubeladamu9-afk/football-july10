@@ -29,9 +29,9 @@ const social_links = [
     },
 
     {
-      link: "http://twitter.com",
+      link: "https://x.com",
       target: "_blank",
-      icon: "fab fa-twitter", 
+      icon: "fab fa-x-twitter", 
       color: "3",
     },
     {

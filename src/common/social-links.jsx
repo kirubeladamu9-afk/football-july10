@@ -8,9 +8,9 @@ const social_links = [
     icon: "fab fa-facebook-f", 
   },
   {
-    link: "http://twitter.com",
+    link: "https://x.com",
     target: "_blank",
-    icon: "fab fa-twitter", 
+    icon: "fab fa-x-twitter", 
   },
   {
     link: "https://www.linkedin.com",
@@ -18,9 +18,9 @@ const social_links = [
     icon: "fab fa-linkedin-in", 
   }, 
   {
-    link: "https://www.vimeo.com",
+    link: "https://t.me",
     target: "_blank",
-    icon: "fab fa-vimeo-v", 
+    icon: "fab fa-telegram-plane", 
   },
 ];
 
@@ -80,9 +80,9 @@ const social_links_two = [
   },
 
   {
-    link: "http://twitter.com",
+    link: "https://x.com",
     target: "_blank",
-    icon: "fab fa-twitter", 
+    icon: "fab fa-x-twitter", 
     color: "3",
   },
   {

@@ -131,7 +131,7 @@ const FooterFive = ({style_contact, bg_style=true, style_team}) => {
                               <div className="tp-footer__social-3">
                                  <h4>Social media</h4>
                                  <Link href="#"><i className="fab fa-facebook-f"></i></Link>
-                                 <Link href="#"><i className="fab fa-twitter"></i></Link>
+                                 <Link href="#"><i className="fab fa-x-twitter"></i></Link>
                                  <Link href="#"><i className="fab fa-instagram"></i></Link>
                                  <Link href="#"><i className="fab fa-pinterest"></i></Link>
                               </div>
