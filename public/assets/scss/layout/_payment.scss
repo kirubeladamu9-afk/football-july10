@@ -112,9 +112,8 @@
         @media #{$md}{
             right: 0;
         }
-        @media #{$xs}{
-            position: static;
-            margin-top: 20px;
+        @media (max-width: 768px){
+            display: none;
         }
     }
     &__shape-3{
@@ -133,10 +132,8 @@
         bottom: -7%;
         right: -3%;
         width: 61%;
-        @media #{$xs}{
-            width: 50%;
-            bottom: -15%;
-            right: -10%;
+        @media (max-width: 768px){
+            display: none;
         }
     }
     &__shape-6{
@@ -145,10 +142,8 @@
         right: 4%;
         z-index: -1;
         opacity: .5;
-        @media #{$xs}{
-            bottom: -10%;
-            right: -15%;
-            opacity: 0.2;
+        @media (max-width: 768px){
+            display: none;
         }
     }
     &__shape-7{
@@ -171,10 +166,8 @@
         position: absolute;
         bottom: 6%;
         right: 0%;
-        @media #{$xs}{
-            bottom: -5%;
-            right: -10%;
-            opacity: 0.3;
+        @media (max-width: 768px){
+            display: none;
         }
     }
     &__shape-10{
