@@ -33,7 +33,7 @@ const translations = {
     hero: {
       title1: <>ከሜዳው ባሻገር፡ <span>የእግር ኳስ፣</span></>,
       title2: 'የህግ፣ የፖለቲካና ማህበረሰብ ትስስር',
-      info: <>እግር ኳስ ከጨዋታ ባሻገር ይሄዳል፤ ፖለቲካን፣ ህግና ማህበረሰብን ያካትታል። <br />Football goes beyond the match; it encompasses politics, law, and society.</>,
+      info: <>እግር ኳስ ከጨዋታ ባሻገር ይሄዳል፤ ፖለቲካን፣ ህግና ማህበረሰብን ያካትታል።</>,
       readFirstArticle: 'የመጀመሪያውን መጣጥፍ ያንብቡ',
       listenPodcast: 'ፖድካስት ያድምጡ',
     },
