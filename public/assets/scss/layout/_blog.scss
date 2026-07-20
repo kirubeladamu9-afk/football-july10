@@ -1324,25 +1324,17 @@
     }
 }
 
-.postbox-title-share-row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-
-    @media #{$md,$xs}{
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
 .blog-share-actions{
     display: flex;
     align-items: center;
     flex-shrink: 0;
     gap: 10px;
     margin-bottom: 10px;
+
+    &-bottom{
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
 
     & button{
         display: inline-flex;
