@@ -109,10 +109,8 @@
             right: 0;
         }
         @media #{$xs}{
-            position: relative;
-            right: 0;
-            padding-bottom: 0px;
-            top: 30px;
+            position: static;
+            margin-top: 20px;
         }
     }
     &__shape-3{
