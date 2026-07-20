@@ -174,7 +174,7 @@ const translations = {
 
     // Feature/Insights
     insights: {
-      title: <>Beyond the Field: Delving Deep <br /> into the Reality.</>, // Polished
+      title: <>Beyond the Pitch: The Nexus of Football <br /> Law, Politics and Society</>, 
       subtitle: <>Comprehensive analyses centered around football, law, and politics</>,
       podcastTitle: 'Listen to Our Latest Podcast Episodes.',
       episodeLabel: 'Episode',

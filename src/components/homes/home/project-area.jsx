@@ -85,6 +85,24 @@ const ProjectArea = () => {
   const handleTransitionEnd = () => {
     setIsDragged(false);
   };
+
+  const hasMultipleProjects = projects.length > 1;
+  const sliderSettings = hasMultipleProjects
+    ? setting
+    : {
+        ...setting,
+        loop: false,
+        centeredSlides: false,
+        slidesPerView: 1,
+        breakpoints: {
+          '1200': { slidesPerView: 1 },
+          '992': { slidesPerView: 1 },
+          '768': { slidesPerView: 1 },
+          '576': { slidesPerView: 1 },
+          '0': { slidesPerView: 1 },
+        },
+      };
+
   return (
     <>
       <div className="tp-project__area grey-bg pt-50 pb-110 fix">
@@ -94,12 +112,13 @@ const ProjectArea = () => {
             <div className="col-xl-12">
               <div className="tp-project__slider-section">
                 <Swiper
-                  {...setting}
+                  {...sliderSettings}
                   onSliderMove={handleSlideChange}
                   onTransitionEnd={handleTransitionEnd}
                   modules={[Navigation, Scrollbar]}
-                  className={`swiper-container tp-project__slider-active ${isDragged ? "dragged" : ""
-                    }`}>
+                  className={`swiper-container tp-project__slider-active ${
+                    hasMultipleProjects ? '' : 'tp-project__slider-active--single'
+                  } ${isDragged ? 'dragged' : ''}`}>
                   {projects.map((item) =>
                     <SwiperSlide
                       key={item.id}

@@ -165,6 +165,13 @@
             padding: 0px 15px; 
         }
     }
+    &__slider-active--single{
+        margin: 0;
+        padding: 0 30px;
+        @media #{$xs}{
+            padding: 0 15px;
+        }
+    }
     &__slider-wrapper{
         padding-top: 50px;
         padding-bottom: 70px;
