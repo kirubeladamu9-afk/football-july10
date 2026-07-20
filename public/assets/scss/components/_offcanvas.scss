@@ -149,6 +149,11 @@
     }
     &__social{
         & .social-icon{
+            & .social-x-mark{
+                font-family: Arial, sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+            }
             & a{
                 height: 50px;
                 width: 50px;

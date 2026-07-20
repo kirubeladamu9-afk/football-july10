@@ -79,7 +79,7 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     </div>
                     <div className="tpoffcanvas__social">
                     <div className="social-icon text-center">
-                        <Link href="#"><i className="fab fa-x-twitter"></i></Link>
+                        <Link href="#"><span className="social-x-mark" aria-label="X (Twitter)">X</span></Link>
                         <Link href="#"><i className="fab fa-instagram"></i></Link>
                         <Link href="#"><i className="fab fa-facebook-square"></i></Link>
                         <Link href="#"><i className="fab fa-dribbble"></i></Link>

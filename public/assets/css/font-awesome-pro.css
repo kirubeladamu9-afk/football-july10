@@ -6487,6 +6487,11 @@
 .fa-twitter:before {
   content: "\f099";
 }
+.fa-x-twitter:before {
+  content: "X";
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+}
 .fa-twitter-square:before {
   content: "\f081";
 }
