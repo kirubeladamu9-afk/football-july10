@@ -81,6 +81,7 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
                     <div className="social-icon text-center">
                         <Link href="#"><span className="social-x-mark" aria-label="X (Twitter)">X</span></Link>
                         <Link href="#"><i className="fab fa-instagram"></i></Link>
+                        <Link href="#"><i className="fab fa-youtube"></i></Link>
                         <Link href="#"><i className="fab fa-facebook-square"></i></Link>
                         <Link href="#"><i className="fab fa-dribbble"></i></Link>
                     </div>
