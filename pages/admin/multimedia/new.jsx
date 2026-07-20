@@ -27,28 +27,22 @@ export default function NewMultimediaPage() {
   };
 
   const uploadThumbnail = async (file) => {
-    const reader = new FileReader();
+    const formData = new FormData();
+    formData.append('file', file, file.name);
 
-    return new Promise((resolve, reject) => {
-      reader.onload = async (event) => {
-        try {
-          const response = await fetch('/api/blogs/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: event.target.result, filename: file.name }),
-          });
-
-          if (!response.ok) throw new Error('Failed to upload thumbnail');
-
-          const data = await response.json();
-          resolve(data.url);
-        } catch (err) {
-          reject(err);
-        }
-      };
-      reader.onerror = () => reject(new Error('Failed to read thumbnail'));
-      reader.readAsDataURL(file);
+    const response = await fetch('/api/blogs/upload', {
+      method: 'POST',
+      body: formData,
     });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.error || 'Failed to upload thumbnail');
+    }
+
+    const data = await response.json();
+    if (!data.url) throw new Error('No URL returned from upload');
+    return data.url;
   };
 
   const handleThumbnailChange = async (event) => {
