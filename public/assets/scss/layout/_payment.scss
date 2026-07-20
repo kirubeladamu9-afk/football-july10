@@ -28,7 +28,7 @@
         position: relative;
         @media #{$md}{
             padding: 35px;
-            min-height: auto;
+            min-height: 100%;
         }
         @media #{$xs}{
             padding: 30px;
@@ -1108,6 +1108,20 @@
         }
         @media #{$xs}{
             left: 100px;
+        }
+    }
+}
+
+.tp-payment-equal-height{
+    @media #{$md}{
+        display: flex;
+        flex-wrap: wrap;
+        & > div{
+            display: flex;
+            flex-direction: column;
+        }
+        .tp-payment__item{
+            flex: 1;
         }
     }
 }

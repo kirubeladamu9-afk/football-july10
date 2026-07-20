@@ -57,7 +57,7 @@ const InsightsArea = () => {
           <div className="row justify-content-center">
 
             <div className="col-xl-12">
-              <div className="row">
+              <div className="row tp-payment-equal-height">
                 {box_1.map((item, i) =>
                   <div key={i} className="col-md-6 mb-30">
                     <div className={`tp-payment__item tp-payment__bg-color-${item.cls} p-relative z-index wow `}
