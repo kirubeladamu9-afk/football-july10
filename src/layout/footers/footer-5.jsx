@@ -133,6 +133,7 @@ const FooterFive = ({style_contact, bg_style=true, style_team}) => {
                                  <Link href="#"><i className="fab fa-facebook-f"></i></Link>
                                  <Link href="#"><i className="fab fa-x-twitter"></i></Link>
                                  <Link href="#"><i className="fab fa-instagram"></i></Link>
+                                 <Link href="#"><i className="fab fa-youtube"></i></Link>
                                  <Link href="#"><i className="fab fa-pinterest"></i></Link>
                               </div>
                            </div>

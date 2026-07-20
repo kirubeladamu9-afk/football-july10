@@ -20,7 +20,12 @@ const social_links = [
   {
     link: "https://t.me",
     target: "_blank",
-    icon: "fab fa-telegram-plane", 
+    icon: "fab fa-telegram-plane",
+  },
+  {
+    link: "https://www.youtube.com",
+    target: "_blank",
+    icon: "fab fa-youtube",
   },
 ];
 
@@ -89,8 +94,14 @@ const social_links_two = [
     link: "https://www.linkedin.com",
     target: "_blank",
     icon: "fab fa-linkedin-in",
-    color: "4", 
-  }, 
+    color: "4",
+  },
+  {
+    link: "https://www.youtube.com",
+    target: "_blank",
+    icon: "fab fa-youtube",
+    color: "5",
+  },
 ];
 
 export const  SocialLinksTwo = ()  => {

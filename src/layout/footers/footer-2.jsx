@@ -60,8 +60,13 @@ const footer_content = {
         {
           link: "https://t.me",
           target: "_blank",
-          icon: "fab fa-telegram-plane", 
-        }, 
+          icon: "fab fa-telegram-plane",
+        },
+        {
+          link: "https://www.youtube.com",
+          target: "_blank",
+          icon: "fab fa-youtube",
+        },
         {
           link: "http://www.instagram.com",
           target: "_blank",
