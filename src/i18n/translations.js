@@ -41,10 +41,10 @@ const translations = {
     // About section
     about: {
       founderTitle: 'የሃሳብ አመንጪ እና መሪ',
-      founderSubtitle: 'የሀዩ ራዕይ፡ ከሜዳው ባሻገር ያለው እውነታ',
-      founderDesc: <>ይህ ፕሮጀክት በሀዩ (Hayu) መሪነትና ሙሉ ክትትል የሚመራ ሲሆን፣ እግር ኳስን ከቀላል ስፖርትነቱ ባሻገር በስልጣን ኮሪደሮች እና በህግ ፍርድ ቤቶች ያለውን ጥልቅ ትስስር ለይቶ ለማሳየት የተወለደ ልዩ መድረክ ነው።</>,
+      founderSubtitle: 'የሐዩ ራዕይ፡ ከሜዳው ባሻገር ያለው እውነታ',
+      founderDesc: <>ይህ ፕሮጀክት በሐዩ መሪነትና ሙሉ ክትትል የሚመራ ሲሆን፣ እግር ኳስን ከቀላል ስፖርትነቱ ባሻገር በስልጣን ኮሪደሮች፣ በህግ ፍርድ ቤቶች እና በማህበረሰብ መድረኮች ያለውን ጥልቅ ትስስር ለይቶ ለማሳየት የተወለደ ልዩ መድረክ ነው።</>,
       founderList: [
-        <>የስፖርት ጋዜጠኝነትን፣ ፖለቲካን እና ህግን ማገናኘት።</>,
+        <>እግር ኳስ፣ ፖለቲካን እና ህግን ማገናኘት።</>,
         <>የመንግስታትን ለስላሳ ስልጣን (Soft Power) ስትራቴጂ መተንተን።</>,
         <>የማህበረሰብ ክለቦችን ማህበራዊና ስነ-ልቦናዊ ተፅእኖ መፈተሽ።</>,
       ],
@@ -161,13 +161,13 @@ const translations = {
 
     // About section
     about: {
-      founderTitle: 'Thought Leader and Visionary',
-      founderSubtitle: "Hayu's Vision: Reality Beyond the Field", // Grammatically polished
-      founderDesc: <>This project is led and closely monitored by Hayu, serving as a unique platform designed to reveal the deep connection between football, the corridors of power, and legal courts, elevating it beyond a simple sport.</>,
+      founderTitle: 'Founder & Editor',
+      founderSubtitle: "Hayu's Vision: The Reality Beyond the Pitch",
+      founderDesc: <>This project is led by Hayu with full editorial oversight. It is a unique platform born to illuminate the deep connection between football and power corridors, courtrooms, and community stages — beyond the game itself.</>,
       founderList: [
-        <>Bridging sports journalism, politics, and law.</>,
-        <>Analyzing governments' soft power strategies.</>,
-        <>Examining grassroots clubs' social and psychological impacts.</>,
+        <>Connecting football, politics, and law.</>,
+        <>Analyzing government soft power strategy.</>,
+        <>Examining community clubs&apos; social and psychological impact.</>,
       ],
       learnMore: 'Read About the Project Leader',
     },
