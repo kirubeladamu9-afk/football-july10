@@ -2,10 +2,13 @@
   "name": "football-governance-tactics",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node server.js",
     "lint": "next lint",
     "db:init": "node scripts/init-db.js",
     "db:seed": "node scripts/seed-db.js",

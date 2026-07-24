@@ -56,13 +56,20 @@ npm run db:migrate
 Create a `.env.local` file with the following variables:
 
 ```env
-MYSQL_HOST=your_mysql_host
-MYSQL_USER=your_mysql_user
-MYSQL_PASSWORD=your_mysql_password
+# Preferred database connection setting
+MYSQL_URL=mysql://user:password@host:3306/football_db
+
+# Use these only when MYSQL_URL is not set
+MYSQLHOST=your_mysql_host
+MYSQLUSER=your_mysql_user
+MYSQLPASSWORD=your_mysql_password
 MYSQL_DATABASE=football_db
-MYSQL_ROOT_PASSWORD=your_root_password
-MYSQL_URL=mysql://user:password@host/database
-MYSQL_PUBLIC_URL=mysql://user:password@host/database
+MYSQLPORT=3306
+
+# Required for production admin authentication
+SESSION_SECRET=replace_with_a_long_random_secret
+
+NODE_ENV=production
 ```
 
 ### Running the Development Server
@@ -192,6 +199,17 @@ The site can be deployed to various platforms:
 - **AWS**
 - **Azure**
 - **Self-hosted servers**
+
+### Plesk deployment
+
+1. In Plesk, enable the Node.js extension for the domain and select Node.js 18 or later.
+2. Upload the project (including `package-lock.json`) to the application root, but do not upload local `.env` files or `node_modules`.
+3. Set **Document Root** to the application's `public` directory, **Application Startup File** to `server.js`, and **Application URL** to `/`.
+4. In **Application Settings**, add `NODE_ENV=production`, `MYSQL_URL` (or all of `MYSQLHOST`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQL_DATABASE`, and `MYSQLPORT`), and a long, unique `SESSION_SECRET`.
+5. Run `npm ci`, then `npm run build` from the Plesk Node.js interface or the domain's terminal.
+6. Set the application startup command to `npm start`, restart the Node.js application, and verify the public site and `/admin` sign-in.
+
+Run `npm run db:migrate` only after backing up the production database and only if those migrations have not already been applied.
 
 ## Contributing
 
