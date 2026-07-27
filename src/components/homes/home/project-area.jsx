@@ -19,6 +19,7 @@ const { bg_img, title } = testimonial_content
 const settings = {
   slidesToShow: 3,
   slidesToScroll: 1,
+  infinite: false,
   dots: false,
   arrows: false,
   responsive: [
