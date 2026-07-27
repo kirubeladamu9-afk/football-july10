@@ -1,30 +1,27 @@
 import portfolio_data from '@/src/data/portfolio-data';
-import Image from 'next/image';
-import Link from 'next/link';
-import React,{useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-
-// data
-const categories = [
-    "All",
-    ...new Set(portfolio_data.map((item) => item.category)),
-  ];
 const Portfolio = () => {
-
     const [activeCategory, setActiveCategory] = useState("All");
-    const [items, setItems] = useState(portfolio_data); 
-  
-    const filterItems = (cateItem) => {
-      setActiveCategory(cateItem);
-  
-      if (cateItem === "All") {
-        return setItems(portfolio_data);
-      } else {
-        const findItems = portfolio_data.filter((findItem) => {
-          return findItem.category == cateItem;
-        });
-        setItems(findItems);
-      }
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/multimedia/public')
+            .then((response) => response.json())
+            .then((data) => setItems(data.multimedia || []));
+    }, []);
+
+    const categories = useMemo(() => [
+        "All",
+        ...new Set(items.map((item) => item.chapter).filter(Boolean)),
+    ], [items]);
+
+    const filteredItems = activeCategory === "All"
+        ? items
+        : items.filter((item) => item.chapter === activeCategory);
+
+    const filterItems = (category) => {
+        setActiveCategory(category);
     };
 
 
@@ -48,23 +45,20 @@ const Portfolio = () => {
                      </div>
                   </div>
                   <div className="row grid">
-                    {items.map((item, i)  => 
-                        <div key={i} className="col-xl-4 col-lg-6 col-md-6 col-sm-6 grid-item  cat1 cat4 cat3 cat5">
+                    {filteredItems.map((item) =>
+                        <div key={item.id} className="col-xl-4 col-lg-6 col-md-6 col-sm-6 grid-item cat1 cat4 cat3 cat5">
                             <div className="inner-project-item mb-30">
                             <div className="inner-project-img fix p-relative">
-                                <Image className="w-100" src={item.thumb_img} alt="theme-pure" />
-                                <div className="inner-project-brand">
-                                    <Image src={item.brand_logo} alt="theme-pure" />
-                                </div>
+                                <img className="w-100" src={item.thumbnailUrl || item.fileUrl} alt={item.titleEn} />
                             </div>
                             <div className="inner-project-content">
-                                <span className="inner-project-category-title">{item.job_title}</span>
-                                <h4 className="inner-project-title"><Link href="/project-details">{item.title}</Link></h4>
-                                <p>{item.des}</p>
+                                <span className="inner-project-category-title">{item.chapter || 'Multimedia'}</span>
+                                <h4 className="inner-project-title"><a href={item.fileUrl} target="_blank" rel="noreferrer">{item.titleEn}</a></h4>
+                                <p>{item.descriptionEn}</p>
                             </div>
                             </div>
                         </div>
-                    )} 
+                    )}
                   </div>
                </div>
             </div>
