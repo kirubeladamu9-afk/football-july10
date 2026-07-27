@@ -12,7 +12,7 @@ import { getTranslatedField } from '@/src/utils/i18n';
 
 const testimonial_content = {
   bg_img: "/assets/img/testimonial/testi-bg-3-1.png",
-  title: <><span>Kind Words</span><br />from our Customers</>
+  title: <><span>Latest</span><br />Podcast Episodes</>
 }
 const { bg_img, title } = testimonial_content
 
