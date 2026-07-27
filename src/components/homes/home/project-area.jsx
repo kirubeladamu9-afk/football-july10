@@ -18,8 +18,8 @@ const { bg_img, title } = testimonial_content
 
 
 // slider setting
-// Shows TWO cards at a time on larger screens, stepping down to ONE
-// on tablets/mobile so cards don't get squeezed too narrow.
+// Shows TWO cards at a time only above 1377px width.
+// At 1377px and below (tablets, mobile, smaller laptops), shows ONE card.
 const settings = {
   slidesToShow: 2,
   slidesToScroll: 1,
@@ -28,30 +28,11 @@ const settings = {
   arrows: false,
   responsive: [
     {
-      breakpoint: 1200,
-      settings: {
-        slidesToShow: 2,
-      }
-    },
-    {
-      breakpoint: 992,
-      settings: {
-        slidesToShow: 1,
-      }
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
-      }
-    },
-    {
-      breakpoint: 480,
+      breakpoint: 1376,
       settings: {
         slidesToShow: 1,
       }
     }
-
   ]
 }
 
