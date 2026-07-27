@@ -102,27 +102,26 @@ const testimonial_data = [
 
 const TestimonialArea = () => {
   const sliderRef = useRef(null);
-  const [featuredMultimedia, setFeaturedMultimedia] = useState(null);
+  const [multimedia, setMultimedia] = useState([]);
 
   useEffect(() => {
     fetch('/api/multimedia/public')
       .then((response) => response.json())
-      .then((data) => setFeaturedMultimedia(data.multimedia?.[0] ?? null))
-      .catch(() => setFeaturedMultimedia(null));
+      .then((data) => setMultimedia(data.multimedia || []))
+      .catch(() => setMultimedia([]));
   }, []);
 
-  const testimonials = featuredMultimedia
-    ? testimonial_data.map((item) => item.id === 1
-      ? {
-        ...item,
-        img: featuredMultimedia.thumbnailUrl || item.img,
-        imgWidth: 300,
-        imgHeight: 360,
-        name: featuredMultimedia.titleEn,
-        job_title: featuredMultimedia.chapter,
-        description: featuredMultimedia.descriptionEn,
-      }
-      : item)
+  const testimonials = multimedia.length > 0
+    ? multimedia.map((item, index) => ({
+      ...testimonial_data[index % testimonial_data.length],
+      id: item.id,
+      img: item.thumbnailUrl || testimonial_data[index % testimonial_data.length].img,
+      imgWidth: 300,
+      imgHeight: 360,
+      name: item.titleEn,
+      job_title: item.chapter || 'Multimedia',
+      description: item.descriptionEn || '',
+    }))
     : testimonial_data;
 
   return (
