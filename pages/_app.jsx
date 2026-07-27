@@ -1,5 +1,5 @@
 import "@/src/styles/index.scss";
-import "@/public/assets/scss/admin-panel.scss";
+import "../public/assets/scss/admin-panel.scss";
 import { useRouter } from "next/router";
 import { AuthProvider } from "@/src/admin/hooks/useAuth";
 import { LanguageProvider } from "@/src/context/LanguageContext";

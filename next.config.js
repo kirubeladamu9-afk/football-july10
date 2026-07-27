@@ -4,11 +4,6 @@ const nextConfig = {
   experimental: {
     appDir: false,
   },
-  api: {
-    bodyParser: {
-      sizeLimit: '50mb',
-    },
-  },
 }
 
 module.exports = nextConfig

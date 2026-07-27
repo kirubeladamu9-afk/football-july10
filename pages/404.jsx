@@ -5,8 +5,8 @@ import Footer from "../src/layout/footers/footer";
 import Header from "../src/layout/headers/header";
 
 // error shape import here
-import error_shape_1 from "/public/assets/img/login/error-shape.png";
-import error_shape_2 from "/public/assets/img/login/text-404.png";
+import error_shape_1 from "../public/assets/img/login/error-shape.png";
+import error_shape_2 from "../public/assets/img/login/text-404.png";
 import Image from "next/image";
 
 
