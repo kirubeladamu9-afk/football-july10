@@ -115,6 +115,9 @@ const TestimonialArea = () => {
     ? testimonial_data.map((item) => item.id === 1
       ? {
         ...item,
+        img: featuredMultimedia.thumbnailUrl || item.img,
+        imgWidth: 300,
+        imgHeight: 360,
         name: featuredMultimedia.titleEn,
         job_title: featuredMultimedia.chapter,
         description: featuredMultimedia.descriptionEn,
@@ -167,7 +170,7 @@ const TestimonialArea = () => {
                             <p>{item.description}</p>
                             <div className="tp-testimonial-3-author-info d-flex align-items-center">
                               <div className="tp-testimonial-3-sm-thumb d-md-none">
-                                <Image src={item.img} alt={item.name} />
+                                <Image src={item.img} width={item.imgWidth} height={item.imgHeight} alt={item.name} />
                               </div>
                               <div>
                                 <h5>{item.name}</h5>
@@ -176,7 +179,7 @@ const TestimonialArea = () => {
                             </div>
                           </div>
                           <div className="tp-testimonial-3-thumb d-none d-md-block">
-                            <Image src={item.img} alt="theme-pure" />
+                            <Image src={item.img} width={item.imgWidth} height={item.imgHeight} alt={item.name} />
                           </div>
                         </div>
                       </div>
