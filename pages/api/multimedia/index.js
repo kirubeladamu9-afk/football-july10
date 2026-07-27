@@ -10,17 +10,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const { page = 1, limit = 10 } = req.query;
-
-      // Get total count
       const countResult = await query('SELECT COUNT(*) as total FROM multimedia');
       const total = countResult.rows[0].total;
-
-      // Get paginated results
-      const offset = (parseInt(page) - 1) * parseInt(limit);
-      const result = await query(
-        `SELECT * FROM multimedia ORDER BY created_at DESC LIMIT ${parseInt(limit)} OFFSET ${offset}`
-      );
+      const result = await query('SELECT * FROM multimedia ORDER BY created_at DESC');
 
       const multimedia = result.rows.map((row) => ({
         id: row.id,

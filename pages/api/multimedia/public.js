@@ -11,8 +11,7 @@ export default async function handler(req, res) {
                file_url, thumbnail_url, duration, chapter
        FROM multimedia
        WHERE status = ?
-       ORDER BY created_at DESC
-       LIMIT 8`,
+       ORDER BY created_at DESC`,
       ['published']
     );
 
