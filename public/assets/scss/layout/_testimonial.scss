@@ -387,13 +387,15 @@
         border-radius: 30px;
         padding: 30px;
         padding-left: 40px;
-        max-width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
         @media #{$md}{
             padding-left: 30px;
         }
         @media #{$xs}{
             flex-wrap: wrap;
             padding: 20px;
+            max-width: 100%;
         }
     }
     &-review{
