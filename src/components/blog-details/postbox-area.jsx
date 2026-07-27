@@ -45,6 +45,7 @@ const PostboxArea = ({ blog, style_details_2 }) => {
     const [nextPost, setNextPost] = useState(null);
     const [prevPost, setPrevPost] = useState(null);
     const [navLoading, setNavLoading] = useState(true);
+    const [copyTooltip, setCopyTooltip] = useState(false);
 
     useEffect(() => {
         const fetchNavigationPosts = async () => {
@@ -104,6 +105,8 @@ const PostboxArea = ({ blog, style_details_2 }) => {
 
     const handleCopyLink = async () => {
         await navigator.clipboard.writeText(window.location.href);
+        setCopyTooltip(true);
+        setTimeout(() => setCopyTooltip(false), 2000);
     };
 
     return (
@@ -296,8 +299,11 @@ const PostboxArea = ({ blog, style_details_2 }) => {
                               <button type="button" aria-label="Share on Facebook" onClick={() => openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`)}>
                                  <i className="fab fa-facebook-f"></i>
                               </button>
-                              <button type="button" aria-label="Copy blog link" onClick={handleCopyLink}>
+                              <button type="button" aria-label="Copy blog link" onClick={handleCopyLink} className="copy-link-btn" style={{ position: 'relative' }}>
                                  <i className="fal fa-link"></i>
+                                 {copyTooltip && (
+                                    <span className="copy-tooltip">Copied</span>
+                                 )}
                               </button>
                            </div>
                            <div className="postbox__details-author-info-box mb-100 d-flex align-items-start">
