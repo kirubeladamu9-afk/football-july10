@@ -353,6 +353,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 60px;
+        overflow: hidden;
     }
     &-slider-wrapper {
         overflow: hidden;
@@ -360,6 +361,10 @@
     &-slider-active{
         margin-left: -645px;
         margin-right: -380px;
+        @media #{$xxxl}{
+            margin-right: -300px;
+            margin-left: -600px;
+        }
         @media #{$xxl,$xl}{
             margin-right: -500px;
             margin-left: -700px;
