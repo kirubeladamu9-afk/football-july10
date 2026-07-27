@@ -106,7 +106,7 @@ const TestimonialArea = () => {
     <>
       <div className="tp-testimonial-area tp-testimonial-3-mlr pb-110">
         <div className="tp-testimonial-3-bg pt-110 fix"
-          style={{ backgroundImage: `url(${bg_img})` }}
+          style={{ backgroundImage: 'linear-gradient(142.23deg,#e8eef5 7.63%,#1f3a5f 99.01%),linear-gradient(142.23deg,#e8eef5 7.63%,#1f3a5f 99.01%)' }}
         >
           <div className="container">
             <div className="row">
