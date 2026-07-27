@@ -18,9 +18,10 @@ const { bg_img, title } = testimonial_content
 
 
 // slider setting
-// Shows exactly ONE card at a time, on every screen size (no multi-card peek).
+// Shows TWO cards at a time on larger screens, stepping down to ONE
+// on tablets/mobile so cards don't get squeezed too narrow.
 const settings = {
-  slidesToShow: 1,
+  slidesToShow: 2,
   slidesToScroll: 1,
   infinite: false,
   dots: false,
@@ -29,7 +30,7 @@ const settings = {
     {
       breakpoint: 1200,
       settings: {
-        slidesToShow: 1,
+        slidesToShow: 2,
       }
     },
     {
