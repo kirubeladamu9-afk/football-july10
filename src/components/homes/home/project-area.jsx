@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 import testimonial_img_1 from "../../../../public/assets/img/testimonial/testi-3-2.png"
@@ -102,6 +102,26 @@ const testimonial_data = [
 
 const TestimonialArea = () => {
   const sliderRef = useRef(null);
+  const [featuredMultimedia, setFeaturedMultimedia] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/multimedia/public')
+      .then((response) => response.json())
+      .then((data) => setFeaturedMultimedia(data.multimedia?.[0] ?? null))
+      .catch(() => setFeaturedMultimedia(null));
+  }, []);
+
+  const testimonials = featuredMultimedia
+    ? testimonial_data.map((item) => item.id === 1
+      ? {
+        ...item,
+        name: featuredMultimedia.titleEn,
+        job_title: featuredMultimedia.chapter,
+        description: featuredMultimedia.descriptionEn,
+      }
+      : item)
+    : testimonial_data;
+
   return (
     <>
       <div className="tp-testimonial-area tp-testimonial-3-mlr pb-110">
@@ -133,7 +153,7 @@ const TestimonialArea = () => {
                     ref={sliderRef} {...settings}
                     className="tp-testimonial-3-slider-active"
                   >
-                    {testimonial_data.map((item, i) =>
+                    {testimonials.map((item, i) =>
                       <div key={i} className="tp-testimonial-wrapper">
                         <div className="tp-testimonial-3-item d-flex justify-content-between align-items-center">
                           <div className="tp-testimonial-3-content-box">
