@@ -1,181 +1,169 @@
-import RightArrow from '@/src/svg/right-arrow';
-import { useLanguage } from '@/src/hooks/useLanguage';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { Navigation, Scrollbar } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useRef } from 'react';
+import Slider from 'react-slick';
 
-const setting = {
-  loop: true,
-  slidesPerView: 3,
-  centeredSlides: true,
-  spaceBetween: 30,
-  breakpoints: {
-    '1200': {
-      slidesPerView: 3,
-    },
-    '992': {
-      slidesPerView: 1,
-    },
-    '768': {
-      slidesPerView: 1,
-    },
-    '576': {
-      slidesPerView: 1,
-    },
-    '0': {
-      slidesPerView: 1,
-    },
-  },
+import testimonial_img_1 from "../../../../public/assets/img/testimonial/testi-3-2.png"
+import testimonial_img_2 from "../../../../public/assets/img/testimonial/testi-3-3.png"
+import testimonial_img_3 from "../../../../public/assets/img/testimonial/testi-3-4.png"
+import testimonial_img_4 from "../../../../public/assets/img/testimonial/testi-3-5.png"
+import Image from 'next/image';
 
-  scrollbar: {
-    el: ".tp-scrollbar",
-    clickable: true,
-  },
+
+const testimonial_content = {
+  bg_img: "/assets/img/testimonial/testi-bg-3-1.png",
+  title: <><span>Kind Words</span><br />from our Customers</>
+}
+const { bg_img, title } = testimonial_content
+
+
+// slider setting
+const settings = {
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  dots: false,
+  arrows: false,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 3,
+      }
+    },
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 1,
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+      }
+    }
+
+  ]
 }
 
-const formatDuration = (minutes) => {
-  const totalMinutes = Number(minutes);
-  if (!Number.isFinite(totalMinutes)) return '';
 
-  if (totalMinutes < 1) {
-    return `${Math.round(totalMinutes * 60)} Sec`;
-  }
+// testimonial data
+const testimonial_data = [
+  {
+    id: 1,
+    img: testimonial_img_1,
+    name: "Rudra Ghosh",
+    job_title: "Founder & CEO Dulalix",
+    description: <>We get absolutely raving reviews
+      from our sales and customer support
+      teams using close. Even our co-
+      founders are very happy.</>,
 
-  if (totalMinutes < 60) {
-    return `${totalMinutes} Min`;
-  }
+  },
+  {
+    id: 2,
+    img: testimonial_img_2,
+    name: "Rudra Ghosh",
+    job_title: "Founder & CEO Dulalix",
+    description: <>We get absolutely raving reviews
+      from our sales and customer support
+      teams using close. Even our co-
+      founders are very happy.</>,
 
-  const hours = Math.floor(totalMinutes / 60);
-  const remainingMinutes = totalMinutes % 60;
-  const hourLabel = hours === 1 ? 'Hour' : 'Hours';
+  },
+  {
+    id: 3,
+    img: testimonial_img_3,
+    name: "Rudra Ghosh",
+    job_title: "Founder & CEO Dulalix",
+    description: <>“Softuch helps me keep a clean,
+      organized ledger that I can access
+      anywhere. The UI is so intuitive that
+      anyone can use it,</>,
 
-  if (remainingMinutes === 0) {
-    return `${hours} ${hourLabel}`;
-  }
+  },
+  {
+    id: 4,
+    img: testimonial_img_4,
+    name: "Rudra Ghosh",
+    job_title: "Founder & CEO Dulalix",
+    description: <>We get absolutely raving reviews
+      from our sales and customer support
+      teams using close. Even our co-
+      founders are very happy.</>,
 
-  return `${hours} ${hourLabel} ${remainingMinutes} Min`;
-};
+  },
+]
 
-const ProjectArea = () => {
-  const { language } = useLanguage();
-  const [projects, setProjects] = useState([]);
-  const [isDragged, setIsDragged] = useState(false);
 
-  useEffect(() => {
-    const fetchMultimedia = async () => {
-      try {
-        const response = await fetch('/api/multimedia/public');
-        if (!response.ok) return;
-
-        const { multimedia } = await response.json();
-        setProjects(multimedia || []);
-      } catch (error) {
-        console.error('Error fetching multimedia:', error);
-      }
-    };
-
-    fetchMultimedia();
-  }, []);
-
-  const handleSlideChange = () => {
-    setIsDragged(true);
-  };
-
-  const handleTransitionEnd = () => {
-    setIsDragged(false);
-  };
-
-  const hasMultipleProjects = projects.length > 1;
-  const sliderSettings = hasMultipleProjects
-    ? setting
-    : {
-        ...setting,
-        loop: false,
-        centeredSlides: false,
-        slidesPerView: 1,
-        breakpoints: {
-          '1200': { slidesPerView: 1 },
-          '992': { slidesPerView: 1 },
-          '768': { slidesPerView: 1 },
-          '576': { slidesPerView: 1 },
-          '0': { slidesPerView: 1 },
-        },
-      };
-
+const TestimonialArea = () => {
+  const sliderRef = useRef(null);
   return (
     <>
-      <div className="tp-project__area grey-bg pt-50 pb-110 fix">
-
-        <div className="container-fluid gx-0">
-          <div className="row gx-0">
-            <div className="col-xl-12">
-              <div className="tp-project__slider-section">
-                <Swiper
-                  {...sliderSettings}
-                  onSliderMove={handleSlideChange}
-                  onTransitionEnd={handleTransitionEnd}
-                  modules={[Navigation, Scrollbar]}
-                  className={`swiper-container tp-project__slider-active ${
-                    hasMultipleProjects ? '' : 'tp-project__slider-active--single'
-                  } ${isDragged ? 'dragged' : ''}`}>
-                  {projects.map((item) =>
-                    <SwiperSlide
-                      key={item.id}
-                      className="swiper-slide wow tpfadeUp"
-                      data-wow-duration=".9s"
-                    >
-                      <div className="tp-project__slider-wrapper">
-                        <div className="tp-project__item d-flex align-items-center">
-                          <div className="tp-project__thumb">
-                            {item.thumbnailUrl && (
-                              <img
-                                className="tp-project__featured-image"
-                                src={item.thumbnailUrl}
-                                alt={language === 'am' ? item.titleAm : item.titleEn}
-                                width="298"
-                                height="444"
-                              />
-                            )}
+      <div className="tp-testimonial-area tp-testimonial-3-mlr pb-110">
+        <div className="tp-testimonial-3-bg pt-110 fix"
+          style={{ backgroundImage: `url(${bg_img})` }}
+        >
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="tp-testimonial-3-section-box d-flex justify-content-between align-items-end mb-60">
+                  <h3 className="tp-section-title-3 text-white">{title}</h3>
+                  <div className="tp-test-arrow d-flex pb-10">
+                    <button
+                      onClick={() => sliderRef.current?.slickPrev()}
+                      type="button" className="slick-prev"><i className="fal fa-angle-left"></i></button>
+                    <button
+                      onClick={() => sliderRef.current?.slickNext()}
+                      type="button" className="slick-next"><i className="fal fa-angle-right"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="tp-testimonial-3-slider-wrapper">
+            <div className="container-fluid g-0">
+              <div className="row g-0">
+                <div className="col-12">
+                  <Slider
+                    ref={sliderRef} {...settings}
+                    className="tp-testimonial-3-slider-active"
+                  >
+                    {testimonial_data.map((item, i) =>
+                      <div key={i} className="tp-testimonial-wrapper">
+                        <div className="tp-testimonial-3-item d-flex justify-content-between align-items-center">
+                          <div className="tp-testimonial-3-content-box">
+                            <div className="tp-testimonial-3-review">
+                              <span><i className="fas fa-star"></i></span>
+                              <span><i className="fas fa-star"></i></span>
+                              <span><i className="fas fa-star"></i></span>
+                              <span><i className="fas fa-star"></i></span>
+                              <span><i className="fas fa-star"></i></span>
+                            </div>
+                            <p>{item.description}</p>
+                            <div className="tp-testimonial-3-author-info d-flex align-items-center">
+                              <div className="tp-testimonial-3-sm-thumb d-md-none">
+                                <Image src={item.img} alt={item.name} />
+                              </div>
+                              <div>
+                                <h5>{item.name}</h5>
+                                <span>{item.job_title}</span>
+                              </div>
+                            </div>
                           </div>
-                          <div className="tp-project__content">
-                            <div className="tp-project__brand-icon">
-                              <img src="/assets/img/project/project-brand-multimedia.webp" alt="" />
-                            </div>
-                            <div className="tp-project__title-box">
-                              <h4 className="tp-project__title-sm">
-                                {language === 'am' ? item.titleAm || item.titleEn : item.titleEn || item.titleAm}
-                              </h4>
-                              <p>{language === 'am' ? item.descriptionAm || item.descriptionEn : item.descriptionEn || item.descriptionAm}</p>
-                            </div>
-                            <div className="tp-project__meta d-flex align-items-center">
-                              {item.chapter && (
-                                <div className="tp-project__author-info">
-                                  <span>{language === 'am' ? 'ምዕራፍ' : 'Chapter'}</span>
-                                  <h4>{item.chapter}</h4>
-                                </div>
-                              )}
-                              {item.duration && (
-                                <div className="tp-project__budget">
-                                  <span>{language === 'am' ? 'ጊዜ' : 'Duration'}</span>
-                                  <h4>{formatDuration(item.duration)}</h4>
-                                </div>
-                              )}
-                              {item.fileUrl && (
-                                <div className="tp-project__link">
-                                  <Link href={item.fileUrl} target="_blank" rel="noreferrer" aria-label={language === 'am' ? 'ሚዲያ ክፈት' : 'Open media'}>
-                                    <RightArrow />
-                                  </Link>
-                                </div>
-                              )}
-                            </div>
+                          <div className="tp-testimonial-3-thumb d-none d-md-block">
+                            <Image src={item.img} alt="theme-pure" />
                           </div>
                         </div>
                       </div>
-                    </SwiperSlide>
-                  )}
-                </Swiper>
-                <div className="tp-scrollbar"></div>
+                    )
+                    }
+                  </Slider>
+                </div>
               </div>
             </div>
           </div>
@@ -185,4 +173,4 @@ const ProjectArea = () => {
   );
 };
 
-export default ProjectArea;
+export default TestimonialArea;
