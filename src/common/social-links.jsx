@@ -18,7 +18,7 @@ const social_links = [
     icon: "fab fa-linkedin-in", 
   }, 
   {
-    link: "https://t.me",
+    link: "https://t.me/HayuMeda-TG",
     target: "_blank",
     icon: "fab fa-telegram-plane",
   },
