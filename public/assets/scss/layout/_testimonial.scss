@@ -354,6 +354,9 @@
         background-size: cover;
         border-radius: 60px;
     }
+    &-slider-wrapper {
+        overflow: hidden;
+    }
     &-slider-active{
         margin-left: -645px;
         margin-right: -380px;
