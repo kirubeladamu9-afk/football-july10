@@ -3,14 +3,14 @@ import Link from "next/link";
 
 const social_links = [
   {
-    link: "http://facebook.com",
+    link: "https://www.facebook.com/share/1E9dUpMy8v/",
     target: "_blank",
     icon: "fab fa-facebook-f", 
   },
   {
-    link: "https://x.com",
+    link: "https://x.com/NegeraHayu",
     target: "_blank",
-    icon: "fab fa-x-twitter", 
+    icon: "fab fa-x-twitter",
   },
   {
     link: "https://www.linkedin.com",
@@ -23,7 +23,7 @@ const social_links = [
     icon: "fab fa-telegram-plane",
   },
   {
-    link: "https://www.youtube.com",
+    link: "https://youtube.com/@hayumeda?si=JjRBaXotJQUvyTkl",
     target: "_blank",
     icon: "fab fa-youtube",
   },
