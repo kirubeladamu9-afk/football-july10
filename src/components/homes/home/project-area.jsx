@@ -6,6 +6,8 @@ import testimonial_img_2 from "../../../../public/assets/img/testimonial/testi-3
 import testimonial_img_3 from "../../../../public/assets/img/testimonial/testi-3-4.png"
 import testimonial_img_4 from "../../../../public/assets/img/testimonial/testi-3-5.png"
 import Image from 'next/image';
+import { useLanguage } from '@/src/hooks/useLanguage';
+import { getTranslatedField } from '@/src/utils/i18n';
 
 
 const testimonial_content = {
@@ -108,6 +110,7 @@ const testimonial_data = [
 
 const TestimonialArea = () => {
   const sliderRef = useRef(null);
+  const { language } = useLanguage();
   const [multimedia, setMultimedia] = useState([]);
 
   useEffect(() => {
@@ -124,9 +127,9 @@ const TestimonialArea = () => {
       img: item.thumbnailUrl || testimonial_data[index % testimonial_data.length].img,
       imgWidth: 300,
       imgHeight: 360,
-      name: item.titleEn,
+      name: getTranslatedField(item, 'title', language),
       job_title: item.chapter || 'Multimedia',
-      description: item.descriptionEn || '',
+      description: getTranslatedField(item, 'description', language),
       file_url: item.fileUrl || item.file_url || null,
     }))
     : testimonial_data;

@@ -1,7 +1,10 @@
 import portfolio_data from '@/src/data/portfolio-data';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useLanguage } from '@/src/hooks/useLanguage';
+import { getTranslatedField } from '@/src/utils/i18n';
 
 const Portfolio = () => {
+    const { language } = useLanguage();
     const [activeCategory, setActiveCategory] = useState("All");
     const [items, setItems] = useState([]);
 
@@ -49,12 +52,12 @@ const Portfolio = () => {
                         <div key={item.id} className="col-xl-4 col-lg-6 col-md-6 col-sm-6 grid-item cat1 cat4 cat3 cat5">
                             <div className="inner-project-item mb-30">
                             <div className="inner-project-img fix p-relative">
-                                <img className="w-100" src={item.thumbnailUrl || item.fileUrl} alt={item.titleEn} />
+                                <img className="w-100" src={item.thumbnailUrl || item.fileUrl} alt={getTranslatedField(item, 'title', language)} />
                             </div>
                             <div className="inner-project-content">
                                 <span className="inner-project-category-title">{item.chapter || 'Multimedia'}</span>
-                                <h4 className="inner-project-title"><a href={item.fileUrl} target="_blank" rel="noreferrer">{item.titleEn}</a></h4>
-                                <p>{item.descriptionEn}</p>
+                                <h4 className="inner-project-title"><a href={item.fileUrl} target="_blank" rel="noreferrer">{getTranslatedField(item, 'title', language)}</a></h4>
+                                <p>{getTranslatedField(item, 'description', language)}</p>
                             </div>
                             </div>
                         </div>
