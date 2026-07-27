@@ -26,7 +26,7 @@ const Footer = () => {
     title: t.footer.newsTitle,
     description: t.footer.newsDescription,
     phone: t.footer.phone,
-    contact_mail: "contact@info.com",
+    contact_mail: "haymeda.com.et",
     location: t.footer.location,
     copy_right: t.footer.copyright,
     footer_lisks: [

@@ -12,45 +12,27 @@ import { getTranslatedField } from '@/src/utils/i18n';
 
 const testimonial_content = {
   bg_img: "/assets/img/testimonial/testi-bg-3-1.png",
-  title: <><span>Kind Words</span><br />from our Customers</>
+  title: <><span>Latest</span><br />Podcast Episodes</>
 }
 const { bg_img, title } = testimonial_content
 
 
 // slider setting
-// Shows exactly ONE card at a time, on every screen size (no multi-card peek).
+// Shows TWO cards at a time only above 1377px width.
+// At 1377px and below (tablets, mobile, smaller laptops), shows ONE card.
 const settings = {
-  slidesToShow: 1,
+  slidesToShow: 2,
   slidesToScroll: 1,
   infinite: false,
   dots: false,
   arrows: false,
   responsive: [
     {
-      breakpoint: 1200,
-      settings: {
-        slidesToShow: 1,
-      }
-    },
-    {
-      breakpoint: 992,
-      settings: {
-        slidesToShow: 1,
-      }
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
-      }
-    },
-    {
-      breakpoint: 480,
+      breakpoint: 1376,
       settings: {
         slidesToShow: 1,
       }
     }
-
   ]
 }
 
