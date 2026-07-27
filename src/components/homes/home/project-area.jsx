@@ -63,6 +63,7 @@ const testimonial_data = [
       from our sales and customer support
       teams using close. Even our co-
       founders are very happy.</>,
+    file_url: null,
 
   },
   {
@@ -74,6 +75,7 @@ const testimonial_data = [
       from our sales and customer support
       teams using close. Even our co-
       founders are very happy.</>,
+    file_url: null,
 
   },
   {
@@ -85,6 +87,7 @@ const testimonial_data = [
       organized ledger that I can access
       anywhere. The UI is so intuitive that
       anyone can use it,</>,
+    file_url: null,
 
   },
   {
@@ -96,6 +99,7 @@ const testimonial_data = [
       from our sales and customer support
       teams using close. Even our co-
       founders are very happy.</>,
+    file_url: null,
 
   },
 ]
@@ -122,6 +126,7 @@ const TestimonialArea = () => {
       name: item.titleEn,
       job_title: item.chapter || 'Multimedia',
       description: item.descriptionEn || '',
+      file_url: item.fileUrl || item.file_url || null,
     }))
     : testimonial_data;
 
@@ -156,35 +161,76 @@ const TestimonialArea = () => {
                     ref={sliderRef} {...settings}
                     className="tp-testimonial-3-slider-active"
                   >
-                    {testimonials.map((item, i) =>
-                      <div key={i} className="tp-testimonial-wrapper">
-                        <div className="tp-testimonial-3-item d-flex justify-content-between align-items-center">
-                          <div className="tp-testimonial-3-content-box">
-                            <div className="tp-testimonial-3-review">
-                              <span><i className="fas fa-star"></i></span>
-                              <span><i className="fas fa-star"></i></span>
-                              <span><i className="fas fa-star"></i></span>
-                              <span><i className="fas fa-star"></i></span>
-                              <span><i className="fas fa-star"></i></span>
-                            </div>
-                            <p>{item.description}</p>
-                            <div className="tp-testimonial-3-author-info d-flex align-items-center">
-                              <div className="tp-testimonial-3-sm-thumb d-md-none">
-                                <Image src={item.img} width={item.imgWidth} height={item.imgHeight} alt={item.name} />
+                    {testimonials.map((item, i) => {
+                      const hasLink = Boolean(item.file_url);
+
+                      const Thumbnail = (
+                        <Image src={item.img} width={item.imgWidth} height={item.imgHeight} alt={item.name} />
+                      );
+
+                      const NameEl = <h5>{item.name}</h5>;
+                      const DescEl = <p>{item.description}</p>;
+
+                      return (
+                        <div key={i} className="tp-testimonial-wrapper">
+                          <div className="tp-testimonial-3-item d-flex justify-content-between align-items-center">
+                            <div className="tp-testimonial-3-content-box">
+                              <div className="tp-testimonial-3-review">
+                                <span><i className="fas fa-star"></i></span>
+                                <span><i className="fas fa-star"></i></span>
+                                <span><i className="fas fa-star"></i></span>
+                                <span><i className="fas fa-star"></i></span>
+                                <span><i className="fas fa-star"></i></span>
                               </div>
-                              <div>
-                                <h5>{item.name}</h5>
-                                <span>{item.job_title}</span>
+
+                              {hasLink ? (
+                                <a
+                                  href={item.file_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="tp-testimonial-3-desc-link"
+                                >
+                                  {DescEl}
+                                </a>
+                              ) : (
+                                DescEl
+                              )}
+
+                              <div className="tp-testimonial-3-author-info d-flex align-items-center">
+                                <div className="tp-testimonial-3-sm-thumb d-md-none">
+                                  {hasLink ? (
+                                    <a href={item.file_url} target="_blank" rel="noopener noreferrer">
+                                      {Thumbnail}
+                                    </a>
+                                  ) : (
+                                    Thumbnail
+                                  )}
+                                </div>
+                                <div>
+                                  {hasLink ? (
+                                    <a href={item.file_url} target="_blank" rel="noopener noreferrer">
+                                      {NameEl}
+                                    </a>
+                                  ) : (
+                                    NameEl
+                                  )}
+                                  <span>{item.job_title}</span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="tp-testimonial-3-thumb d-none d-md-block">
-                            <Image src={item.img} width={item.imgWidth} height={item.imgHeight} alt={item.name} />
+                            <div className="tp-testimonial-3-thumb d-none d-md-block">
+                              {hasLink ? (
+                                <a href={item.file_url} target="_blank" rel="noopener noreferrer">
+                                  {Thumbnail}
+                                </a>
+                              ) : (
+                                Thumbnail
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )
-                    }
+                      );
+                    })}
                   </Slider>
                 </div>
               </div>
